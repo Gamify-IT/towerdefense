@@ -59,6 +59,9 @@ TagManager:
   - name: Tower
     uniqueID: 3836147161
     locked: 0
+  - name: UI
+    uniqueID: 1697148475
+    locked: 0
   - name: NPC
     uniqueID: 1881268643
     locked: 0

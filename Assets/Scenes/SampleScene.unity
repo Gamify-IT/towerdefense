@@ -3805,6 +3805,7 @@ GameObject:
   - component: {fileID: 490143236}
   - component: {fileID: 490143237}
   - component: {fileID: 490143238}
+  - component: {fileID: 490143239}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -3873,12 +3874,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
-  - {fileID: 4930149986362820382, guid: 4ce50bb0712e35b47b4f93cce2de3981, type: 3}
+  - {fileID: 1038540446868549380, guid: 79e7740665ce23d4ba38debac02b4908, type: 3}
   - {fileID: 1038540446868549380, guid: 78a22451139563b49b8dbaeb973dcc60, type: 3}
   baseEnemies: 8
   enemiesPerSecond: 0.5
   timeBetweenWaves: 5
   difficultyScalingFactor: 0.75
+  enemiesPerSecondCap: 15
 --- !u!114 &490143238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3898,6 +3900,18 @@ MonoBehaviour:
   - name: Slow Turret
     cost: 200
     prefab: {fileID: 8144839957513437664, guid: c6185ddc54a828844a3b9c1dc7424b69, type: 3}
+--- !u!114 &490143239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490143234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 555a912ab88e75b4ba786581218a1253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &494038308
 GameObject:
   m_ObjectHideFlags: 0
@@ -5021,6 +5035,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currencyUI: {fileID: 275610981}
   anim: {fileID: 1753413762}
+  mouse_over: 0
 --- !u!95 &1753413762
 Animator:
   serializedVersion: 5
@@ -5269,67 +5284,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1680893875}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &204863259218945009
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2262550779202144844, guid: c6185ddc54a828844a3b9c1dc7424b69, type: 3}
-      propertyPath: pps
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8144839957513437664, guid: c6185ddc54a828844a3b9c1dc7424b69, type: 3}
-      propertyPath: m_Name
-      value: SlowTower
-      objectReference: {fileID: 0}
-    - target: {fileID: 9152699972690186651, guid: c6185ddc54a828844a3b9c1dc7424b69, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.52
-      objectReference: {fileID: 0}
-    - target: {fileID: 9152699972690186651, guid: c6185ddc54a828844a3b9c1dc7424b69, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.44
-      objectReference: {fileID: 0}
-    - target: {fileID: 9152699972690186651, guid: c6185ddc54a828844a3b9c1dc7424b69, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9152699972690186651, guid: c6185ddc54a828844a3b9c1dc7424b69, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9152699972690186651, guid: c6185ddc54a828844a3b9c1dc7424b69, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9152699972690186651, guid: c6185ddc54a828844a3b9c1dc7424b69, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9152699972690186651, guid: c6185ddc54a828844a3b9c1dc7424b69, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9152699972690186651, guid: c6185ddc54a828844a3b9c1dc7424b69, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9152699972690186651, guid: c6185ddc54a828844a3b9c1dc7424b69, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9152699972690186651, guid: c6185ddc54a828844a3b9c1dc7424b69, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c6185ddc54a828844a3b9c1dc7424b69, type: 3}
 --- !u!1001 &3147410011784631981
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6482,4 +6436,3 @@ SceneRoots:
   - {fileID: 3147410011784631981}
   - {fileID: 1669266328}
   - {fileID: 425620475}
-  - {fileID: 204863259218945009}

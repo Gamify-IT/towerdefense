@@ -14,6 +14,9 @@ public class BaseTower : MonoBehaviour
     [SerializeField] private Transform firingPoint;
     [SerializeField] private GameObject upgradeUI;
     [SerializeField] private Button upgradeButton;
+    [SerializeField] private GameObject questionUI;
+    [SerializeField] private Button rightButton;
+    [SerializeField] private Button wrongButton;
 
     [Header("Attribute")]
     [SerializeField] private float targetingRange = 5f;
@@ -35,6 +38,8 @@ public class BaseTower : MonoBehaviour
         targetingRangeBase = targetingRange;
 
         upgradeButton.onClick.AddListener(Upgrade);
+        rightButton.onClick.AddListener(() => Answer(true));
+        wrongButton.onClick.AddListener(() => Answer(false));
     }
     private void Update()
     {
@@ -101,6 +106,32 @@ public class BaseTower : MonoBehaviour
         UIManager.main.SetHoveringState(false);
     }
 
+    public void Answer(bool isYesButton)
+    {
+        if (isYesButton)
+        {
+            CloseQuestionUI();
+            OpenUpgradeUI();
+        }
+        else
+        {
+            Debug.Log("wrong answer");
+            CloseQuestionUI();
+        }
+    }
+
+        public void OpenQuestionUI()
+    {
+        questionUI.SetActive(true);
+    }
+
+    public void CloseQuestionUI()
+    {
+        questionUI.SetActive(false);
+        UIManager.main.SetHoveringState(false);
+    }
+
+
     public void Upgrade()
     {
         if (CalculateCost() > LevelManager.main.currency) return;
@@ -116,6 +147,8 @@ public class BaseTower : MonoBehaviour
         Debug.Log("New TR: " + targetingRange);
         Debug.Log("New Cost: " + CalculateCost());
     }
+
+    
 
     private float CalculateRange()
     {

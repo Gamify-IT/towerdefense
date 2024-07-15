@@ -31,12 +31,14 @@ public class Plots : MonoBehaviour
     {
 
         if (UIManager.main.IsHoveringUI()) return;
-        //Open Question Window
+        
         if (towerObj != null)
         {
-            tower.OpenUpgradeUI();
+            tower.OpenQuestionUI();
+            
             return;
         }
+        
         Tower towerToBuild = BuildManager.main.GetSelectedTower();
 
         if (towerToBuild.cost > LevelManager.main.currency)

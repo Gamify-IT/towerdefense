@@ -46,8 +46,10 @@ public class Plots : MonoBehaviour
             Debug.Log("Ur broke "); //auf screen anzeigen
             return;
         }
+
         LevelManager.main.SpendCurrency(towerToBuild.cost);
         towerObj = Instantiate(towerToBuild.prefab, transform.position, Quaternion.identity);
         tower = towerObj.GetComponent<BaseTower>();
+       
     }
 }

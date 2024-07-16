@@ -106,17 +106,22 @@ public class BaseTower : MonoBehaviour
         UIManager.main.SetHoveringState(false);
     }
 
-    public void Answer(bool isYesButton)
+    public bool Answer(bool isYesButton)
     {
         if (isYesButton)
         {
+
             CloseQuestionUI();
             OpenUpgradeUI();
+           return true;
+            
         }
         else
         {
+
             Debug.Log("wrong answer");
             CloseQuestionUI();
+            return false;
         }
     }
 

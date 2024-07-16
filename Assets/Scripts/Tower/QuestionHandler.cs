@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class QuestionHandler : MonoBehaviour
+public class QuestionHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public bool mouse_over = false;
 

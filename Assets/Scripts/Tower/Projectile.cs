@@ -26,11 +26,15 @@ public class Projectile : MonoBehaviour
         rb.velocity = direction * projectileSpeed;
     }
 
+    /// <summary>
+    ///  Hits an enemy with a projectile and reduces its health
+    /// </summary>
+    /// <param name="other"> the enemy </param>
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Enemy")
         {
-            Debug.Log("Hit");
+            
             other.gameObject.GetComponent<EnemyHealth>().TakeDamage(projectileDamage);
             Destroy(gameObject);
         }

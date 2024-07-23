@@ -5,6 +5,9 @@ using UnityEditor;
 using UnityEngine.UI;
 using UnityEditor.Build;
 
+/// <summary>
+/// Class for the simple tower that shoots enemies and does damage
+/// </summary>
 public class SimpleTower : BaseTower
 {
     [Header("References")]
@@ -15,13 +18,7 @@ public class SimpleTower : BaseTower
 
     [Header("Attribute")]
     [SerializeField] protected float rotationSpeed = 5f;
-    
-
-    
-
-   
-    protected float timeUntilFire;
-
+  
 
     protected virtual void Update()
     {
@@ -47,6 +44,9 @@ public class SimpleTower : BaseTower
         }
     }
 
+    /// <summary>
+    ///  shoots a projectile targeting an enemy
+    /// </summary>
     protected virtual void Shoot()
     {
         GameObject projectileObj = Instantiate(projectilePrefab, firingPoint.position, Quaternion.identity);
@@ -55,6 +55,9 @@ public class SimpleTower : BaseTower
     }
 
    
+    /// <summary>
+    /// rotates the tower to the targeted enemy
+    /// </summary>
     protected void RotateTowardsTarget()
     {
         float angle = Mathf.Atan2(target.position.y - transform.position.y, target.position.x - transform.position.x) * Mathf.Rad2Deg + RotationOffset;

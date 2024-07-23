@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
 
+/// <summary>
+///  This script is used as the base for all the different tower types
+/// </summary>
 public class BaseTower : MonoBehaviour
 {
     [Header("References")]
@@ -48,7 +51,9 @@ public class BaseTower : MonoBehaviour
    
 
   
-
+    /// <summary>
+    ///  This method targets the next enemy
+    /// </summary>
     protected void FindTarget()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, targetingRange, enemyMask);
@@ -59,13 +64,17 @@ public class BaseTower : MonoBehaviour
         }
     }
 
+    /// <summary>
+    ///  This method makes sure that the enemy is in range for the tower to attack
+    /// </summary>
+    /// <returns> True if the target is in range, false otherwise</returns>
     protected bool CheckTargetIsInRange()
     {
         return Vector2.Distance(target.position, transform.position) <= targetingRange;
     }
 
    
-    //The Upgrade function will be handled by a scene in the future
+    //The Upgrade function will be handled by a scene in the future, the code is a placeholder for the prototype
     public void OpenUpgradeUI()
     {
         upgradeUI.SetActive(true);

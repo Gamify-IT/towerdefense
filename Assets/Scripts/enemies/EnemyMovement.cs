@@ -17,49 +17,92 @@ public class EnemyMovement : MonoBehaviour
 
     private void Start()
     {
+        if (LevelManager.main == null)
+        {
+            Debug.LogError("LevelManager.main is not assigned!");
+            return;
+        }
+
         baseSpeed = moveSpeed;
-        target = LevelManager.main.path[pathIndex];
+        if (LevelManager.main.path != null && LevelManager.main.path.Length > 0)
+        {
+            SetNextTarget();
+        }
+        else
+        {
+            Debug.LogError("Path is not set or empty in LevelManager!");
+        }
     }
 
     private void Update()
     {
-        // determines the next part of the path
-        if(Vector2.Distance(target.position, transform.position) <= 0.1f)
+        if (target == null) return;
+
+        // Determines the next part of the path
+        if (Vector2.Distance(target.position, transform.position) <= 0.1f)
         {
             pathIndex++;
-
-            if(pathIndex == LevelManager.main.path.Length)
+            if (pathIndex < LevelManager.main.path.Length)
             {
-                // reached end of the path
-                EnemySpawner.onEnemyDestroy.Invoke();
-                Destroy(gameObject);
-                return;
-            } 
+                SetNextTarget();
+            }
             else
             {
-                target = LevelManager.main.path[pathIndex];
+                HandleEndOfPath();
             }
         }
     }
 
+    /// <summary>
+    /// This function moves the enemy along the path.
+    /// </summary>
     private void FixedUpdate()
     {
-        //moving the rigidbody of the enemy
+        if (target == null) return;
+
+        MoveTowardsTarget();
+    }
+
+    /// <summary>
+    /// Sets the next target in the path.
+    /// </summary>
+    private void SetNextTarget()
+    {
+        target = LevelManager.main.path[pathIndex];
+    }
+
+    /// <summary>
+    /// Handles the logic when the enemy reaches the end of the path.
+    /// </summary>
+    private void HandleEndOfPath()
+    {
+        if (EnemySpawner.onEnemyDestroy != null)
+        {
+            EnemySpawner.onEnemyDestroy.Invoke();
+        }
+        Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// Moves the enemy towards the current target.
+    /// </summary>
+    private void MoveTowardsTarget()
+    {
         Vector2 direction = (target.position - transform.position).normalized;
         rb.velocity = direction * moveSpeed;
     }
 
     /// <summary>
-    /// Updates the enemies' speed
+    /// Updates the enemies' speed.
     /// </summary>
-    /// <param name="newSpeed">new speed value for the enemies</param>
+    /// <param name="newSpeed">New speed value for the enemies.</param>
     public void UpdateSpeed(float newSpeed)
     {
         moveSpeed = newSpeed;
     }
 
     /// <summary>
-    /// Resets the movement speed of the enemies to the base speed
+    /// Resets the movement speed of the enemies to the base speed.
     /// </summary>
     public void ResetSpeed()
     {

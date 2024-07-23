@@ -4,22 +4,13 @@ using UnityEditor;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class SlowTower : MonoBehaviour
+public class SlowTower : BaseTower
 {
-    [Header("References")]
-    
-    [SerializeField] private LayerMask enemyMask; //nur enemies attackieren
-    
-    
-
+   
     [Header("Attribute")]
-    [SerializeField] private float targetingRange = 5f;
     
-    [SerializeField] private float pps = 4f; //projectile per second
     [SerializeField] private float freezeTime = 1f;
 
-    
-    private float timeUntilFire;
 
     private void Update()
     {

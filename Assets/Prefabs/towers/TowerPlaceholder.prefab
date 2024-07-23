@@ -1559,7 +1559,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1729150823811625583}
-  - component: {fileID: 8523170426773856498}
+  - component: {fileID: -3574278904541898235}
   m_Layer: 0
   m_Name: TowerPlaceholder
   m_TagString: Untagged
@@ -1587,7 +1587,7 @@ Transform:
   - {fileID: 375000996308040036}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8523170426773856498
+--- !u!114 &-3574278904541898235
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1596,21 +1596,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 8554871503429272918}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63024adccb17d774ab34ad0d2c42ba5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 16c1371fe24976e40a801fde202c0086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  archerRotationPoint: {fileID: 5324924769731246709}
   enemyMask:
     serializedVersion: 2
     m_Bits: 256
-  projectilePrefab: {fileID: 7399705854564891151, guid: 5deec10455635e84fae4fb107563a3d4, type: 3}
-  firingPoint: {fileID: 5393305527348599083}
   upgradeUI: {fileID: 2220549120740229182}
   upgradeButton: {fileID: 5593371526817612592}
   questionUI: {fileID: 8484877309532299055}
   rightButton: {fileID: 5760784405489064077}
   wrongButton: {fileID: 2226932823091844469}
-  targetingRange: 2.5
-  rotationSpeed: 150
+  targetingRange: 3
   pps: 1
   baseUpgradeCost: 100
+  archerRotationPoint: {fileID: 5324924769731246709}
+  projectilePrefab: {fileID: 7399705854564891151, guid: 5deec10455635e84fae4fb107563a3d4, type: 3}
+  firingPoint: {fileID: 5393305527348599083}
+  rotationSpeed: 5

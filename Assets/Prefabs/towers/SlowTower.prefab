@@ -100,6 +100,12 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 256
+  upgradeUI: {fileID: 0}
+  upgradeButton: {fileID: 0}
+  questionUI: {fileID: 0}
+  rightButton: {fileID: 0}
+  wrongButton: {fileID: 0}
   targetingRange: 2
   pps: 1
+  baseUpgradeCost: 150
   freezeTime: 1

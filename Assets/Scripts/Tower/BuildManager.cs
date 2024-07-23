@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+///  This class handles which tower to build
+/// </summary>
 public class BuildManager : MonoBehaviour
 {
     public static BuildManager main;

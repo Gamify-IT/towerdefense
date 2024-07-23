@@ -2,6 +2,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+///  class that creates the tower object
+/// </summary>
 [Serializable]
 public class Tower
 {

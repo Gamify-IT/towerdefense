@@ -3,18 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+///  This class makes sure you can't place a tower while answering upgrading
+/// </summary>
 public class UpgradeUIHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public bool mouse_over = false;
 
-   
 
-     public void OnPointerEnter(PointerEventData eventData)
+    /// <summary>
+    ///  If the mouse hovers over the UpgradeUI towers can't be build
+    /// </summary>
+    /// <param name="eventData"> the mouse</param>
+    public void OnPointerEnter(PointerEventData eventData)
     {
         mouse_over = true;
         UIManager.main.SetHoveringState(true);
     }
 
+    /// <summary>
+    ///  If the mouse is not hovering over the UpgradeUI it closes again
+    /// </summary>
+    /// <param name="eventData"> the mouse </param>
     public void OnPointerExit(PointerEventData eventData)
     {
         mouse_over = false;

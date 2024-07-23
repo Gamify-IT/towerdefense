@@ -12,7 +12,7 @@ public class QuestionHandler : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
 
     /// <summary>
-    ///  If the mouse hovers over the QuestionUI towers can#t be build
+    ///  If the mouse hovers over the QuestionUI towers can't be build
     /// </summary>
     /// <param name="eventData"> the mouse</param>
     public void OnPointerEnter(PointerEventData eventData)

@@ -65,7 +65,7 @@ public class BaseTower : MonoBehaviour
     }
 
    
-
+    //The Upgrade function will be handled by a scene in the future
     public void OpenUpgradeUI()
     {
         upgradeUI.SetActive(true);

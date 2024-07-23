@@ -15,41 +15,87 @@ public class Plots : MonoBehaviour
 
     private void Start()
     {
+        if (tileSprite == null)
+        {
+            Debug.LogError("Tile sprite is not assigned!");
+            return;
+        }
+
         startColor = tileSprite.color;
     }
 
+    /// <summary>
+    /// When the mouse hovers over a buildable plot, it highlights it.
+    /// </summary>
     private void OnMouseEnter()
     {
-        tileSprite.color = hoverColor;
+        if (tileSprite != null)
+        {
+            tileSprite.color = hoverColor;
+        }
     }
 
+    /// <summary>
+    /// When the mouse stops hovering over a buildable plot, the highlight goes away.
+    /// </summary>
     private void OnMouseExit()
     {
-        tileSprite.color = startColor;
+        if (tileSprite != null)
+        {
+            tileSprite.color = startColor;
+        }
     }
 
+    /// <summary>
+    /// This function builds a tower on the selected plot.
+    /// </summary>
     private void OnMouseDown()
     {
+        if (UIManager.main == null || BuildManager.main == null || LevelManager.main == null)
+        {
+            Debug.LogError("Managers are not properly assigned!");
+            return;
+        }
+
         if (UIManager.main.IsHoveringUI()) return;
-        
+
         if (towerObject != null)
         {
-            // ask player a question 
             tower.OpenQuestionUI();
             return;
         }
-        
+
+        BuildTower();
+    }
+
+    /// <summary>
+    /// Handles the logic for building a tower.
+    /// </summary>
+    private void BuildTower()
+    {
         Tower towerToBuild = BuildManager.main.GetSelectedTower();
 
-        // check if player can buy the tower 
-        if (towerToBuild.cost > LevelManager.main.currency)
+        if (towerToBuild == null)
         {
-            Debug.Log("Ur broke ");
+            Debug.LogError("No tower selected for building!");
             return;
         }
 
+        // Check if the player can afford the tower
+        if (towerToBuild.cost > LevelManager.main.currency)
+        {
+            Debug.Log("Insufficient funds to build the tower.");
+            return;
+        }
+
+        // Spend currency and instantiate the tower
         LevelManager.main.SpendCurrency(towerToBuild.cost);
         towerObject = Instantiate(towerToBuild.prefab, transform.position, Quaternion.identity);
-        tower = towerObject.GetComponent<BaseTower>(); 
+        tower = towerObject.GetComponent<BaseTower>();
+
+        if (tower == null)
+        {
+            Debug.LogError("The instantiated tower does not have a BaseTower component!");
+        }
     }
 }

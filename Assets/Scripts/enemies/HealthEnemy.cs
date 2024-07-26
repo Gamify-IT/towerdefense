@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+///     Manages the health of enemies including taking damage and deleting killed ennemies
+/// </summary>
 public class EnemyHealth : MonoBehaviour
 {
     [Header("Attributes")]
@@ -19,8 +22,8 @@ public class EnemyHealth : MonoBehaviour
         // check if enemy is dead, i.e., should be destroyed
         if (hitPoints <= 0 && !isDestroyed) 
         {
-            EnemySpawner.onEnemyDestroy.Invoke();
-            LevelManager.main.GainCurrency(currencyWorth);
+            EnemySpawner.GetOnEnemyDestroy().Invoke();
+            LevelManager.Instance.GainCurrency(currencyWorth);
             isDestroyed = true;
             Destroy(gameObject);
         }

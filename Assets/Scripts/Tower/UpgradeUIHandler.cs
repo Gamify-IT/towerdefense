@@ -4,12 +4,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 /// <summary>
-///  This class makes sure you can't place a tower while answering upgrading
+///  This class makes sure you cannot place a tower while answering questions
 /// </summary>
 public class UpgradeUIHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public bool mouse_over = false;
-
+    private bool mouseOver = false;
 
     /// <summary>
     ///  If the mouse hovers over the UpgradeUI towers can't be build
@@ -17,8 +16,8 @@ public class UpgradeUIHandler : MonoBehaviour, IPointerEnterHandler, IPointerExi
     /// <param name="eventData"> the mouse</param>
     public void OnPointerEnter(PointerEventData eventData)
     {
-        mouse_over = true;
-        UIManager.main.SetHoveringState(true);
+        mouseOver = true;
+        UIManager.Instance.SetHoveringState(true);
     }
 
     /// <summary>
@@ -27,8 +26,8 @@ public class UpgradeUIHandler : MonoBehaviour, IPointerEnterHandler, IPointerExi
     /// <param name="eventData"> the mouse </param>
     public void OnPointerExit(PointerEventData eventData)
     {
-        mouse_over = false;
-        UIManager.main.SetHoveringState(false);
+        mouseOver = false;
+        UIManager.Instance.SetHoveringState(false);
         gameObject.SetActive(false);
     }
 }

@@ -7,14 +7,24 @@ using UnityEngine;
 /// </summary>
 public class UIManager : MonoBehaviour
 {
-    public static UIManager main;
-
+    public static UIManager Instance { get; private set; }
     private bool isHoveringUI;
 
-
+    /// <summary>
+    /// This function manages the singleton instance, so it initializes the <c>instance</c> variable, if not set, or
+    /// deletes the object otherwise
+    /// </summary>
     private void Awake()
     {
-        main = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     /// <summary>

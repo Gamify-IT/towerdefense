@@ -22,11 +22,11 @@ public class BaseTower : MonoBehaviour
     [Header("Attribute")]
     [SerializeField] protected float targetingRange = 5f;
    
-    [SerializeField] protected float pps = 1f;
+    [SerializeField] protected float projectilePerSecond = 1f;
     [SerializeField] protected int baseUpgradeCost = 100;
 
     protected float targetingRangeBase;
-    protected float ppsBase;
+    protected float baseProjectilePerSecond;
 
     protected Transform target;
     protected float timeUntilFire;
@@ -35,12 +35,12 @@ public class BaseTower : MonoBehaviour
 
     protected const float RotationOffset = 90f;
     protected const float RangeExponent = 0.4f;
-    protected const float PPSExponent = 0.6f;
+    protected const float ProjectilePerSecondExponent = 0.6f;
     protected const float CostExponent = 0.8f;
 
     protected virtual void Start()
     {
-        ppsBase = pps;
+        baseProjectilePerSecond = projectilePerSecond;
         targetingRangeBase = targetingRange;
 
         upgradeButton.onClick.AddListener(Upgrade);
@@ -48,11 +48,8 @@ public class BaseTower : MonoBehaviour
         wrongButton.onClick.AddListener(() => Answer(false));
     }
 
-   
-
-  
     /// <summary>
-    ///  This method targets the next enemy
+    ///  This method targets the next enemy on the path for this tower
     /// </summary>
     protected void FindTarget()
     {
@@ -72,8 +69,7 @@ public class BaseTower : MonoBehaviour
     {
         return Vector2.Distance(target.position, transform.position) <= targetingRange;
     }
-
-   
+ 
     //The Upgrade function will be handled by a scene in the future, the code is a placeholder for the prototype
     public void OpenUpgradeUI()
     {
@@ -83,9 +79,14 @@ public class BaseTower : MonoBehaviour
     public void CloseUpgradeUI()
     {
         upgradeUI.SetActive(false);
-        UIManager.main.SetHoveringState(false);
+        UIManager.Instance.SetHoveringState(false);
     }
 
+    /// <summary>
+    /// Checks the pressed button and evaluates the answer
+    /// </summary>
+    /// <param name="isYesButton">pressed button</param>
+    /// <returns>true if the selected answer was right</returns>
     public bool Answer(bool isYesButton)
     {
         if (isYesButton)
@@ -110,35 +111,50 @@ public class BaseTower : MonoBehaviour
     public void CloseQuestionUI()
     {
         questionUI.SetActive(false);
-        UIManager.main.SetHoveringState(false);
+        UIManager.Instance.SetHoveringState(false);
     }
 
+    /// <summary>
+    ///    Upgrades a tower to an improved version.
+    /// </summary>
     public void Upgrade()
     {
-        if (CalculateCost() > LevelManager.main.currency) return;
+        if (CalculateCost() > LevelManager.Instance.GetCurrency()) return;
 
-        LevelManager.main.SpendCurrency(CalculateCost());
+        LevelManager.Instance.SpendCurrency(CalculateCost());
 
         level++;
-        pps = CalculatePPS();
+        projectilePerSecond = CalculateProjectilesPerSecond();
         targetingRange = CalculateRange();
 
         CloseUpgradeUI();
-        Debug.Log("New Pps: " + pps);
+        Debug.Log("New Pps: " + projectilePerSecond);
         Debug.Log("New TR: " + targetingRange);
         Debug.Log("New Cost: " + CalculateCost());
     }
 
+    /// <summary>
+    /// Calculates the range a tower starts firing
+    /// </summary>
+    /// <returns></returns>
     private float CalculateRange()
     {
         return targetingRangeBase * Mathf.Pow(level, RangeExponent);
     }
 
-    private float CalculatePPS()
+    /// <summary>
+    /// Calculates the number of projectiles per second 
+    /// </summary>
+    /// <returns></returns>
+    private float CalculateProjectilesPerSecond()
     {
-        return ppsBase * Mathf.Pow(level, PPSExponent);
+        return baseProjectilePerSecond * Mathf.Pow(level, ProjectilePerSecondExponent);
     }
 
+    /// <summary>
+    /// Claculates the cocts of upgrades 
+    /// </summary>
+    /// <returns></returns>
     private int CalculateCost()
     {
         return Mathf.RoundToInt(baseUpgradeCost * Mathf.Pow(level, CostExponent));

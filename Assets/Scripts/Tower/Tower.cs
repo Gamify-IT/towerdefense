@@ -1,4 +1,3 @@
-
 using System;
 using UnityEngine;
 
@@ -8,14 +7,42 @@ using UnityEngine;
 [Serializable]
 public class Tower
 {
-    public string name;
-    public int cost;
-    public GameObject prefab;
+    private string name;
+    private int costs;
+    private GameObject prefab;
 
-    public Tower (string _name, int _cost, GameObject _prefab)
+    public Tower(string name, int costs, GameObject prefab)
     {
-        name = _name;
-        cost = _cost;
-        prefab = _prefab;
+        this.name = name;
+        this.costs = costs;
+        this.prefab = prefab;
     }
+
+    /// <summary>
+    /// Gets the name of the tower
+    /// </summary>
+    /// <returns>tower name</returns>
+    public string GetName()
+    {
+        return name;
+    }
+
+    /// <summary>
+    /// Gets the cost of the tower to built 
+    /// </summary>
+    /// <returns>building costs</returns>
+    public int GetCosts()
+    {
+        return costs;
+    }
+
+    /// <summary>
+    /// Gets the prefab for the tower
+    /// </summary>
+    /// <returns>tower prefab</returns>
+    public GameObject GetPrefab()
+    {
+        return prefab;
+    }
+
 }

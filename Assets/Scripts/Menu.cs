@@ -8,14 +8,12 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class Menu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 { 
-
-  [Header("References")]
-  [SerializeField] TextMeshProUGUI currencyUI;
-  [SerializeField] Animator anim;
+    [Header("References")]
+    [SerializeField] TextMeshProUGUI currencyUI;
+    [SerializeField] Animator anim;
 
     private bool isMenuOpen = true;
-
-    public bool mouse_over = false;
+    private bool mouseOver = false;
 
     /// <summary>
     ///  This function handles opening the menu
@@ -32,10 +30,9 @@ public class Menu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void OnGUI()
     {
-        currencyUI.text = LevelManager.main.currency.ToString();
+        currencyUI.text = LevelManager.Instance.GetCurrency().ToString();
 
     }
-
 
     /// <summary>
     ///  This function is used in Unity to select the tower
@@ -51,8 +48,8 @@ public class Menu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// <param name="eventData"> The mouse</param>
     public void OnPointerEnter(PointerEventData eventData)
     {
-        mouse_over = true;
-        UIManager.main.SetHoveringState(true);
+        mouseOver = true;
+        UIManager.Instance.SetHoveringState(true);
     }
 
     /// <summary>
@@ -61,8 +58,8 @@ public class Menu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// <param name="eventData"> The mouse</param>
     public void OnPointerExit(PointerEventData eventData)
     {
-        mouse_over = false;
-        UIManager.main.SetHoveringState(false);
+        mouseOver = false;
+        UIManager.Instance.SetHoveringState(false);
 
     }
 }

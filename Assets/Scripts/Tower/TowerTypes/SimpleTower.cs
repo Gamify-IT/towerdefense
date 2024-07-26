@@ -11,15 +11,14 @@ using UnityEditor.Build;
 public class SimpleTower : BaseTower
 {
     [Header("References")]
-    [SerializeField] protected Transform archerRotationPoint;
-    [SerializeField] protected GameObject projectilePrefab;
-    [SerializeField] protected Transform firingPoint;
+    [SerializeField] private Transform archerRotationPoint;
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private Transform firingPoint;
     
 
     [Header("Attribute")]
-    [SerializeField] protected float rotationSpeed = 5f;
+    [SerializeField] private float rotationSpeed = 5f;
   
-
     protected virtual void Update()
     {
         if (target == null)
@@ -36,7 +35,7 @@ public class SimpleTower : BaseTower
         {
             timeUntilFire += Time.deltaTime;
 
-            if (timeUntilFire >= 1f / pps)
+            if (timeUntilFire >= 1f / projectilePerSecond)
             {
                 Shoot();
                 timeUntilFire = 0f;
@@ -58,12 +57,11 @@ public class SimpleTower : BaseTower
     /// <summary>
     /// rotates the tower to the targeted enemy
     /// </summary>
-    protected void RotateTowardsTarget()
+    private void RotateTowardsTarget()
     {
         float angle = Mathf.Atan2(target.position.y - transform.position.y, target.position.x - transform.position.x) * Mathf.Rad2Deg + RotationOffset;
         Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
         archerRotationPoint.rotation = Quaternion.RotateTowards(archerRotationPoint.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
-  
 }

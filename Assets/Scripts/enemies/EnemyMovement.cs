@@ -17,14 +17,14 @@ public class EnemyMovement : MonoBehaviour
 
     private void Start()
     {
-        if (LevelManager.main == null)
+        if (LevelManager.Instance == null)
         {
             Debug.LogError("LevelManager.main is not assigned!");
             return;
         }
 
         baseSpeed = moveSpeed;
-        if (LevelManager.main.path != null && LevelManager.main.path.Length > 0)
+        if (LevelManager.Instance.GetPath() != null && LevelManager.Instance.GetPath().Length > 0)
         {
             SetNextTarget();
         }
@@ -42,7 +42,7 @@ public class EnemyMovement : MonoBehaviour
         if (Vector2.Distance(target.position, transform.position) <= 0.1f)
         {
             pathIndex++;
-            if (pathIndex < LevelManager.main.path.Length)
+            if (pathIndex < LevelManager.Instance.GetPath().Length)
             {
                 SetNextTarget();
             }
@@ -68,7 +68,7 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     private void SetNextTarget()
     {
-        target = LevelManager.main.path[pathIndex];
+        target = LevelManager.Instance.GetPath()[pathIndex];
     }
 
     /// <summary>
@@ -76,9 +76,9 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     private void HandleEndOfPath()
     {
-        if (EnemySpawner.onEnemyDestroy != null)
+        if (EnemySpawner.GetOnEnemyDestroy() != null)
         {
-            EnemySpawner.onEnemyDestroy.Invoke();
+            EnemySpawner.GetOnEnemyDestroy().Invoke();
         }
         Destroy(gameObject);
     }

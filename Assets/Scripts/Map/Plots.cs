@@ -51,13 +51,13 @@ public class Plots : MonoBehaviour
     /// </summary>
     private void OnMouseDown()
     {
-        if (UIManager.main == null || BuildManager.main == null || LevelManager.main == null)
+        if (UIManager.Instance == null || BuildManager.Instance == null || LevelManager.Instance == null)
         {
             Debug.LogError("Managers are not properly assigned!");
             return;
         }
 
-        if (UIManager.main.IsHoveringUI()) return;
+        if (UIManager.Instance.IsHoveringUI()) return;
 
         if (towerObject != null)
         {
@@ -73,7 +73,7 @@ public class Plots : MonoBehaviour
     /// </summary>
     private void BuildTower()
     {
-        Tower towerToBuild = BuildManager.main.GetSelectedTower();
+        Tower towerToBuild = BuildManager.Instance.GetSelectedTower();
 
         if (towerToBuild == null)
         {
@@ -82,15 +82,15 @@ public class Plots : MonoBehaviour
         }
 
         // Check if the player can afford the tower
-        if (towerToBuild.cost > LevelManager.main.currency)
+        if (towerToBuild.GetCosts() > LevelManager.Instance.GetCurrency())
         {
             Debug.Log("Insufficient funds to build the tower.");
             return;
         }
 
         // Spend currency and instantiate the tower
-        LevelManager.main.SpendCurrency(towerToBuild.cost);
-        towerObject = Instantiate(towerToBuild.prefab, transform.position, Quaternion.identity);
+        LevelManager.Instance.SpendCurrency(towerToBuild.GetCosts());
+        towerObject = Instantiate(towerToBuild.GetPrefab(), transform.position, Quaternion.identity);
         tower = towerObject.GetComponent<BaseTower>();
 
         if (tower == null)

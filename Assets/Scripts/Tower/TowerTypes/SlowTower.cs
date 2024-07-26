@@ -9,25 +9,19 @@ using static UnityEngine.GraphicsBuffer;
 /// </summary>
 public class SlowTower : BaseTower
 {
-   
     [Header("Attribute")]
-    
     [SerializeField] private float freezeTime = 1f;
-
 
     private void Update()
     {
-        
-      
-            timeUntilFire += Time.deltaTime;
+        timeUntilFire += Time.deltaTime;
 
-            if (timeUntilFire >= 1f / pps)
-            {
-            Debug.Log("Freeze");
-                FreezeEnemies();
-                timeUntilFire = 0f;
-            }
-        
+        if (timeUntilFire >= 1f / projectilePerSecond)
+        {
+        Debug.Log("Freeze");
+            FreezeEnemies();
+            timeUntilFire = 0f;
+        }  
     }
 
     /// <summary>
@@ -35,9 +29,7 @@ public class SlowTower : BaseTower
     /// </summary>
     private void FreezeEnemies()
     {
-
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange, (Vector2)
-            transform.position, 0f, enemyMask);
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange, (Vector2) transform.position, 0f, enemyMask);
 
         if(hits.Length > 0)
         {
@@ -57,7 +49,7 @@ public class SlowTower : BaseTower
     /// after the freeze wears off enemies continue walking in normal speed again
     /// </summary>
     /// <param name="em"> the enemy movement</param>
-    /// <returns></returns>
+    /// <returns>enumerator for resetting the enemy speed</returns>
     private IEnumerator ResetEnemySpeed(EnemyMovement em)
     {
         yield return new WaitForSeconds(freezeTime);

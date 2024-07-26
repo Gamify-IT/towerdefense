@@ -1,55 +1,101 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Contains all tiles of the path enemies move on.
+/// </summary>
 public class Plots : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private SpriteRenderer sr;
+    [SerializeField] private SpriteRenderer tileSprite;
     [SerializeField] private Color hoverColor;
 
-    private GameObject towerObj;
-    public BaseTower tower;
+    private GameObject towerObject;
+    private BaseTower tower;
     private Color startColor;
 
     private void Start()
     {
-        startColor = sr.color;
+        if (tileSprite == null)
+        {
+            Debug.LogError("Tile sprite is not assigned!");
+            return;
+        }
+
+        startColor = tileSprite.color;
     }
 
+    /// <summary>
+    /// When the mouse hovers over a buildable plot, it highlights it.
+    /// </summary>
     private void OnMouseEnter()
     {
-        sr.color = hoverColor;
+        if (tileSprite != null)
+        {
+            tileSprite.color = hoverColor;
+        }
     }
 
+    /// <summary>
+    /// When the mouse stops hovering over a buildable plot, the highlight goes away.
+    /// </summary>
     private void OnMouseExit()
     {
-        sr.color = startColor;
+        if (tileSprite != null)
+        {
+            tileSprite.color = startColor;
+        }
     }
 
+    /// <summary>
+    /// This function builds a tower on the selected plot.
+    /// </summary>
     private void OnMouseDown()
     {
+        if (UIManager.Instance == null || BuildManager.Instance == null || LevelManager.Instance == null)
+        {
+            Debug.LogError("Managers are not properly assigned!");
+            return;
+        }
 
-        if (UIManager.main.IsHoveringUI()) return;
-        
-        if (towerObj != null)
+        if (UIManager.Instance.IsHoveringUI()) return;
+
+        if (towerObject != null)
         {
             tower.OpenQuestionUI();
-            
             return;
         }
-        
-        Tower towerToBuild = BuildManager.main.GetSelectedTower();
 
-        if (towerToBuild.cost > LevelManager.main.currency)
+        BuildTower();
+    }
+
+    /// <summary>
+    /// Handles the logic for building a tower.
+    /// </summary>
+    private void BuildTower()
+    {
+        Tower towerToBuild = BuildManager.Instance.GetSelectedTower();
+
+        if (towerToBuild == null)
         {
-            Debug.Log("Ur broke "); //auf screen anzeigen
+            Debug.LogError("No tower selected for building!");
             return;
         }
 
-        LevelManager.main.SpendCurrency(towerToBuild.cost);
-        towerObj = Instantiate(towerToBuild.prefab, transform.position, Quaternion.identity);
-        tower = towerObj.GetComponent<BaseTower>();
-       
+        // Check if the player can afford the tower
+        if (towerToBuild.GetCosts() > LevelManager.Instance.GetCurrency())
+        {
+            Debug.Log("Insufficient funds to build the tower.");
+            return;
+        }
+
+        // Spend currency and instantiate the tower
+        LevelManager.Instance.SpendCurrency(towerToBuild.GetCosts());
+        towerObject = Instantiate(towerToBuild.GetPrefab(), transform.position, Quaternion.identity);
+        tower = towerObject.GetComponent<BaseTower>();
+
+        if (tower == null)
+        {
+            Debug.LogError("The instantiated tower does not have a BaseTower component!");
+        }
     }
 }

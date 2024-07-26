@@ -4,43 +4,32 @@ using UnityEditor;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class SlowTower : MonoBehaviour
+/// <summary>
+/// class for the tower that freezes enemies periodically
+/// </summary>
+public class SlowTower : BaseTower
 {
-    [Header("References")]
-    
-    [SerializeField] private LayerMask enemyMask; //nur enemies attackieren
-    
-    
-
     [Header("Attribute")]
-    [SerializeField] private float targetingRange = 5f;
-    
-    [SerializeField] private float pps = 4f; //projectile per second
     [SerializeField] private float freezeTime = 1f;
-
-    
-    private float timeUntilFire;
 
     private void Update()
     {
-        
-      
-            timeUntilFire += Time.deltaTime;
+        timeUntilFire += Time.deltaTime;
 
-            if (timeUntilFire >= 1f / pps)
-            {
-            Debug.Log("Freeze");
-                FreezeEnemies();
-                timeUntilFire = 0f;
-            }
-        
+        if (timeUntilFire >= 1f / projectilePerSecond)
+        {
+        Debug.Log("Freeze");
+            FreezeEnemies();
+            timeUntilFire = 0f;
+        }  
     }
 
+    /// <summary>
+    /// This method slows enemies down
+    /// </summary>
     private void FreezeEnemies()
     {
-
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange, (Vector2)
-            transform.position, 0f, enemyMask);
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange, (Vector2) transform.position, 0f, enemyMask);
 
         if(hits.Length > 0)
         {
@@ -56,6 +45,11 @@ public class SlowTower : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// after the freeze wears off enemies continue walking in normal speed again
+    /// </summary>
+    /// <param name="em"> the enemy movement</param>
+    /// <returns>enumerator for resetting the enemy speed</returns>
     private IEnumerator ResetEnemySpeed(EnemyMovement em)
     {
         yield return new WaitForSeconds(freezeTime);

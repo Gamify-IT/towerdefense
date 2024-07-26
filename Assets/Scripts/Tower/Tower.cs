@@ -7,9 +7,9 @@ using UnityEngine;
 [Serializable]
 public class Tower
 {
-    private string name;
-    private int costs;
-    private GameObject prefab;
+    [SerializeField] private string name;
+    [SerializeField] private int costs;
+    [SerializeField] private GameObject prefab;
 
     public Tower(string name, int costs, GameObject prefab)
     {

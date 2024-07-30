@@ -45,6 +45,9 @@ TagManager:
   - name: Map
     uniqueID: 1161781383
     locked: 0
+  - name: Floor
+    uniqueID: 3040931913
+    locked: 0
   - name: Plots
     uniqueID: 1562230421
     locked: 0

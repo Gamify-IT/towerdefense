@@ -19813,6 +19813,154 @@ Transform:
   - {fileID: 1982893506}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1440407197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1440407202}
+  - component: {fileID: 1440407201}
+  - component: {fileID: 1440407200}
+  - component: {fileID: 1440407199}
+  - component: {fileID: 1440407198}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1440407198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440407197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 555a912ab88e75b4ba786581218a1253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1440407199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440407197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2657a6139a4992c46a4a12101be7ac81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towers:
+  - name: Basic Turret
+    cost: 100
+    prefab: {fileID: 8554871503429272918, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}
+  - name: Slow Turret
+    cost: 200
+    prefab: {fileID: 8144839957513437664, guid: c6185ddc54a828844a3b9c1dc7424b69, type: 3}
+--- !u!114 &1440407200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440407197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a60285e6ed274f74fab5c5385039e780, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefabs:
+  - {fileID: 1038540446868549380, guid: 79e7740665ce23d4ba38debac02b4908, type: 3}
+  - {fileID: 1038540446868549380, guid: 78a22451139563b49b8dbaeb973dcc60, type: 3}
+  baseEnemies: 8
+  enemiesPerSecond: 0.5
+  timeBetweenWaves: 5
+  difficultyScalingFactor: 0.75
+  enemiesPerSecondCap: 15
+--- !u!114 &1440407201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440407197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ea7bf4c0fedc94295476dfd2154613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPoint: {fileID: 1382529557}
+  path:
+  - {fileID: 1683950559}
+  - {fileID: 2052918759}
+  - {fileID: 272632929}
+  - {fileID: 462791539}
+  - {fileID: 657925479}
+  - {fileID: 1867556091}
+  - {fileID: 2093933075}
+  - {fileID: 1476230271}
+  - {fileID: 1156684742}
+  - {fileID: 1953295414}
+  - {fileID: 1756918816}
+  - {fileID: 2044545094}
+  - {fileID: 1892158650}
+  - {fileID: 44289393}
+  - {fileID: 1581905831}
+  - {fileID: 1198116532}
+  - {fileID: 765194310}
+  - {fileID: 781080329}
+  - {fileID: 1241122929}
+  - {fileID: 1979941751}
+  - {fileID: 943154233}
+  - {fileID: 423613827}
+  - {fileID: 1285454614}
+  - {fileID: 715954883}
+  - {fileID: 150285191}
+  - {fileID: 581888856}
+  - {fileID: 1330978867}
+  - {fileID: 409420690}
+  - {fileID: 1805139250}
+  - {fileID: 1240767564}
+  - {fileID: 827118891}
+  - {fileID: 2138148797}
+  - {fileID: 1501525539}
+  - {fileID: 763012952}
+  - {fileID: 1682265823}
+  - {fileID: 2050720364}
+  - {fileID: 647650688}
+  - {fileID: 1068419867}
+  - {fileID: 1299866458}
+  - {fileID: 151699186}
+  - {fileID: 2068597821}
+  - {fileID: 1020907516}
+  - {fileID: 1605591266}
+  - {fileID: 255828334}
+  - {fileID: 2011567771}
+  - {fileID: 1520903618}
+  - {fileID: 234599656}
+  currency: 100
+--- !u!4 &1440407202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440407197}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.2081405, y: 4.876149, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1446332421
 GameObject:
   m_ObjectHideFlags: 0
@@ -47414,4 +47562,5 @@ SceneRoots:
   - {fileID: 1438467385}
   - {fileID: 1879950037}
   - {fileID: 207119520}
+  - {fileID: 1440407202}
   - {fileID: 1881214980}

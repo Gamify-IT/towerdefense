@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4e3838dbf0518da47974db3ecb6db65f
+guid: 100e823ab2ea43240a0b2af36277db97
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: D_Death_0
+      name: R_Walk_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f9ccc5d8bf9a6f46a149a2889627f01
-      internalID: 1938779467
+      spriteID: ee9c0445490af1847aa0f5c1d04875e3
+      internalID: 1257722772
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: D_Death_1
+      name: R_Walk_1
       rect:
         serializedVersion: 2
         x: 48
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4dd4dc42f4e7ae142aaf9ae626fbdcd4
-      internalID: -451192149
+      spriteID: 43d9ed80e3394a54aa0a145f2dfc56bb
+      internalID: 432248266
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: D_Death_2
+      name: R_Walk_2
       rect:
         serializedVersion: 2
         x: 96
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4976bec1672bd8d4aa9314600d0ba070
-      internalID: -905092176
+      spriteID: 59c45d8615992004e988515ed83f42d8
+      internalID: 28099275
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: D_Death_3
+      name: R_Walk_3
       rect:
         serializedVersion: 2
         x: 144
@@ -187,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13cccabf6f17d85498f7958e9db78ca6
-      internalID: -1412865001
+      spriteID: 98a760b0747193f4caa7c211e0df87ac
+      internalID: -2021312544
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: D_Death_4
+      name: R_Walk_4
       rect:
         serializedVersion: 2
         x: 192
@@ -208,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 741050cedaecd24459c932cbd04612c9
-      internalID: -725741534
+      spriteID: 86dad44484192ba459f7975bb46d4907
+      internalID: 543060314
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: D_Death_5
+      name: R_Walk_5
       rect:
         serializedVersion: 2
         x: 240
@@ -229,8 +229,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 571e779151564d24b832e428a9c9954d
-      internalID: 188553993
+      spriteID: 509447233c1c6fc4eaf0864fae5c1b4a
+      internalID: -330495026
       vertices: []
       indices: 
       edges: []
@@ -246,12 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      D_Death_0: 1938779467
-      D_Death_1: -451192149
-      D_Death_2: -905092176
-      D_Death_3: -1412865001
-      D_Death_4: -725741534
-      D_Death_5: 188553993
+      R_Walk_0: 1257722772
+      R_Walk_1: 432248266
+      R_Walk_2: 28099275
+      R_Walk_3: -2021312544
+      R_Walk_4: 543060314
+      R_Walk_5: -330495026
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

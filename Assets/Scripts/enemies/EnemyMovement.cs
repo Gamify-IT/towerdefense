@@ -7,6 +7,7 @@ public class EnemyMovement : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Animator animator;
 
     [Header("Attributes")]
     [SerializeField] private float moveSpeed = 2f;
@@ -90,6 +91,19 @@ public class EnemyMovement : MonoBehaviour
     {
         Vector2 direction = (target.position - transform.position).normalized;
         rb.velocity = direction * moveSpeed;
+
+        UpdateAnimation(direction);
+    }
+
+
+    private void UpdateAnimation(Vector2 direction)
+    {
+       
+        animator.SetFloat("Horizontal", direction.x);
+        animator.SetFloat("Vertical", direction.y);
+
+        
+        Debug.Log($"Animation Parameters - Horizontal: {direction.x}, Vertical: {direction.y}");
     }
 
     /// <summary>

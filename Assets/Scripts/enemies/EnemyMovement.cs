@@ -95,7 +95,10 @@ public class EnemyMovement : MonoBehaviour
         UpdateAnimation(direction);
     }
 
-
+    /// <summary>
+    /// Changes the animation based on the Blend tree of the enemy prefab
+    /// </summary>
+    /// <param name="direction"> the direction the enemy is headed to next (up, down, left, right)</param>
     private void UpdateAnimation(Vector2 direction)
     {
        

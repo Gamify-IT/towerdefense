@@ -3826,6 +3826,7 @@ GameObject:
   - component: {fileID: 490143237}
   - component: {fileID: 490143238}
   - component: {fileID: 490143239}
+  - component: {fileID: 490143240}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -3893,7 +3894,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
-  - {fileID: 1038540446868549380, guid: 79e7740665ce23d4ba38debac02b4908, type: 3}
   - {fileID: 1038540446868549380, guid: 78a22451139563b49b8dbaeb973dcc60, type: 3}
   baseEnemies: 8
   enemiesPerSecond: 0.5
@@ -3931,6 +3931,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555a912ab88e75b4ba786581218a1253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &490143240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490143234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95b2b9dad34328249ad2e44806a1c640, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: 50
 --- !u!1 &494038308
 GameObject:
   m_ObjectHideFlags: 0

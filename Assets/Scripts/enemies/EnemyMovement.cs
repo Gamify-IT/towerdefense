@@ -7,6 +7,8 @@ public class EnemyMovement : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private HP playerHP;
+    
 
     [Header("Attributes")]
     [SerializeField] private float moveSpeed = 2f;
@@ -31,6 +33,12 @@ public class EnemyMovement : MonoBehaviour
         else
         {
             Debug.LogError("Path is not set or empty in LevelManager!");
+        }
+
+        playerHP = LevelManager.Instance.GetComponent<HP>();
+        if (playerHP == null)
+        {
+            Debug.LogError("Player HP script not found in the LevelManager!");
         }
     }
 
@@ -76,11 +84,22 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     private void HandleEndOfPath()
     {
+        if (playerHP != null)
+        {
+            
+            EnemyDamage enemyDamage = GetComponent<EnemyDamage>();
+            if (enemyDamage != null)
+            {
+                playerHP.TakeDamage(enemyDamage.GetDamagePoints());
+            }
+        }
+
         if (EnemySpawner.GetOnEnemyDestroy() != null)
         {
             EnemySpawner.GetOnEnemyDestroy().Invoke();
         }
         Destroy(gameObject);
+       
     }
 
     /// <summary>

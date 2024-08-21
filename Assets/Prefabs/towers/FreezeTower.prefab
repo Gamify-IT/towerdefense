@@ -697,7 +697,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6597772082776767329}
   - component: {fileID: 8864205414282446742}
-  - component: {fileID: 3619700463153973681}
+  - component: {fileID: 8224235680585696041}
   m_Layer: 0
   m_Name: Mage
   m_TagString: Untagged
@@ -761,18 +761,18 @@ SpriteRenderer:
   m_SortingLayerID: -458820135
   m_SortingLayer: 6
   m_SortingOrder: 1
-  m_Sprite: {fileID: -1019448577, guid: 79b856d9dc0b8264faedbfefe6df7153, type: 3}
+  m_Sprite: {fileID: 1638062992, guid: c367e88696859e445890929c926c846d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.75, y: 0.75}
+  m_Size: {x: 0.32352942, y: 0.3970588}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &3619700463153973681
+--- !u!95 &8224235680585696041
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -782,7 +782,7 @@ Animator:
   m_GameObject: {fileID: 4882426861685322641}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e82c8f2f85e64d84ea243988c0cc0eb9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 37525905a2cb8eb41ad2bd04599363e0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

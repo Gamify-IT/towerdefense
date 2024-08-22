@@ -15,26 +15,20 @@ public class SlowTower : BaseTower
     [Header("Attribute")]
     [SerializeField] private float freezeTime = 1f;
 
+    private bool isIdle = true;
+
     private void Update()
     {
         timeUntilFire += Time.deltaTime;
 
-        if (target == null)
-        {
-            FindTarget();
-            return;
-        }
 
-        if (timeUntilFire >= 1f / projectilePerSecond && CheckTargetIsInRange())
+
+        if (timeUntilFire >= 1f / projectilePerSecond)
         {
-            mageAnimator.SetBool("IsIdle", false);   // Attack-Trigger setzen
+
             FreezeEnemies();
             timeUntilFire = 0f;
-        }
-        else
-        {
-            mageAnimator.SetBool("IsIdle", true);
-            target =null;
+            
         }
     }
 
@@ -47,6 +41,7 @@ public class SlowTower : BaseTower
 
         if(hits.Length > 0)
         {
+            mageAnimator.SetTrigger("Freeze");
             for (int i = 0; i < hits.Length; i++)
             {
                 
@@ -57,6 +52,7 @@ public class SlowTower : BaseTower
 
                 StartCoroutine(ResetEnemySpeed(em));
             }
+            
         }
     }
 
@@ -69,6 +65,7 @@ public class SlowTower : BaseTower
     {
         yield return new WaitForSeconds(freezeTime);
         em.ResetSpeed();
+       
     }
   
 }

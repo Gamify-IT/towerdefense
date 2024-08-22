@@ -23,6 +23,8 @@ public class CameraMovement : MonoBehaviour
 
     private void Start()
     {
+        tilemap.CompressBounds();
+
         SetCameraBounds();
         UpdateCameraExtents();
     }
@@ -52,7 +54,7 @@ public class CameraMovement : MonoBehaviour
     private void UpdateCameraExtents()
     {
         float vertExtent = cam.orthographicSize;
-        float horzExtent = vertExtent * Screen.width / Screen.height;
+        float horzExtent = vertExtent * cam.aspect;
 
         Debug.Log("Camera vertExtent: " + vertExtent);
         Debug.Log("Camera horzExtent: " + horzExtent);
@@ -115,6 +117,7 @@ public class CameraMovement : MonoBehaviour
     {
         float vertExtent = cam.orthographicSize;
         float horzExtent = cam.orthographicSize * cam.aspect;
+        UpdateCameraExtents();
 
         float minX = minBounds.x + horzExtent;
         float maxX = maxBounds.x - horzExtent;
@@ -123,18 +126,10 @@ public class CameraMovement : MonoBehaviour
 
         Debug.Log("Clamp Values - minX: " + minX + ", maxX: " + maxX + ", minY: " + minY + ", maxY: " + maxY);
 
-        float newX = Mathf.Clamp(targetPosition.x, minX, maxX);
-        float newY = Mathf.Clamp(targetPosition.y, minY, maxY);
+        float clampedX = Mathf.Clamp(targetPosition.x, minX, maxX);
+        float clampedY = Mathf.Clamp(targetPosition.y, minY, maxY);
 
-        return new Vector3(newX, newY, targetPosition.z);
-
-        //Vector3 clampedPos = transform.position;
-        // clampedPos.x = Mathf.Clamp(clampedPos.x, minX, maxX);
-        // clampedPos.y = Mathf.Clamp(clampedPos.y, minY, maxY);
-
-        //  Debug.Log("Clamped Position: " + clampedPos);
-
-        //transform.position = clampedPos;
+        return new Vector3(clampedX, clampedY, targetPosition.z);
     }
 
     /// <summary>
@@ -144,6 +139,7 @@ public class CameraMovement : MonoBehaviour
     {
         float newSize = cam.orthographicSize - zoomStep;
         cam.orthographicSize = Mathf.Clamp(newSize, minCamSize, maxCamSize);
+        UpdateCameraExtents();
         transform.position = ClampCamera(transform.position);
     }
 
@@ -154,6 +150,7 @@ public class CameraMovement : MonoBehaviour
     {
         float newSize = cam.orthographicSize + zoomStep;
         cam.orthographicSize = Mathf.Clamp(newSize, minCamSize, maxCamSize);
+        UpdateCameraExtents();
         transform.position = ClampCamera(transform.position);
     }
 }

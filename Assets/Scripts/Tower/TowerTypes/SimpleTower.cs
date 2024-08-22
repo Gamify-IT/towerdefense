@@ -12,7 +12,10 @@ public class SimpleTower : BaseTower
 {
     [Header("References")]
     [SerializeField] private Transform archerRotationPoint;
-    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject arrowUp;
+    [SerializeField] private GameObject arrowDown;
+    [SerializeField] private GameObject arrowLeft;
+    [SerializeField] private GameObject arrowRight;
     [SerializeField] private Transform firingPoint;
     [SerializeField] private Animator archerAnimator;
 
@@ -20,8 +23,9 @@ public class SimpleTower : BaseTower
     [Header("Attribute")]
     [SerializeField] private float rotationSpeed = 5f;
 
-     
-    
+    private GameObject currentArrowPrefab;
+
+
     protected virtual void Update()
     {
         if (target == null)
@@ -54,7 +58,7 @@ public class SimpleTower : BaseTower
     {
         TurnTowardsTarget();
 
-        GameObject projectileObj = Instantiate(projectilePrefab, firingPoint.position, Quaternion.identity);
+        GameObject projectileObj = Instantiate(currentArrowPrefab, firingPoint.position, Quaternion.identity);
         Projectile projectileScript = projectileObj.GetComponent<Projectile>();
         projectileScript.SetTarget(target);
     }
@@ -79,18 +83,22 @@ public class SimpleTower : BaseTower
         if (angle >= 45f && angle < 135f)
         {
             archerAnimator.Play("Archer3UAttack");
+            currentArrowPrefab = arrowUp;
         }
         else if (angle >= -135f && angle < -45f)
         {
             archerAnimator.Play("Archer3DAttack");
+            currentArrowPrefab = arrowDown;
         }
         else if (angle >= -45f && angle < 45f)
         {
             archerAnimator.Play("Archer3RAttack");
+            currentArrowPrefab = arrowRight;
         }
         else
         {
             archerAnimator.Play("Archer3LAttack");
+            currentArrowPrefab = arrowLeft;
         }
     }
 

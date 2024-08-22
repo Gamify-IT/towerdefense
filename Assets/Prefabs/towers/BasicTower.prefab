@@ -1631,7 +1631,10 @@ MonoBehaviour:
   projectilePerSecond: 1
   baseUpgradeCost: 100
   archerRotationPoint: {fileID: 5324924769731246709}
-  projectilePrefab: {fileID: 7399705854564891151, guid: 5deec10455635e84fae4fb107563a3d4, type: 3}
+  arrowUp: {fileID: 7399705854564891151, guid: 91d2dec388e21a94ba18f22909b46987, type: 3}
+  arrowDown: {fileID: 7399705854564891151, guid: 64be1383e14a79c4ba28eac3cde8d5a8, type: 3}
+  arrowLeft: {fileID: 7399705854564891151, guid: 18759363597868044a3a0f5db692b700, type: 3}
+  arrowRight: {fileID: 7399705854564891151, guid: 0ee17225082deeb41a623acf010acf4d, type: 3}
   firingPoint: {fileID: 5393305527348599083}
   archerAnimator: {fileID: 4905554449080766778}
   rotationSpeed: 5

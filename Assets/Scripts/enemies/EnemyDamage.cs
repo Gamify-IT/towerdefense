@@ -8,6 +8,7 @@ public class EnemyDamage : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] private int hitPoints = 2;
     [SerializeField] private int currencyWorth;
+    [SerializeField] private int damagePoints;
 
     private bool isDestroyed = false;
 
@@ -28,5 +29,13 @@ public class EnemyDamage : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public int GetDamagePoints()
+    {
+        damagePoints = hitPoints;
+        return damagePoints;
+
+    }
+
 
 }

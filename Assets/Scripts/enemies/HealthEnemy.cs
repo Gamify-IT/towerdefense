@@ -28,4 +28,9 @@ public class EnemyHealth : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public int GetHitpoints()
+    {
+        return hitPoints;
+    }
 }

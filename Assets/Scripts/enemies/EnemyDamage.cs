@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyDamage : MonoBehaviour
 {
+
     [Header("Attributes")]
     [SerializeField] private int hitPoints = 2;
     [SerializeField] private int currencyWorth;
@@ -27,4 +28,5 @@ public class EnemyDamage : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 }

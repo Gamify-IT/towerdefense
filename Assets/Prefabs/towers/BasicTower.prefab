@@ -666,7 +666,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 587a3de1fb45e284bb5c71f18dcde3c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouse_over: 0
 --- !u!1 &2560254595054797336
 GameObject:
   m_ObjectHideFlags: 0
@@ -978,6 +977,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3447725394379227558}
   - component: {fileID: 6646049674630072079}
+  - component: {fileID: 4905554449080766778}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Untagged
@@ -1052,6 +1052,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &4905554449080766778
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378472951986084612}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e82c8f2f85e64d84ea243988c0cc0eb9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6075182631980483464
 GameObject:
   m_ObjectHideFlags: 0
@@ -1549,7 +1570,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0e393afb7a5eb645b04f67f742bad35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouse_over: 0
 --- !u!1 &8554871503429272918
 GameObject:
   m_ObjectHideFlags: 0
@@ -1561,7 +1581,7 @@ GameObject:
   - component: {fileID: 1729150823811625583}
   - component: {fileID: -3574278904541898235}
   m_Layer: 0
-  m_Name: TowerPlaceholder
+  m_Name: BasicTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1577,7 +1597,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.5, y: 1.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.9663, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3762018242574527682}
@@ -1608,9 +1628,13 @@ MonoBehaviour:
   rightButton: {fileID: 5760784405489064077}
   wrongButton: {fileID: 2226932823091844469}
   targetingRange: 3
-  pps: 1
+  projectilePerSecond: 1
   baseUpgradeCost: 100
   archerRotationPoint: {fileID: 5324924769731246709}
-  projectilePrefab: {fileID: 7399705854564891151, guid: 5deec10455635e84fae4fb107563a3d4, type: 3}
+  arrowUp: {fileID: 7399705854564891151, guid: 91d2dec388e21a94ba18f22909b46987, type: 3}
+  arrowDown: {fileID: 7399705854564891151, guid: 64be1383e14a79c4ba28eac3cde8d5a8, type: 3}
+  arrowLeft: {fileID: 7399705854564891151, guid: 18759363597868044a3a0f5db692b700, type: 3}
+  arrowRight: {fileID: 7399705854564891151, guid: 0ee17225082deeb41a623acf010acf4d, type: 3}
   firingPoint: {fileID: 5393305527348599083}
+  archerAnimator: {fileID: 4905554449080766778}
   rotationSpeed: 5

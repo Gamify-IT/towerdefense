@@ -6,17 +6,27 @@ public class EnemyDamage : MonoBehaviour
 {
 
     [Header("Attributes")]
-    [SerializeField] private int damagePoints = 2;
-    
+    [SerializeField] private int hitPoints = 2;
+    [SerializeField] private int currencyWorth;
+
+    private bool isDestroyed = false;
 
     /// <summary>
-    /// Returns the damage points of the enemy.
+    /// Deals damage to the enemy by decreasing his hit points.
     /// </summary>
-    /// <returns>Damage points of the enemy.</returns>
-    public int GetDamagePoints()
+    /// <param name="damageAmount">amount of damage the enemy should take</param>
+    public void TakeDamage(int damageAmount)
     {
-        return damagePoints;
-    }
+        hitPoints -= damageAmount;
 
+        // check if enemy is dead, i.e., should be destroyed
+        if (hitPoints <= 0 && !isDestroyed)
+        {
+            EnemySpawner.GetOnEnemyDestroy().Invoke();
+            LevelManager.Instance.GainCurrency(currencyWorth);
+            isDestroyed = true;
+            Destroy(gameObject);
+        }
+    }
 
 }

@@ -9,19 +9,27 @@ using static UnityEngine.GraphicsBuffer;
 /// </summary>
 public class SlowTower : BaseTower
 {
+    [Header("References")]
+    [SerializeField] private Animator mageAnimator;
+
     [Header("Attribute")]
     [SerializeField] private float freezeTime = 1f;
+
+    private bool isIdle = true;
 
     private void Update()
     {
         timeUntilFire += Time.deltaTime;
 
+
+
         if (timeUntilFire >= 1f / projectilePerSecond)
         {
-        Debug.Log("Freeze");
+
             FreezeEnemies();
             timeUntilFire = 0f;
-        }  
+            
+        }
     }
 
     /// <summary>
@@ -33,8 +41,10 @@ public class SlowTower : BaseTower
 
         if(hits.Length > 0)
         {
+            mageAnimator.SetTrigger("Freeze");
             for (int i = 0; i < hits.Length; i++)
             {
+                
                 RaycastHit2D hit = hits[i];
 
                 EnemyMovement em = hit.transform.GetComponent<EnemyMovement>();
@@ -42,6 +52,7 @@ public class SlowTower : BaseTower
 
                 StartCoroutine(ResetEnemySpeed(em));
             }
+            
         }
     }
 
@@ -54,6 +65,7 @@ public class SlowTower : BaseTower
     {
         yield return new WaitForSeconds(freezeTime);
         em.ResetSpeed();
+       
     }
   
 }

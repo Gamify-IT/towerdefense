@@ -8,6 +8,12 @@ public class EnemyMovement : MonoBehaviour
     [Header("References")]
     [SerializeField] private Rigidbody2D rb;
 
+    [SerializeField] private HP playerHP;
+    
+
+    [SerializeField] private Animator animator;
+
+
     [Header("Attributes")]
     [SerializeField] private float moveSpeed = 2f;
 
@@ -31,6 +37,12 @@ public class EnemyMovement : MonoBehaviour
         else
         {
             Debug.LogError("Path is not set or empty in LevelManager!");
+        }
+
+        playerHP = LevelManager.Instance.GetComponent<HP>();
+        if (playerHP == null)
+        {
+            Debug.LogError("Player HP script not found in the LevelManager!");
         }
     }
 
@@ -76,11 +88,22 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     private void HandleEndOfPath()
     {
+        if (playerHP != null)
+        {
+            
+            EnemyDamage enemyDamage = GetComponent<EnemyDamage>();
+            if (enemyDamage != null)
+            {
+                playerHP.TakeDamage(enemyDamage.GetDamagePoints());
+            }
+        }
+
         if (EnemySpawner.GetOnEnemyDestroy() != null)
         {
             EnemySpawner.GetOnEnemyDestroy().Invoke();
         }
         Destroy(gameObject);
+       
     }
 
     /// <summary>
@@ -90,6 +113,22 @@ public class EnemyMovement : MonoBehaviour
     {
         Vector2 direction = (target.position - transform.position).normalized;
         rb.velocity = direction * moveSpeed;
+
+        UpdateAnimation(direction);
+    }
+
+    /// <summary>
+    /// Changes the animation based on the Blend tree of the enemy prefab
+    /// </summary>
+    /// <param name="direction"> the direction the enemy is headed to next (up, down, left, right)</param>
+    private void UpdateAnimation(Vector2 direction)
+    {
+       
+        animator.SetFloat("Horizontal", direction.x);
+        animator.SetFloat("Vertical", direction.y);
+
+        
+        Debug.Log($"Animation Parameters - Horizontal: {direction.x}, Vertical: {direction.y}");
     }
 
     /// <summary>

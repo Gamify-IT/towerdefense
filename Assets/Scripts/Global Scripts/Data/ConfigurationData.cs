@@ -1,18 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public class ConfigurationData : MonoBehaviour
+/// <summary>
+///     This is the equivalent class to the Configuration.java class in the backend.
+///     It contains the configuration of questions in the minigame.
+/// </summary>
+[Serializable]
+public class ConfigurationData
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private QuestionDTO[] questions;
 }

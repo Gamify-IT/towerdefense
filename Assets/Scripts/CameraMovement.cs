@@ -20,13 +20,15 @@ public class CameraMovement : MonoBehaviour
 
     private Vector3 minBounds;
     private Vector3 maxBounds;
+    private float verticalExtent;
+    private float horizontalExtent;
 
     private void Start()
     {
         tilemap.CompressBounds();
-
         SetCameraBounds();
         UpdateCameraExtents();
+        maxCamSize = CalculateMaxCameraSize();
     }
 
     private void Update()
@@ -43,9 +45,6 @@ public class CameraMovement : MonoBehaviour
         Bounds tilemapBounds = tilemap.localBounds;
         minBounds = tilemapBounds.min + (Vector3)tilemap.transform.position;
         maxBounds = tilemapBounds.max + (Vector3)tilemap.transform.position;
-
-        Debug.Log("Min Bounds: " + minBounds);
-        Debug.Log("Max Bounds: " + maxBounds);
     }
 
     /// <summary>
@@ -53,11 +52,8 @@ public class CameraMovement : MonoBehaviour
     /// </summary>
     private void UpdateCameraExtents()
     {
-        float vertExtent = cam.orthographicSize;
-        float horzExtent = vertExtent * cam.aspect;
-
-        Debug.Log("Camera vertExtent: " + vertExtent);
-        Debug.Log("Camera horzExtent: " + horzExtent);
+        verticalExtent = cam.orthographicSize;
+        horizontalExtent = verticalExtent * cam.aspect;
     }
 
     /// <summary>
@@ -115,21 +111,30 @@ public class CameraMovement : MonoBehaviour
     /// </summary>
     private Vector3 ClampCamera(Vector3 targetPosition)
     {
-        float vertExtent = cam.orthographicSize;
-        float horzExtent = cam.orthographicSize * cam.aspect;
+        verticalExtent = cam.orthographicSize;
+        horizontalExtent = cam.orthographicSize * cam.aspect;
         UpdateCameraExtents();
 
-        float minX = minBounds.x + horzExtent;
-        float maxX = maxBounds.x - horzExtent;
-        float minY = minBounds.y + vertExtent;
-        float maxY = maxBounds.y - vertExtent;
-
-        Debug.Log("Clamp Values - minX: " + minX + ", maxX: " + maxX + ", minY: " + minY + ", maxY: " + maxY);
+        float minX = minBounds.x + horizontalExtent;
+        float maxX = maxBounds.x - horizontalExtent;
+        float minY = minBounds.y + verticalExtent;
+        float maxY = maxBounds.y - verticalExtent;
 
         float clampedX = Mathf.Clamp(targetPosition.x, minX, maxX);
         float clampedY = Mathf.Clamp(targetPosition.y, minY, maxY);
 
         return new Vector3(clampedX, clampedY, targetPosition.z);
+    }
+    /// <summary>
+    /// Calculate maximum vertical and horizontal size that fits within the tilemap bounds.
+    /// Returns the smaller of the two so that the camera stays within bounds.
+    /// </summary>
+    private float CalculateMaxCameraSize()
+    {
+        float maxVerticalSize = (maxBounds.y - minBounds.y) / 2f;
+        float maxHorizontalSize = (maxBounds.x - minBounds.x) / (2f * cam.aspect);
+
+        return Mathf.Min(maxVerticalSize, maxHorizontalSize);
     }
 
     /// <summary>

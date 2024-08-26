@@ -15,7 +15,6 @@ public class QuestionDTO
     public List<string> wrongAnswers;
     #endregion
 
-    #region constructors
     public QuestionDTO(string id, string text, string correctAnswer, List<string> wrongAnswers)
     {
         this.id = id;
@@ -23,15 +22,6 @@ public class QuestionDTO
         this.correctAnswer = correctAnswer;
         this.wrongAnswers = wrongAnswers;
     }
-
-    public QuestionDTO()
-    {
-        id = "";
-        text = "";
-        correctAnswer = "";
-        wrongAnswers = new List<string>();
-    }
-    #endregion
 
     /// <summary>
     ///     This function converts a <c>QuestionData</c> object into a <c>QuestionDTO</c> instance

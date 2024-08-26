@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-///     This class is used to retrieve question data from get requests.
+///     This class is used to retrieve configuration data from get requests.
 /// </summary>
 [Serializable]
 public class ConfigurationDTO

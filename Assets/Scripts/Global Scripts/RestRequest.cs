@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
-
+using Cysharp.Threading.Tasks;
 public static class RestRequest 
 {
     /// <summary>
@@ -13,7 +12,7 @@ public static class RestRequest
     /// <typeparam name="T">The type to cast the response to</typeparam>
     /// <param name="uri">The path to send the request to</param>
     /// <returns>An <c>Optional</c> containing the casted return, if an error occurs, the returned <c>Optional</c> is empty</returns>
-    public static async Task<Optional<T>> GetRequest<T>(string uri)
+    public static async UniTask<Optional<T>> GetRequest<T>(string uri)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
@@ -24,7 +23,7 @@ public static class RestRequest
 
             while (!request.isDone)
             {
-                await Task.Yield();
+                await UniTask.Yield();
             }
 
             switch (webRequest.result)
@@ -138,7 +137,7 @@ public static class RestRequest
     /// <param name="uri">The type to cast the response to</param>
     /// <param name="json">The body to be send</param>
     /// <returns>true if post request was successful, false otherwise</returns>
-    public static async Task<bool> PostRequest(string uri, string json)
+    public static async UniTask<bool> PostRequest(string uri, string json)
     {
         Debug.Log("Post Request for path: " + uri + ", posting: " + json);
 
@@ -155,7 +154,7 @@ public static class RestRequest
 
             while (!request.isDone)
             {
-                await Task.Yield();
+                await UniTask.Yield();
             }
 
             if (webRequest.result != UnityWebRequest.Result.Success)
@@ -177,7 +176,7 @@ public static class RestRequest
     /// <param name="uri">The type to cast the response to</param>
     /// <param name="json">The body to be send</param>
     /// <returns>true if put request was successful, false otherwise</returns>
-    public static async Task<bool> PutRequest(string uri, string json)
+    public static async UniTask<bool> PutRequest(string uri, string json)
     {
         Debug.Log("Put Request for path: " + uri + ", posting: " + json);
 
@@ -194,7 +193,7 @@ public static class RestRequest
 
             while (!request.isDone)
             {
-                await Task.Yield();
+                await UniTask.Yield();
             }
 
             if (webRequest.result != UnityWebRequest.Result.Success)

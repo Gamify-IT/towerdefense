@@ -4,7 +4,6 @@ using System.Collections.Generic;
 /// <summary>
 ///     This class represents a single question that player can answer.
 /// </summary>
-[Serializable]
 public class QuestionData
 {
     #region attributes

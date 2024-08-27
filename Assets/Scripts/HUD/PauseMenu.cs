@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] public SceneLoader sceneLoader;
+    
     public void Resume(int PuaseSceneId)
     {
         Time.timeScale = 1f;
@@ -14,17 +14,9 @@ public class PauseMenu : MonoBehaviour
     }
 
     
-    public void Quit(int PuaseSceneId)
+    public void Quit(int SceneId)
     {
-        Debug.Log("Quitting the game...");
-        //quitting action in unity editor for testing
-#if UNITY_EDITOR
-       
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-   
-    Application.Quit();
-#endif
-        // TO implement: ask if user is sure about this action
+        Time.timeScale = 0f;
+        SceneManager.LoadScene(SceneId);
     }
 }

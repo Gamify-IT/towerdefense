@@ -20,8 +20,12 @@ public class Menu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// </summary>
     public void ToggleMenu()
     {
+        if (anim == null)
+        {
+            anim = GetComponent<Animator>();
+        }
         isMenuOpen = !isMenuOpen;
-        anim.SetBool("MenuOpen", isMenuOpen);
+        anim.SetBool("menuOpen", isMenuOpen);
     }
 
     /// <summary>

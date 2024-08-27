@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1562230421
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
@@ -143,5 +143,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3500f9eeb70642543961d7b59d7edaa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sr: {fileID: 2005740541928868339}
+  tileSprite: {fileID: 2005740541928868339}
   hoverColor: {r: 1, g: 0.99801373, b: 0.627451, a: 0.79607844}

@@ -128,7 +128,7 @@ public class EnemyMovement : MonoBehaviour
         animator.SetFloat("Vertical", direction.y);
 
         
-        Debug.Log($"Animation Parameters - Horizontal: {direction.x}, Vertical: {direction.y}");
+        
     }
 
     /// <summary>

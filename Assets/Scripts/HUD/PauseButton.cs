@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PauseButton : MonoBehaviour
 {
     [Header("References")]
-    public GameObject normalSpeedButton; 
-    public GameObject fastSpeedButton;
+    public Button speedButton;
+    public Sprite normalSpeedSprite;
+    public Sprite fastSpeedSprite;
 
 
     private bool isFast = false;
@@ -32,16 +34,14 @@ public class PauseButton : MonoBehaviour
             Time.timeScale = 1f; 
             isFast = false;
 
-            normalSpeedButton.SetActive(true);
-            fastSpeedButton.SetActive(false);
+            speedButton.image.sprite = fastSpeedSprite;
         }
         else
         {
             Time.timeScale = 2f; 
             isFast = true;
 
-            normalSpeedButton.SetActive(false);
-            fastSpeedButton.SetActive(true);
+            speedButton.image.sprite = normalSpeedSprite;
         }
     }
 }

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
+using UnityEngine.EventSystems;
 
-public class PauseButton : MonoBehaviour
+public class PauseButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("References")]
     public Button speedButton;
@@ -13,6 +15,7 @@ public class PauseButton : MonoBehaviour
 
 
     private bool isFast = false;
+    private bool mouseOver = false;
 
     /// <summary>
     /// Pauses the game and loads the pause menu
@@ -43,5 +46,27 @@ public class PauseButton : MonoBehaviour
 
             speedButton.image.sprite = normalSpeedSprite;
         }
+    }
+
+
+    /// <summary>
+    ///  This function sets the setHoveringState function to true if the mouse is over the menu
+    /// </summary>
+    /// <param name="eventData"> The mouse</param>
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        mouseOver = true;
+        UIManager.Instance.SetHoveringState(true);
+    }
+
+    /// <summary>
+    ///  This function sets the setHoveringState function to false if the mouse is over the menu
+    /// </summary>
+    /// <param name="eventData"> The mouse</param>
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        mouseOver = false;
+        UIManager.Instance.SetHoveringState(false);
+
     }
 }

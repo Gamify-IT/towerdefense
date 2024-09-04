@@ -19,6 +19,33 @@ public class HP : MonoBehaviour
         UpdateHealthBar();
     }
 
+        [Header("Attributes")]
+    [SerializeField] private int maxHealth = 50;
+
+    [Header("References")]
+    [SerializeField] private Image healthBar;
+
+    private int playerHealth;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        playerHealth = maxHealth;  
+        UpdateHealthBar();
+        Debug.Log("HP Script initialized with player health: " + playerHealth);
+    }
+    
     /// <summary>
     /// Reduces the player's health.
     /// </summary>
@@ -36,7 +63,7 @@ public class HP : MonoBehaviour
     }
 
     /// <summary>
-    /// Readjust the healtbar width after damage has been taken in.
+    /// Readjust the healthbar width after damage has been taken in.
     /// </summary>
     private void UpdateHealthBar()
     {

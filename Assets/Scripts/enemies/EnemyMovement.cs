@@ -39,11 +39,7 @@ public class EnemyMovement : MonoBehaviour
             Debug.LogError("Path is not set or empty in LevelManager!");
         }
 
-        playerHP = LevelManager.Instance.GetComponent<HP>();
-        if (playerHP == null)
-        {
-            Debug.LogError("Player HP script not found in the LevelManager!");
-        }
+       
     }
 
     private void Update()

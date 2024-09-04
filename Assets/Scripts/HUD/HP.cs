@@ -18,33 +18,6 @@ public class HP : MonoBehaviour
         originalWidth = healthbar.sizeDelta.x;
         UpdateHealthBar();
     }
-
-        [Header("Attributes")]
-    [SerializeField] private int maxHealth = 50;
-
-    [Header("References")]
-    [SerializeField] private Image healthBar;
-
-    private int playerHealth;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void Start()
-    {
-        playerHealth = maxHealth;  
-        UpdateHealthBar();
-        Debug.Log("HP Script initialized with player health: " + playerHealth);
-    }
     
     /// <summary>
     /// Reduces the player's health.

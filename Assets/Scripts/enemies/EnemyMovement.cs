@@ -39,7 +39,11 @@ public class EnemyMovement : MonoBehaviour
             Debug.LogError("Path is not set or empty in LevelManager!");
         }
 
-       
+        playerHP = FindObjectOfType<HP>();
+        if (playerHP == null )
+        {
+            Debug.LogWarning("HP script not found!");
+        }
     }
 
     private void Update()
@@ -84,6 +88,7 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     private void HandleEndOfPath()
     {
+        playerHP = FindObjectOfType<HP>();
         if (playerHP != null)
         {
             

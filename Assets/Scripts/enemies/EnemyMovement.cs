@@ -7,12 +7,8 @@ public class EnemyMovement : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Rigidbody2D rb;
-
     [SerializeField] private HP playerHP;
-    
-
     [SerializeField] private Animator animator;
-
 
     [Header("Attributes")]
     [SerializeField] private float moveSpeed = 2f;
@@ -123,13 +119,9 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     /// <param name="direction"> the direction the enemy is headed to next (up, down, left, right)</param>
     private void UpdateAnimation(Vector2 direction)
-    {
-       
+    { 
         animator.SetFloat("Horizontal", direction.x);
         animator.SetFloat("Vertical", direction.y);
-
-        
-        
     }
 
     /// <summary>

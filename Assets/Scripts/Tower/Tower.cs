@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 /// <summary>
-///  class that creates the tower object
+///  Class that creates the tower object
 /// </summary>
 [Serializable]
 public class Tower

@@ -14,7 +14,6 @@ public class SceneLoader : MonoBehaviour
    /// </summary>
     public void StartGame()
     {
-        
         SceneManager.LoadScene(mainGameScene);
         SceneManager.LoadScene(playerHUDScene, LoadSceneMode.Additive);
         SceneManager.LoadScene(shopScene, LoadSceneMode.Additive);

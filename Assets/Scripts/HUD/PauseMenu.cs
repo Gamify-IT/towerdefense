@@ -7,6 +7,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using TMPro;
 
+/// <summary>
+///  This class manages the pause menu inlcuding its resume and pasue logic
+/// </summary>
 public class PauseMenu : MonoBehaviour
 {
     private bool mouseOver = false;

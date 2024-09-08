@@ -109,6 +109,7 @@ public class CameraMovement : MonoBehaviour
     /// <summary>
     /// Clamps the camera's position to ensure it stays within the tilemap bounds.
     /// </summary>
+    /// <returns>position vector with clamped coordinates</returns>
     private Vector3 ClampCamera(Vector3 targetPosition)
     {
         verticalExtent = cam.orthographicSize;
@@ -125,10 +126,11 @@ public class CameraMovement : MonoBehaviour
 
         return new Vector3(clampedX, clampedY, targetPosition.z);
     }
+
     /// <summary>
     /// Calculate maximum vertical and horizontal size that fits within the tilemap bounds.
-    /// Returns the smaller of the two so that the camera stays within bounds.
     /// </summary>
+    /// <returns>the smaller of the two float values</returns>
     private float CalculateMaxCameraSize()
     {
         float maxVerticalSize = (maxBounds.y - minBounds.y) / 2f;

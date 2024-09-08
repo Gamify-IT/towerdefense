@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 /// <summary>
-///  This class makes sure you cannot place a tower while answering questions
+///  This class makes sure you cannot place a tower while in the UpgradeUI.
 /// </summary>
 public class UpgradeUIHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {

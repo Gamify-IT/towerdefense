@@ -4,11 +4,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+///  This class is responsible for logic related to HP including visual feedback via a life bar
+/// </summary>
 public class HP : MonoBehaviour
 {
-    [Header("Attributes")]
+    [Header("References")]
     public RectTransform healthbar;
-    [SerializeField] private float maxHealth = 100f;
+    [Header("Attributes")]
+    private float maxHealth = 100f;
     private float currentHealth;
     private float originalWidth;
 
@@ -45,11 +49,10 @@ public class HP : MonoBehaviour
     }
 
     /// <summary>
-    /// Game ends when the player reaches zero HP
+    /// Game ends when the player reaches zero HP and a game over screen is loaded.
     /// </summary>
     private void HandlePlayerDeath()
     {
-        Debug.Log("Player has died! Loading game over scene.");
         SceneManager.LoadScene("GameOver");
     }
 }

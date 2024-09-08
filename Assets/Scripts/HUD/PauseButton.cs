@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 using UnityEngine.EventSystems;
 
+/// <summary>
+///  This class handles all logic for the pause button
+/// </summary>
 public class PauseButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("References")]

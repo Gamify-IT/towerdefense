@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
+
 /// <summary>
 ///  This class handles the ingame menu 
 /// </summary>
@@ -31,7 +32,6 @@ public class Menu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// <summary>
     ///  This function displays the current in game currency amount
     /// </summary>
-
     private void OnGUI()
     {
         currencyUI.text = LevelManager.Instance.GetCurrency().ToString();

@@ -34,8 +34,6 @@ public class EnemySpawner : MonoBehaviour
 
     public void Start()
     {
-        // TODO: start with menu
-
         // coroutine for time based waves 
         StartCoroutine(StartWave());
 
@@ -86,7 +84,7 @@ public class EnemySpawner : MonoBehaviour
     /// <returns>Iterator for coroutine</returns>
     private IEnumerator StartWave()
     {
-        yield return new WaitForSeconds(timeBetweenWaves); //startet nur zwiscen den waves
+        yield return new WaitForSeconds(timeBetweenWaves);
         isSpawning = true;
         enemiesLeftToSpawn = baseEnemies;
         actualEnemiesPerSecond = EnemiesPerSecond();

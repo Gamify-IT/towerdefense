@@ -37,7 +37,7 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    ///  This function returns  wheater the mouse is hovering over an UI element 
+    ///  This function returns  whether the mouse is hovering over an UI element 
     /// </summary>
     /// <returns>True, if the mouse is hovering over an UI, false otherwise </returns>
     public bool IsHoveringUI()

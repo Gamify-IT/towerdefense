@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 /// <summary>
 /// This class contains the movement mechanics of the enemies.
@@ -9,6 +10,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
 
     [SerializeField] private HP playerHP;
+
     
 
     [SerializeField] private Animator animator;
@@ -21,6 +23,8 @@ public class EnemyMovement : MonoBehaviour
     private int pathIndex = 0;
     private float baseSpeed;
     private bool isObstacleOnPath = false;
+    private BaseTower towerHP;
+    private int enemyDamage = 10;
 
     private void Start()
     {
@@ -105,6 +109,18 @@ public class EnemyMovement : MonoBehaviour
         Destroy(gameObject);
        
     }
+    /// <summary>
+    /// Damages a tower
+    /// </summary>
+    private void DamageTower()
+    {
+
+        if (towerHP != null)
+        {
+                towerHP.TakeDamage(enemyDamage);
+            
+        }
+    }
 
     /// <summary>
     /// Moves the enemy towards the current target.
@@ -148,16 +164,42 @@ public class EnemyMovement : MonoBehaviour
         moveSpeed = baseSpeed;
     }
 
+    /// <summary>
+    /// when an obstacle blocks the path the enemy can't move
+    /// </summary>
+    /// <param name="collision"> collider of the obstacle</param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+
         if (collision.CompareTag("Obstacle"))
         {
             isObstacleOnPath = true;
             rb.velocity = Vector2.zero; // Beende die Bewegung
+            towerHP = collision.GetComponent<BaseTower>();
+            if (towerHP != null)
+            {
+                StartCoroutine(DamageTowerCoroutine());
+            }
         }
     }
 
+    /// <summary>
+    /// starts coroutine for the DamageTower function
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator DamageTowerCoroutine()
+    {
+        while (towerHP != null && towerHP.GetTowerHP() > 0)
+        {
+            DamageTower();
+            yield return new WaitForSeconds(1f); // Damage every 1 second
+        }
+    }
+
+    /// <summary>
+    /// when the obstacle is removed the enemy continues on the path 
+    /// </summary>
+    /// <param name="collision"> collider of the obstacle</param>
     private void OnTriggerExit2D(Collider2D collision)
     {
         

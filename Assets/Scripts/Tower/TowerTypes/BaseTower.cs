@@ -21,7 +21,7 @@ public class BaseTower : MonoBehaviour
 
     [Header("Attribute")]
     [SerializeField] protected float targetingRange = 5f;
-   
+    [SerializeField] private int towerHP = 30;
     [SerializeField] protected float projectilePerSecond = 1f;
     [SerializeField] protected int baseUpgradeCost = 100;
 
@@ -160,6 +160,31 @@ public class BaseTower : MonoBehaviour
         return Mathf.RoundToInt(baseUpgradeCost * Mathf.Pow(level, CostExponent));
     }
 
+
+    /// <summary>
+    /// Reduces the tower's health.
+    /// </summary>
+    /// <param name="damageAmount">Amount of damage to reduce.</param>
+    public void TakeDamage(int damageAmount)
+    {
+        towerHP -= damageAmount;
+        Debug.Log("Tower Health: " + towerHP);
+        if (towerHP <= 0)
+        {
+            Debug.Log("Tower Destroyed");
+            Destroy(gameObject);
+        }
+
+    }
+
+    /// <summary>
+    /// returns the HP of the tower
+    /// </summary>
+    /// <returns></returns>
+    public int GetTowerHP()
+    {
+        return towerHP;
+    }
     private void OnDrawGizmosSelected()
     {
         Handles.color = Color.cyan;

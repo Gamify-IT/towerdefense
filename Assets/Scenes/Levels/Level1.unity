@@ -12927,6 +12927,7 @@ GameObject:
   - component: {fileID: 1006291607}
   - component: {fileID: 1006291606}
   - component: {fileID: 1006291605}
+  - component: {fileID: 1006291608}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Obstacle
@@ -13046,6 +13047,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1006291608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006291604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63024adccb17d774ab34ad0d2c42ba5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 256
+  upgradeUI: {fileID: 0}
+  upgradeButton: {fileID: 0}
+  questionUI: {fileID: 0}
+  rightButton: {fileID: 0}
+  wrongButton: {fileID: 0}
+  targetingRange: 5
+  towerHP: 30
+  projectilePerSecond: 1
+  baseUpgradeCost: 100
 --- !u!1 &1007360752
 GameObject:
   m_ObjectHideFlags: 0

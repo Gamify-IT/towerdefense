@@ -17,9 +17,10 @@ public class EnemyMovement : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] private float moveSpeed = 2f;
 
-    private Transform target;
+   protected Transform target;
     private int pathIndex = 0;
     private float baseSpeed;
+    private bool isObstacleOnPath = false;
 
     private void Start()
     {
@@ -64,11 +65,14 @@ public class EnemyMovement : MonoBehaviour
     /// <summary>
     /// This function moves the enemy along the path.
     /// </summary>
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
-        if (target == null) return;
+        if (target == null || isObstacleOnPath ) return;
+
+        
 
         MoveTowardsTarget();
+    
     }
 
     /// <summary>
@@ -105,7 +109,7 @@ public class EnemyMovement : MonoBehaviour
     /// <summary>
     /// Moves the enemy towards the current target.
     /// </summary>
-    private void MoveTowardsTarget()
+    protected void MoveTowardsTarget()
     {
         Vector2 direction = (target.position - transform.position).normalized;
         rb.velocity = direction * moveSpeed;
@@ -143,4 +147,25 @@ public class EnemyMovement : MonoBehaviour
     {
         moveSpeed = baseSpeed;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        
+        if (collision.CompareTag("Obstacle"))
+        {
+            isObstacleOnPath = true;
+            rb.velocity = Vector2.zero; // Beende die Bewegung
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        
+        if (collision.CompareTag("Obstacle"))
+        {
+            isObstacleOnPath = false;
+        }
+    }
+
+
 }

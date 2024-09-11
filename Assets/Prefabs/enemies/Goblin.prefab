@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8101148223665685694}
   - component: {fileID: 8658459633172486723}
   - component: {fileID: 7620113790852331564}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Lifebar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1494396135
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &8658459633172486723
@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 7270161232694116670}
   - component: {fileID: 8358465235404122368}
   - component: {fileID: 8464593413971356732}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -419,7 +419,7 @@ GameObject:
   - component: {fileID: 5752545727004082384}
   - component: {fileID: 5872403978410822673}
   - component: {fileID: 8095696213052390795}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}

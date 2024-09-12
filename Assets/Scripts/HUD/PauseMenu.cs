@@ -10,14 +10,20 @@ using TMPro;
 public class PauseMenu : MonoBehaviour
 {
     private bool mouseOver = false;
-
+/// <summary>
+/// Button that starts the game again
+/// </summary>
+/// <param name="PuaseSceneId"></param>
     public void Resume(int PuaseSceneId)
     {
         Time.timeScale = 1f;
         SceneManager.UnloadSceneAsync(PuaseSceneId);
     }
 
-    
+    /// <summary>
+    /// Button that quits the game
+    /// </summary>
+    /// <param name="SceneId"></param>
     public void Quit(int SceneId)
     {
         Time.timeScale = 0f;

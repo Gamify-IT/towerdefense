@@ -47,7 +47,7 @@ public class EnemyMovement : MonoBehaviour
        
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (target == null) return;
 

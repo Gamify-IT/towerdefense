@@ -9,8 +9,8 @@ public class Plots : MonoBehaviour
     [SerializeField] private SpriteRenderer tileSprite;
     [SerializeField] private Color hoverColor;
 
-    private GameObject towerObject;
-    private BaseTower tower;
+    protected GameObject towerObject;
+    protected BaseTower tower;
     private Color startColor;
 
     private void Start()
@@ -71,7 +71,7 @@ public class Plots : MonoBehaviour
     /// <summary>
     /// Handles the logic for building a tower.
     /// </summary>
-    private void BuildTower()
+    protected virtual void BuildTower()
     {
         Tower towerToBuild = BuildManager.Instance.GetSelectedTower();
 

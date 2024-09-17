@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47734089e3c77ea40ab34d8bcc1867e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 4
+  hitPoints: 10
   currencyWorth: 100
 --- !u!114 &2440630901217558677
 MonoBehaviour:
@@ -140,6 +140,7 @@ MonoBehaviour:
   playerHP: {fileID: 0}
   animator: {fileID: 4252137736716618943}
   moveSpeed: 2
+  isVisible: 1
   visibilityDuration: 5
   enemyRenderer: {fileID: 4787054500857225440}
   enemyCollider: {fileID: 8270895408273478256}

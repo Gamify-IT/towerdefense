@@ -51,13 +51,22 @@ public class BaseTower : MonoBehaviour
     /// <summary>
     ///  This method targets the next enemy on the path for this tower
     /// </summary>
-    protected void FindTarget()
+    protected virtual void FindTarget()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, targetingRange, enemyMask);
 
         if (hits.Length > 0)
         {
-            target = hits[0].transform;
+
+            foreach (Collider2D hit in hits)
+            {
+                EnemyMovement enemy = hit.GetComponent<EnemyMovement>();
+                if (enemy != null && enemy.isVisible)
+                {
+                    target = hit.transform;
+                    return; 
+                }
+            }
         }
     }
 

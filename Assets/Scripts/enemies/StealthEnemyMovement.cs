@@ -10,7 +10,7 @@ public class StealthEnemyMovement : EnemyMovement
     [SerializeField] private Collider2D enemyCollider;
 
     [Header("Attributes")]
-    private bool isVisible = false;
+   
     private float visibilityTimer = 0f;
 
     float transparency = 0.3f;
@@ -57,6 +57,6 @@ public class StealthEnemyMovement : EnemyMovement
         color.a = transparency;            
         enemyRenderer.color = color;
 
-        enemyCollider.enabled = false;
+        
     }
 }

@@ -25,6 +25,7 @@ public class EnemyMovement : MonoBehaviour
     private bool isObstacleOnPath = false;
     private BaseTower towerHP;
     private int enemyDamage = 10;
+    public bool isVisible = true;
 
     private void Start()
     {

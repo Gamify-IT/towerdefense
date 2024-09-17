@@ -1480,6 +1480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currencyUI: {fileID: 382460519}
   anim: {fileID: 1807065599}
+  clickSound: {fileID: 8300000, guid: 21c9d943affbb3f41847d82a05821962, type: 3}
 --- !u!114 &1807065597
 MonoBehaviour:
   m_ObjectHideFlags: 0

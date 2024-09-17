@@ -47,7 +47,7 @@ public class SniperTower : BaseTower
     /// <summary>
     ///  This method targets the next enemy on the path for this tower
     /// </summary>
-    protected virtual void FindTarget()
+    protected override void FindTarget()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, targetingRange, enemyMask);
 
@@ -76,9 +76,34 @@ public class SniperTower : BaseTower
         GameObject projectileObj = Instantiate(currentArrowPrefab, firingPoint.position, Quaternion.identity);
         Projectile projectileScript = projectileObj.GetComponent<Projectile>();
         projectileScript.SetTarget(target);
+
+        RevealEnemies();
        
     }
 
+    /// <summary>
+    /// This method reveals invisible enemies
+    /// </summary>
+    private void RevealEnemies()
+    {
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange, (Vector2)transform.position, 0f, enemyMask);
+
+        if (hits.Length > 0)
+        {
+           
+            for (int i = 0; i < hits.Length; i++)
+            {
+
+                RaycastHit2D hit = hits[i];
+
+                StealthEnemyMovement em = hit.transform.GetComponent<StealthEnemyMovement>();
+                em.Reveal();
+
+                
+            }
+
+        }
+    }
 
     /// <summary>
     /// rotates the tower to the targeted enemy

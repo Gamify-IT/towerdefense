@@ -108,6 +108,7 @@ public class BaseTower : MonoBehaviour
 
     public void OpenQuestionUI()
     {
+        UIManager.Instance.SetHoveringState(true);
         SceneManager.LoadScene(questionScene, LoadSceneMode.Additive);
     }
 

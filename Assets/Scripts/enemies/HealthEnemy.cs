@@ -63,6 +63,9 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Plays sound and after that destroy enemy that was killed
+    /// </summary>
     private IEnumerator DestroyEnemy()
     {
         PlayEnemyKillSound();

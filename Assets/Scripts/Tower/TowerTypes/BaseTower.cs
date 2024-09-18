@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 ///  This script is used as the base for all the different tower types
@@ -32,6 +33,8 @@ public class BaseTower : MonoBehaviour
     protected float timeUntilFire;
 
     protected int level = 1;
+
+    private string questionScene = "Question";
 
     protected const float RotationOffset = 90f;
     protected const float RangeExponent = 0.4f;
@@ -105,12 +108,12 @@ public class BaseTower : MonoBehaviour
 
     public void OpenQuestionUI()
     {
-        questionUI.SetActive(true);
+        SceneManager.LoadScene(questionScene, LoadSceneMode.Additive);
     }
 
     public void CloseQuestionUI()
     {
-        questionUI.SetActive(false);
+        SceneManager.UnloadSceneAsync(questionScene);
         UIManager.Instance.SetHoveringState(false);
     }
 

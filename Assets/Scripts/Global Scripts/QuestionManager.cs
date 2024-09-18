@@ -11,8 +11,6 @@ public class QuestionManager : MonoBehaviour
     private int questionCounter = 0;
     [SerializeField] private TMP_Text questionText;
     [SerializeField] private GameObject answerDropdown;
-    private string correctAnswerText;
-    private string wrongAnswerText;
 
     #region Singelton
     /// <summary>
@@ -37,13 +35,17 @@ public class QuestionManager : MonoBehaviour
         questions.ForEach(question => Debug.Log(question.GetText()));
     }
 
+
+    /// <summary>
+    /// Loads the current question to the text and dropdown menu of the question scene
+    /// </summary>
     private void LoadQuestion()
     {
         QuestionData currentQuestion = questions[questionCounter];
         questionText.text = currentQuestion.GetText();
-
-
-
+        answerDropdown.GetComponent<Dropdown>().options.Clear();
+        answerDropdown.GetComponent<Dropdown>().options.Add(new Dropdown.OptionData(currentQuestion.GetCorrectAnswer()));
+        foreach (var question in currentQuestion.GetWrongAnswers()) { answerDropdown.GetComponent<Dropdown>().options.Add(new Dropdown.OptionData(question)); }
         questionCounter++;
     }
 }

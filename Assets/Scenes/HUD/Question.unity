@@ -1211,7 +1211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a430481f4950c894d8d4a61a7dee8f93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questionText: {fileID: 1006799376}
+  questionText: {fileID: 1006799378}
   answerDropdown: {fileID: 0}
 --- !u!1 &1191804191
 GameObject:
@@ -1251,7 +1251,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.428611, y: -21.20869}
+  m_AnchoredPosition: {x: 0, y: -380}
   m_SizeDelta: {x: 248.4, y: 21.5556}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1191804193

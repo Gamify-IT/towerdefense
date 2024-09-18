@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class QuestionManager : MonoBehaviour
 {
     public static QuestionManager Instance { get; private set; }
     private List<QuestionData> questions;
-    [SerializeField] private GameObject questionText;
+    private int questionCounter = 0;
+    [SerializeField] private TMP_Text questionText;
     [SerializeField] private GameObject answerDropdown;
     private string correctAnswerText;
     private string wrongAnswerText;
@@ -36,6 +39,11 @@ public class QuestionManager : MonoBehaviour
 
     private void LoadQuestion()
     {
+        QuestionData currentQuestion = questions[questionCounter];
+        questionText.text = currentQuestion.GetText();
 
+
+
+        questionCounter++;
     }
 }

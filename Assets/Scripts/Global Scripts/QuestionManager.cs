@@ -6,6 +6,10 @@ public class QuestionManager : MonoBehaviour
 {
     public static QuestionManager Instance { get; private set; }
     private List<QuestionData> questions;
+    [SerializeField] private GameObject questionText;
+    [SerializeField] private GameObject answerDropdown;
+    private string correctAnswerText;
+    private string wrongAnswerText;
 
     #region Singelton
     /// <summary>
@@ -28,5 +32,10 @@ public class QuestionManager : MonoBehaviour
     {
         this.questions = questions;
         questions.ForEach(question => Debug.Log(question.GetText()));
+    }
+
+    private void LoadQuestion()
+    {
+
     }
 }

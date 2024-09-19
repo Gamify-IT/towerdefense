@@ -41,6 +41,8 @@ public class BaseTower : MonoBehaviour
     protected const float ProjectilePerSecondExponent = 0.6f;
     protected const float CostExponent = 0.8f;
 
+    protected QuestionManager questionManager = new QuestionManager();
+
     protected virtual void Start()
     {
         baseProjectilePerSecond = projectilePerSecond;
@@ -49,6 +51,7 @@ public class BaseTower : MonoBehaviour
         upgradeButton.onClick.AddListener(Upgrade);
         rightButton.onClick.AddListener(() => Answer(true));
         wrongButton.onClick.AddListener(() => Answer(false));
+        questionManager.submitButton.onClick.AddListener(() => Answer(questionManager.CheckAnswer()));
     }
 
     /// <summary>
@@ -86,16 +89,25 @@ public class BaseTower : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks the pressed button and evaluates the answer
+    /// Checks the selected answer and evaluates it
     /// </summary>
-    /// <param name="isYesButton">pressed button</param>
+    /// <param name="answer">answer</param>
     /// <returns>true if the selected answer was right</returns>
-    public bool Answer(bool isYesButton)
+    public bool Answer(bool answer)
     {
-        if (isYesButton)
+        if (answer)
         {
+            LevelManager.Instance.SpendCurrency(CalculateCost());
+
+            level++;
+            projectilePerSecond = CalculateProjectilesPerSecond();
+            targetingRange = CalculateRange();
+
+            CloseUpgradeUI();
+            Debug.Log("New Pps: " + projectilePerSecond);
+            Debug.Log("New TR: " + targetingRange);
+            Debug.Log("New Cost: " + CalculateCost());
             CloseQuestionUI();
-            OpenUpgradeUI();
             return true;
         }
         else
@@ -104,6 +116,8 @@ public class BaseTower : MonoBehaviour
             CloseQuestionUI();
             return false;
         }
+
+        
     }
 
     public void OpenQuestionUI()
@@ -125,16 +139,10 @@ public class BaseTower : MonoBehaviour
     {
         if (CalculateCost() > LevelManager.Instance.GetCurrency()) return;
 
-        LevelManager.Instance.SpendCurrency(CalculateCost());
+        OpenQuestionUI();
 
-        level++;
-        projectilePerSecond = CalculateProjectilesPerSecond();
-        targetingRange = CalculateRange();
-
-        CloseUpgradeUI();
-        Debug.Log("New Pps: " + projectilePerSecond);
-        Debug.Log("New TR: " + targetingRange);
-        Debug.Log("New Cost: " + CalculateCost());
+        
+        questionManager.LoadQuestion();
     }
 
     /// <summary>

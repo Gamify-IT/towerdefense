@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 ///  This script is used as the base for all the different tower types
@@ -21,7 +22,7 @@ public class BaseTower : MonoBehaviour
 
     [Header("Attribute")]
     [SerializeField] protected float targetingRange = 5f;
-    [SerializeField] private int towerHP = 30;
+   
     [SerializeField] protected float projectilePerSecond = 1f;
     [SerializeField] protected int baseUpgradeCost = 100;
 
@@ -32,6 +33,8 @@ public class BaseTower : MonoBehaviour
     protected float timeUntilFire;
 
     protected int level = 1;
+
+    private string questionScene = "Question";
 
     protected const float RotationOffset = 90f;
     protected const float RangeExponent = 0.4f;
@@ -51,22 +54,13 @@ public class BaseTower : MonoBehaviour
     /// <summary>
     ///  This method targets the next enemy on the path for this tower
     /// </summary>
-    protected virtual void FindTarget()
+    protected void FindTarget()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, targetingRange, enemyMask);
 
         if (hits.Length > 0)
         {
-
-            foreach (Collider2D hit in hits)
-            {
-                EnemyMovement enemy = hit.GetComponent<EnemyMovement>();
-                if (enemy != null && enemy.isVisible)
-                {
-                    target = hit.transform;
-                    return; 
-                }
-            }
+            target = hits[0].transform;
         }
     }
 
@@ -114,12 +108,13 @@ public class BaseTower : MonoBehaviour
 
     public void OpenQuestionUI()
     {
-        questionUI.SetActive(true);
+        UIManager.Instance.SetHoveringState(false);
+        SceneManager.LoadScene(questionScene, LoadSceneMode.Additive);
     }
 
     public void CloseQuestionUI()
     {
-        questionUI.SetActive(false);
+        SceneManager.UnloadSceneAsync(questionScene);
         UIManager.Instance.SetHoveringState(false);
     }
 
@@ -169,34 +164,5 @@ public class BaseTower : MonoBehaviour
         return Mathf.RoundToInt(baseUpgradeCost * Mathf.Pow(level, CostExponent));
     }
 
-
-    /// <summary>
-    /// Reduces the tower's health.
-    /// </summary>
-    /// <param name="damageAmount">Amount of damage to reduce.</param>
-    public void TakeDamage(int damageAmount)
-    {
-        towerHP -= damageAmount;
-        Debug.Log("Tower Health: " + towerHP);
-        if (towerHP <= 0)
-        {
-            Debug.Log("Tower Destroyed");
-            Destroy(gameObject);
-        }
-
-    }
-
-    /// <summary>
-    /// returns the HP of the tower
-    /// </summary>
-    /// <returns></returns>
-    public int GetTowerHP()
-    {
-        return towerHP;
-    }
-    private void OnDrawGizmosSelected()
-    {
-        Handles.color = Color.cyan;
-        Handles.DrawWireDisc(transform.position, transform.forward, targetingRange);
-    }
+    
 }

@@ -11,14 +11,28 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class PauseButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip clickSound;
+
     [Header("References")]
     public Button speedButton;
     public Sprite normalSpeedSprite;
     public Sprite fastSpeedSprite;
 
-
     private bool isFast = false;
     private bool mouseOver = false;
+
+    /// <summary>
+    /// Initializes audio source at the begin
+    /// </summary>
+    void Start()
+    {
+        if(audioSource == null)
+        {
+            audioSource=gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.clip=clickSound;
+    }
 
     /// <summary>
     /// Pauses the game and loads the pause menu
@@ -26,8 +40,20 @@ public class PauseButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     /// <param name="sceneID"> the ID of the Pause menu scene</param>
     public void Pause(int sceneID)
     {
+        PlayClickSound();
         Time.timeScale = 0f;
         SceneManager.LoadScene(sceneID, LoadSceneMode.Additive);
+    }
+
+    /// <summary>
+    /// This function plays the click sound
+    /// </summary>
+    public void PlayClickSound()
+    {
+        if (clickSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clickSound);
+        }
     }
 
     /// <summary>
@@ -35,6 +61,7 @@ public class PauseButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     /// </summary>
     public void ToggleSpeed()
     {
+        PlayClickSound();
         if (isFast)
         {
             Time.timeScale = 1f; 

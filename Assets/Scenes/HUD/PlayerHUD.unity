@@ -241,6 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 311122b3d152c0549808a8bb5411caca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clickSound: {fileID: 8300000, guid: 21c9d943affbb3f41847d82a05821962, type: 3}
   speedButton: {fileID: 771751397}
   normalSpeedSprite: {fileID: -980801967, guid: e5a426ca9b655aa45b8a695f46f0bb23, type: 3}
   fastSpeedSprite: {fileID: -2113971467, guid: e5a426ca9b655aa45b8a695f46f0bb23, type: 3}
@@ -257,7 +258,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthbar: {fileID: 1761634279}
-  maxHealth: 100
 --- !u!1 &771751395
 GameObject:
   m_ObjectHideFlags: 0

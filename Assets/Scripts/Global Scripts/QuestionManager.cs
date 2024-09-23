@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
@@ -19,7 +20,7 @@ public class QuestionManager : MonoBehaviour
 
     #region Singelton
     /// <summary>
-    ///     Realizes the the singelton conecpt, i.e. only one instance can exist at the same time.
+    ///     Realizes the singelton conecpt, i.e. only one instance can exist at the same time.
     /// </summary>
     private void Awake()
     {
@@ -35,6 +36,12 @@ public class QuestionManager : MonoBehaviour
        
     }
     #endregion
+    public void Start()
+    {
+        //submitButton.onClick.AddListener(() => Answer(CheckAnswer()));
+        exitButton.onClick.AddListener(() => Quit());
+    }
+    
 
     public void SetQuestions(List<QuestionData> questions)
     {
@@ -48,27 +55,39 @@ public class QuestionManager : MonoBehaviour
     /// </summary>
     public void LoadQuestion()
     {
+        Debug.Log("Loading Question...");
+#if UNITY_EDITOR
+        questionText.text = "1+1";
+        answerDropdown.GetComponent<TMP_Dropdown>().options.Clear();
+        answerDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData("2"));
+#else
         currentQuestion = questions[questionCounter];
         questionText.text = currentQuestion.GetText();
-        answerDropdown.GetComponent<Dropdown>().options.Clear();
-        answerDropdown.GetComponent<Dropdown>().options.Add(new Dropdown.OptionData(currentQuestion.GetCorrectAnswer()));
-        foreach (var question in currentQuestion.GetWrongAnswers()) { answerDropdown.GetComponent<Dropdown>().options.Add(new Dropdown.OptionData(question)); }
+        answerDropdown.GetComponent<TMP_Dropdown>().options.Clear();
+        answerDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData(currentQuestion.GetCorrectAnswer()));
+        foreach (var question in currentQuestion.GetWrongAnswers()) { answerDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData(question)); }
         questionCounter++;
+#endif
     }
     /// <summary>
     /// Checks if the given answer is correct
     /// </summary>
     public bool CheckAnswer()
     {
+#if !UNITY_EDITOR
         if (answerDropdown.GetComponentInChildren<Label>().text == currentQuestion.GetCorrectAnswer())
         {
             return true;
         }
         return false;
+#else
+        return true;
+#endif
     }
 
     private void Quit()
     {
-        
+        SceneManager.UnloadSceneAsync("Question");
+        UIManager.Instance.SetHoveringState(false);
     }
 }

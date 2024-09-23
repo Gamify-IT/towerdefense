@@ -1214,9 +1214,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questionText: {fileID: 1006799378}
-  answerDropdown: {fileID: 0}
+  answerDropdown: {fileID: 1191804191}
   exitButton: {fileID: 2083727698}
-  submitButton: {fileID: 0}
+  submitButton: {fileID: 2036348567}
 --- !u!1 &1124527592
 GameObject:
   m_ObjectHideFlags: 0

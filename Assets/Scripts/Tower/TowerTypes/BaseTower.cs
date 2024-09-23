@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Cysharp.Threading.Tasks;
 
 /// <summary>
 ///  This script is used as the base for all the different tower types
@@ -41,7 +42,6 @@ public class BaseTower : MonoBehaviour
     protected const float ProjectilePerSecondExponent = 0.6f;
     protected const float CostExponent = 0.8f;
 
-    protected QuestionManager questionManager = new QuestionManager();
 
     protected virtual void Start()
     {
@@ -49,9 +49,8 @@ public class BaseTower : MonoBehaviour
         targetingRangeBase = targetingRange;
 
         upgradeButton.onClick.AddListener(Upgrade);
-        rightButton.onClick.AddListener(() => Answer(true));
-        wrongButton.onClick.AddListener(() => Answer(false));
-        questionManager.submitButton.onClick.AddListener(() => Answer(questionManager.CheckAnswer()));
+        //rightButton.onClick.AddListener(() => Answer(true));
+        //wrongButton.onClick.AddListener(() => Answer(false));
     }
 
     /// <summary>
@@ -120,29 +119,29 @@ public class BaseTower : MonoBehaviour
         
     }
 
-    public void OpenQuestionUI()
+    public async UniTask OpenQuestionUI()
     {
         UIManager.Instance.SetHoveringState(true);
-        SceneManager.LoadScene(questionScene, LoadSceneMode.Additive);
+        await SceneManager.LoadSceneAsync(questionScene, LoadSceneMode.Additive);
     }
 
     public void CloseQuestionUI()
     {
         SceneManager.UnloadSceneAsync(questionScene);
         UIManager.Instance.SetHoveringState(false);
+        
     }
 
     /// <summary>
     ///    Upgrades a tower to an improved version.
     /// </summary>
-    public void Upgrade()
+    public async void Upgrade()
     {
         if (CalculateCost() > LevelManager.Instance.GetCurrency()) return;
 
-        OpenQuestionUI();
-
+        await OpenQuestionUI();
         
-        questionManager.LoadQuestion();
+        QuestionManager.Instance.LoadQuestion();
     }
 
     /// <summary>

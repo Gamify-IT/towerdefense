@@ -25,6 +25,23 @@ public class SimpleTower : BaseTower
 
     private GameObject currentArrowPrefab;
 
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip shotSound;
+
+    /// <summary>
+    /// This function plays the shot sound
+    /// </summary>
+    private void PlayShotSound()
+    {
+        if(audioSource == null)
+        {
+            audioSource=gameObject.AddComponent<AudioSource>();
+        }
+        shotSound = Resources.Load<AudioClip>("Music/shot_of_tower");
+        audioSource.clip=shotSound;
+    
+        audioSource.PlayOneShot(shotSound);
+    }
 
     protected virtual void Update()
     {
@@ -61,6 +78,7 @@ public class SimpleTower : BaseTower
         GameObject projectileObj = Instantiate(currentArrowPrefab, firingPoint.position, Quaternion.identity);
         Projectile projectileScript = projectileObj.GetComponent<Projectile>();
         projectileScript.SetTarget(target);
+        PlayShotSound();
     }
 
 

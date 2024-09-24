@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 ///     Manages the health of enemies including taking damage and deleting killed ennemies
@@ -10,6 +13,9 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private int hitPoints = 2;
     [SerializeField] private int currencyWorth;
     [SerializeField] private Image lifebarFill;
+
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip enemyKillSound;
 
     private Camera cam;
     private int maxHitPoints;
@@ -28,6 +34,13 @@ public class EnemyHealth : MonoBehaviour
         {
             lifeBar.worldCamera = Camera.main;
         }
+
+        if(audioSource == null)
+        {
+            audioSource=gameObject.AddComponent<AudioSource>();
+        }
+        enemyKillSound = Resources.Load<AudioClip>("Music/kill_enemy");
+        audioSource.clip=enemyKillSound;
     }
 
     void Update()
@@ -46,11 +59,21 @@ public class EnemyHealth : MonoBehaviour
         // check if enemy is dead, i.e., should be destroyed
         if (hitPoints <= 0 && !isDestroyed) 
         {
-            EnemySpawner.GetOnEnemyDestroy().Invoke();
-            LevelManager.Instance.GainCurrency(currencyWorth);
-            isDestroyed = true;
-            Destroy(gameObject);
+            StartCoroutine(DestroyEnemy());
         }
+    }
+
+    /// <summary>
+    /// Plays sound and after that destroy enemy that was killed
+    /// </summary>
+    private IEnumerator DestroyEnemy()
+    {
+        PlayEnemyKillSound();
+        yield return new WaitForSeconds(0.45f);
+        EnemySpawner.GetOnEnemyDestroy().Invoke();
+        LevelManager.Instance.GainCurrency(currencyWorth);
+        isDestroyed = true;
+        Destroy(gameObject);
     }
 
     /// <summary>
@@ -60,6 +83,17 @@ public class EnemyHealth : MonoBehaviour
     {
         lifebarFill.fillAmount = (float)hitPoints / maxHitPoints;
         transform.rotation = cam.transform.rotation;
+    }
+
+    /// <summary>
+    /// This function plays the kill enemy sound
+    /// </summary>
+    private void PlayEnemyKillSound()
+    {
+        if (enemyKillSound != null)
+        {
+            audioSource.PlayOneShot(enemyKillSound);
+        }
     }
 
 }

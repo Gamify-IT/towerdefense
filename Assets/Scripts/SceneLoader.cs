@@ -9,6 +9,12 @@ public class SceneLoader : MonoBehaviour
     public string playerHUDScene = "PlayerHUD"; 
     public string shopScene = "Shop"; 
 
+    public void Start()
+    {
+        AudioListener.volume = 0f;
+        GameManager.Instance.FetchAllQuestions();
+    }
+
    /// <summary>
    /// Loads the main game
    /// </summary>

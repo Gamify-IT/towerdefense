@@ -10,6 +10,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    private int volumeLevel;
     #region JavaScript Methods
     [DllImport("__Internal")]
     private static extern string GetConfiguration();
@@ -42,23 +43,50 @@ public class GameManager : MonoBehaviour
 
     /// <summary>
     ///     Retrieves all questions of the configuration from the backend and saves them in the QuestionManager.
+    ///     Gets volume level and calls the function that applies the volume level to all audio in the game 
     /// </summary>
-    private async void FetchAllQuestions()
+    public async void FetchAllQuestions()
     {
     #if !Unity_Editor
         string originURL = GetOriginUrl();
         string baseBackendPath = GameSettings.GetTowerdefenseBackendPath();
         string configurationAsUUID = GetConfiguration();
 
-        string path = originURL + baseBackendPath + "/configurations/" + configurationAsUUID;
+        string path = originURL + baseBackendPath + "/configurations/" + configurationAsUUID + "/volume";
 
         Optional<ConfigurationDTO> configurationDTO = await RestRequest.GetRequest<ConfigurationDTO>(path);
 
         if (configurationDTO.IsPresent())
         {
             ConfigurationData configuration = ConfigurationData.ConvertDtoToData(configurationDTO.Value());
+            this.volumeLevel = configurationDTO.Value().volumeLevel;
+            UpdateVolumeLevel(this.volumeLevel);
             QuestionManager.Instance.SetQuestions(configuration.GetQuestions().ToList());
         }
     #endif
+    }
+
+    /// <summary>
+    /// Updates the volume level and applies the changes to all audio in the game
+    /// </summary>
+    private void UpdateVolumeLevel(int volumeLevel)
+    {
+        float volume = 0f;
+        switch (volumeLevel)
+        {
+            case 0:
+                volume = 0f;
+                break;
+            case 1:
+                volume = 0.5f;
+                break;
+            case 2:
+                volume = 1f;
+                break;
+            case 3:
+                volume = 2f;
+                break;
+        }
+        AudioListener.volume = volume;
     }
 }

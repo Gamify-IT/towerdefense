@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -38,9 +39,9 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    void Start()
+    public async void Start()
     {
-        FetchAllQuestions();
+        await FetchAllQuestions();
     }
 
     /// <summary>
@@ -49,7 +50,10 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public async UniTask FetchAllQuestions()
     {
-    #if !Unity_Editor
+#if UNITY_EDITOR
+        Debug.Log("Skippig due to Unity Editor");
+        await SceneManager.LoadSceneAsync("Question", LoadSceneMode.Additive);
+#else
         string originURL = GetOriginUrl();
         string baseBackendPath = GameSettings.GetTowerdefenseBackendPath();
         string configurationAsUUID = GetConfiguration();
@@ -60,14 +64,14 @@ public class GameManager : MonoBehaviour
 
         if (configurationDTO.IsPresent())
         {
-            UIManager.Instance.SetHoveringState(true);
+            //UIManager.Instance.SetHoveringState(true);
             await SceneManager.LoadSceneAsync("Question", LoadSceneMode.Additive);
             ConfigurationData configuration = ConfigurationData.ConvertDtoToData(configurationDTO.Value());
             this.volumeLevel = configurationDTO.Value().volumeLevel;
             UpdateVolumeLevel(this.volumeLevel);
             QuestionManager.Instance.SetQuestions(configuration.GetQuestions().ToList());
         }
-    #endif
+#endif
     }
 
     /// <summary>

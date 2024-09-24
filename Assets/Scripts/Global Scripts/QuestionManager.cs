@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
+/// <summary>
+/// Handles how when questions appear and evaluates the player's answer
+/// </summary>
 public class QuestionManager : MonoBehaviour
 {
     public static QuestionManager Instance { get; private set; }
@@ -42,7 +45,10 @@ public class QuestionManager : MonoBehaviour
         exitButton.onClick.AddListener(() => Quit());
     }
     
-
+    /// <summary>
+    /// Saves the retrieved questions from the backend
+    /// </summary>
+    /// <param name="questions"></param>
     public void SetQuestions(List<QuestionData> questions)
     {
         this.questions = questions;
@@ -57,6 +63,7 @@ public class QuestionManager : MonoBehaviour
     {
         Debug.Log("Loading Question...");
 #if UNITY_EDITOR
+        // dummy questions for unity editor
         questionText.text = "1+1";
         answerDropdown.GetComponent<TMP_Dropdown>().options.Clear();
         answerDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData("2"));
@@ -70,17 +77,13 @@ public class QuestionManager : MonoBehaviour
 #endif
     }
 
-
-    public void SetActive(bool active)
+    /// <summary>
+    /// Activates the canvas which shows the question menu
+    /// </summary>
+    /// <param name="active">visibility of the canvas</param>
+    public void ActivateCanvas(bool active)
     {
-        if (!active)
-        {
-            canvas.SetActive(true);
-        }
-        else 
-        {
-            canvas.SetActive(false);
-        }
+        canvas.SetActive(active);
     }
 
 
@@ -100,6 +103,9 @@ public class QuestionManager : MonoBehaviour
 #endif
     }
 
+    /// <summary>
+    /// Quits the minigame, i.e. the player returns to the overworld
+    /// </summary>
     private void Quit()
     {
         SceneManager.UnloadSceneAsync("Question");

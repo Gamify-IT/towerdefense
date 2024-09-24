@@ -76,7 +76,6 @@ public class BaseTower : MonoBehaviour
         return Vector2.Distance(target.position, transform.position) <= targetingRange;
     }
  
-    //The Upgrade function will be handled by a scene in the future, the code is a placeholder for the prototype
     public void OpenUpgradeUI()
     {
         upgradeUI.SetActive(true);
@@ -115,22 +114,19 @@ public class BaseTower : MonoBehaviour
             Debug.Log("wrong answer");
             CloseQuestionUI();
             return false;
-        }
-
-        
+        }       
     }
 
     public void OpenQuestionUI()
     {
         UIManager.Instance.SetHoveringState(true);
-        QuestionManager.Instance.SetActive(true);
+        QuestionManager.Instance.ActivateCanvas(true);
     }
 
     public void CloseQuestionUI()
     {
-        QuestionManager.Instance.SetActive(false);
         UIManager.Instance.SetHoveringState(false);
-        
+        QuestionManager.Instance.ActivateCanvas(false);      
     }
 
     /// <summary>
@@ -140,8 +136,8 @@ public class BaseTower : MonoBehaviour
     {
         if (CalculateCost() > LevelManager.Instance.GetCurrency()) return;
 
-        OpenQuestionUI();
-        
+        Debug.Log("Opening Question Menu...");
+        OpenQuestionUI();    
         QuestionManager.Instance.LoadQuestion();
     }
 

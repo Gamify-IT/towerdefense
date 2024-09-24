@@ -19,7 +19,7 @@ public class SceneLoader : MonoBehaviour
     /// <summary>
     /// Initializes audio source at the begin
     /// </summary>
-    void Start()
+    public void Start()
     {
         if(audioSource == null)
         {
@@ -27,7 +27,6 @@ public class SceneLoader : MonoBehaviour
         }
         audioSource.clip=clickSound;
         AudioListener.volume = 0f;
-        GameManager.Instance.FetchAllQuestions();
     }
 
     /// <summary>
@@ -47,9 +46,9 @@ public class SceneLoader : MonoBehaviour
     public void StartGame()
     {
         PlayClickSound();
-        SceneManager.LoadScene(mainGameScene);
-        SceneManager.LoadScene(playerHUDScene, LoadSceneMode.Additive);
-        SceneManager.LoadScene(shopScene, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(mainGameScene);
+        SceneManager.LoadSceneAsync(playerHUDScene, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(shopScene, LoadSceneMode.Additive);
     }
 
     /// <summary>

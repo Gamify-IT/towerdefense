@@ -1,8 +1,10 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 ///     This script handles and processes all game related data during a tower defense game session.
@@ -45,7 +47,7 @@ public class GameManager : MonoBehaviour
     ///     Retrieves all questions of the configuration from the backend and saves them in the QuestionManager.
     ///     Gets volume level and calls the function that applies the volume level to all audio in the game 
     /// </summary>
-    public async void FetchAllQuestions()
+    public async UniTask FetchAllQuestions()
     {
     #if !Unity_Editor
         string originURL = GetOriginUrl();
@@ -58,6 +60,8 @@ public class GameManager : MonoBehaviour
 
         if (configurationDTO.IsPresent())
         {
+            UIManager.Instance.SetHoveringState(true);
+            await SceneManager.LoadSceneAsync("Question", LoadSceneMode.Additive);
             ConfigurationData configuration = ConfigurationData.ConvertDtoToData(configurationDTO.Value());
             this.volumeLevel = configurationDTO.Value().volumeLevel;
             UpdateVolumeLevel(this.volumeLevel);

@@ -49,6 +49,7 @@ public class BaseTower : MonoBehaviour
         targetingRangeBase = targetingRange;
 
         upgradeButton.onClick.AddListener(Upgrade);
+        QuestionManager.Instance.submitButton.onClick.AddListener(() => Answer(QuestionManager.Instance.CheckAnswer()));
         //rightButton.onClick.AddListener(() => Answer(true));
         //wrongButton.onClick.AddListener(() => Answer(false));
     }
@@ -119,15 +120,15 @@ public class BaseTower : MonoBehaviour
         
     }
 
-    public async UniTask OpenQuestionUI()
+    public void OpenQuestionUI()
     {
         UIManager.Instance.SetHoveringState(true);
-        await SceneManager.LoadSceneAsync(questionScene, LoadSceneMode.Additive);
+        QuestionManager.Instance.SetActive(true);
     }
 
     public void CloseQuestionUI()
     {
-        SceneManager.UnloadSceneAsync(questionScene);
+        QuestionManager.Instance.SetActive(false);
         UIManager.Instance.SetHoveringState(false);
         
     }
@@ -135,11 +136,11 @@ public class BaseTower : MonoBehaviour
     /// <summary>
     ///    Upgrades a tower to an improved version.
     /// </summary>
-    public async void Upgrade()
+    public void Upgrade()
     {
         if (CalculateCost() > LevelManager.Instance.GetCurrency()) return;
 
-        await OpenQuestionUI();
+        OpenQuestionUI();
         
         QuestionManager.Instance.LoadQuestion();
     }

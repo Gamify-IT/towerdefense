@@ -17,6 +17,7 @@ public class QuestionManager : MonoBehaviour
     [SerializeField] private GameObject answerDropdown;
     [SerializeField] private UnityEngine.UI.Button exitButton;
     [SerializeField] public UnityEngine.UI.Button submitButton;
+    [SerializeField] private GameObject canvas;
 
     #region Singelton
     /// <summary>
@@ -38,7 +39,6 @@ public class QuestionManager : MonoBehaviour
     #endregion
     public void Start()
     {
-        //submitButton.onClick.AddListener(() => Answer(CheckAnswer()));
         exitButton.onClick.AddListener(() => Quit());
     }
     
@@ -46,7 +46,7 @@ public class QuestionManager : MonoBehaviour
     public void SetQuestions(List<QuestionData> questions)
     {
         this.questions = questions;
-        questions.ForEach(question => Debug.Log(question.GetText()));
+        this.questions.ForEach(question => Debug.Log(question.GetText()));
     }
 
 
@@ -69,6 +69,21 @@ public class QuestionManager : MonoBehaviour
         questionCounter++;
 #endif
     }
+
+
+    public void SetActive(bool active)
+    {
+        if (!active)
+        {
+            canvas.SetActive(true);
+        }
+        else 
+        {
+            canvas.SetActive(false);
+        }
+    }
+
+
     /// <summary>
     /// Checks if the given answer is correct
     /// </summary>

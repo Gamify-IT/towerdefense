@@ -92,7 +92,7 @@ public class BaseTower : MonoBehaviour
     /// </summary>
     /// <param name="answer">answer</param>
     /// <returns>true if the selected answer was right</returns>
-    public bool Answer(bool answer)
+    public void Answer(bool answer)
     {
         if (answer)
         {
@@ -107,13 +107,11 @@ public class BaseTower : MonoBehaviour
             Debug.Log("New TR: " + targetingRange);
             Debug.Log("New Cost: " + CalculateCost());
             CloseQuestionUI();
-            return true;
         }
         else
         {
             Debug.Log("wrong answer");
             CloseQuestionUI();
-            return false;
         }       
     }
 

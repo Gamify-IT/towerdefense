@@ -43,6 +43,7 @@ public class QuestionManager : MonoBehaviour
     public void Start()
     {
         exitButton.onClick.AddListener(() => Quit());
+        canvas.SetActive(false);
     }
     
     /// <summary>
@@ -67,14 +68,20 @@ public class QuestionManager : MonoBehaviour
         questionText.text = "1+1";
         answerDropdown.GetComponent<TMP_Dropdown>().options.Clear();
         answerDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData("2"));
+        answerDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData("1"));
 #else
         currentQuestion = questions[questionCounter];
         questionText.text = currentQuestion.GetText();
         answerDropdown.GetComponent<TMP_Dropdown>().options.Clear();
         answerDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData(currentQuestion.GetCorrectAnswer()));
-        foreach (var question in currentQuestion.GetWrongAnswers()) { answerDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData(question)); }
+        foreach (var question in currentQuestion.GetWrongAnswers())
+        { 
+            Debug.Log("Answer:" + question);
+            answerDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData(question)); 
+        }
         questionCounter++;
 #endif
+
     }
 
     /// <summary>
@@ -92,15 +99,15 @@ public class QuestionManager : MonoBehaviour
     /// </summary>
     public bool CheckAnswer()
     {
-#if !UNITY_EDITOR
-        if (answerDropdown.GetComponentInChildren<Label>().text == currentQuestion.GetCorrectAnswer())
+        Debug.Log("Your Answer: " + answerDropdown.transform.GetChild(0).GetComponent<TMP_Text>().text);
+        Debug.Log("Correct Answer: " + currentQuestion.GetCorrectAnswer());
+
+        if (answerDropdown.transform.GetChild(0).GetComponent<TMP_Text>().text == currentQuestion.GetCorrectAnswer())
         {
             return true;
         }
+
         return false;
-#else
-        return true;
-#endif
     }
 
     /// <summary>

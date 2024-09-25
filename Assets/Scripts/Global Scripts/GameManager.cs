@@ -51,8 +51,15 @@ public class GameManager : MonoBehaviour
     public async UniTask FetchAllQuestions()
     {
 #if UNITY_EDITOR
-        Debug.Log("Skippig due to Unity Editor");
+        Debug.Log("Skippig question loading due to Unity Editor");
         await SceneManager.LoadSceneAsync("Question", LoadSceneMode.Additive);
+
+        // dummy questions for unity editor
+        QuestionData questionOne = new QuestionData("1", "What is 1+1?", "2", new List<string>() { "1", "42", "99" });
+        QuestionData questionTwo = new QuestionData("2", "What is 1*1?", "1", new List<string>() { "3", "22", "999" });
+
+        QuestionManager.Instance.SetQuestions(new List<QuestionData>() { questionOne, questionTwo } );
+
 #else
         string originURL = GetOriginUrl();
         string baseBackendPath = GameSettings.GetTowerdefenseBackendPath();

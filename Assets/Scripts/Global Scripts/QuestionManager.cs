@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -52,7 +53,7 @@ public class QuestionManager : MonoBehaviour
     /// <param name="questions"></param>
     public void SetQuestions(List<QuestionData> questions)
     {
-        this.questions = questions;
+        this.questions = questions.OrderBy(x => Random.value).ToList();
         this.questions.ForEach(question => Debug.Log(question.GetText()));
     }
 
@@ -63,25 +64,35 @@ public class QuestionManager : MonoBehaviour
     public void LoadQuestion()
     {
         Debug.Log("Loading Question...");
-#if UNITY_EDITOR
-        // dummy questions for unity editor
-        questionText.text = "1+1";
-        answerDropdown.GetComponent<TMP_Dropdown>().options.Clear();
-        answerDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData("2"));
-        answerDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData("1"));
-#else
-        currentQuestion = questions[questionCounter];
-        questionText.text = currentQuestion.GetText();
-        answerDropdown.GetComponent<TMP_Dropdown>().options.Clear();
-        answerDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData(currentQuestion.GetCorrectAnswer()));
-        foreach (var question in currentQuestion.GetWrongAnswers())
-        { 
-            Debug.Log("Answer:" + question);
-            answerDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData(question)); 
-        }
-        questionCounter++;
-#endif
 
+        if (questionCounter >= questions.Count)
+        {
+            Debug.Log("All questions answered");
+            // game finished -> display end screen
+        }
+
+        currentQuestion = questions[questionCounter];
+        FillDropdown();
+    }
+
+    /// <summary>
+    /// Filles the dropdown entries with the given question
+    /// </summary>
+    /// <param name="question">question the dropdown is filled with</param>
+    private void FillDropdown()
+    {
+        List<string> dropdownEntries = currentQuestion.GetWrongAnswers().Append(currentQuestion.GetCorrectAnswer()).ToList();
+        dropdownEntries = dropdownEntries.OrderBy(x => Random.value).ToList();
+
+        answerDropdown.GetComponent<TMP_Dropdown>().options.Clear();
+        questionText.text = currentQuestion.GetText();
+
+        foreach(var answers in dropdownEntries)
+        {
+            answerDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData(answers));
+        }
+
+        questionCounter++;
     }
 
     /// <summary>

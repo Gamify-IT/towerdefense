@@ -44,6 +44,8 @@ public class SniperTower : BaseTower
             }
         }
     }
+
+
     /// <summary>
     ///  This method targets the next enemy on the path for this tower
     /// </summary>
@@ -53,11 +55,10 @@ public class SniperTower : BaseTower
 
         if (hits.Length > 0)
         {
-
             foreach (Collider2D hit in hits)
             {
                 EnemyMovement enemy = hit.GetComponent<EnemyMovement>();
-                if (enemy != null )
+                if (enemy != null)
                 {
                     target = hit.transform;
                     return;
@@ -69,7 +70,7 @@ public class SniperTower : BaseTower
     /// <summary>
     ///  shoots a projectile targeting an enemy
     /// </summary>
-    protected virtual void Shoot()
+    protected void Shoot()
     {
         TurnTowardsTarget();
 
@@ -90,7 +91,7 @@ public class SniperTower : BaseTower
 
         if (hits.Length > 0)
         {
-           
+
             for (int i = 0; i < hits.Length; i++)
             {
 
@@ -99,7 +100,7 @@ public class SniperTower : BaseTower
                 StealthEnemyMovement em = hit.transform.GetComponent<StealthEnemyMovement>();
                 em.Reveal();
 
-                
+
             }
 
         }

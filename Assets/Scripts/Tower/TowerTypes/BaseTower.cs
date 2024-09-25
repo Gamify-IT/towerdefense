@@ -25,6 +25,7 @@ public class BaseTower : MonoBehaviour
    
     [SerializeField] protected float projectilePerSecond = 1f;
     [SerializeField] protected int baseUpgradeCost = 100;
+    [SerializeField] protected int towerHP = 10;
 
     protected float targetingRangeBase;
     protected float baseProjectilePerSecond;
@@ -54,14 +55,46 @@ public class BaseTower : MonoBehaviour
     /// <summary>
     ///  This method targets the next enemy on the path for this tower
     /// </summary>
-    protected void FindTarget()
+    protected virtual void FindTarget()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, targetingRange, enemyMask);
 
         if (hits.Length > 0)
         {
-            target = hits[0].transform;
+           foreach (Collider2D hit in hits)
+            {
+                EnemyMovement enemy = hit.GetComponent<EnemyMovement>();
+                if (enemy != null && enemy.isVisible)
+                {
+                    target = hit.transform;
+                    return; 
+                }
+            }
         }
+    }
+    /// <summary>
+    /// Reduces the tower's health.
+    /// </summary>
+    /// <param name="damageAmount">Amount of damage to reduce.</param>
+    public void TakeDamage(int damageAmount)
+    {
+        towerHP -= damageAmount;
+        Debug.Log("Tower Health: " + towerHP);
+        if (towerHP <= 0)
+        {
+            Debug.Log("Tower Destroyed");
+            Destroy(gameObject);
+        }
+
+    }
+
+    /// <summary>
+    /// returns the HP of the tower
+    /// </summary>
+    /// <returns></returns>
+    public int GetTowerHP()
+    {
+        return towerHP;
     }
 
     /// <summary>

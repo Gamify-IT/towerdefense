@@ -7,6 +7,7 @@ using System;
 public class ConfigurationData
 {
     private QuestionData[] questions;
+    private int volumeLevel;
 
     public ConfigurationData(QuestionData[] questions)
     {
@@ -38,6 +39,16 @@ public class ConfigurationData
     public void SetQuestions(QuestionData[] questions)
     {
         this.questions = questions;
+    }
+
+    public int GetVolumeLevel()
+    {
+        return volumeLevel;
+    }
+    
+    public void SetVolumeLevel(int volumeLevel)
+    {
+        this.volumeLevel = volumeLevel;
     }
 
 }

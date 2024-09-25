@@ -383,6 +383,7 @@ MonoBehaviour:
   hitPoints: 2
   currencyWorth: 50
   lifebarFill: {fileID: 2372872438287355076}
+  enemyKillSound: {fileID: 8300000, guid: 347edeebb429b1849a2a69eb7278cb11, type: 3}
 --- !u!114 &4143648838346917534
 MonoBehaviour:
   m_ObjectHideFlags: 0

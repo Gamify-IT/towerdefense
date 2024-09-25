@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    [DllImport("__Internal")]
+    private static extern void CloseMinigame();
+
     private AudioSource audioSource;
     [SerializeField] private AudioClip clickSound;
 
@@ -15,13 +19,14 @@ public class SceneLoader : MonoBehaviour
     /// <summary>
     /// Initializes audio source at the begin
     /// </summary>
-    void Start()
+    public void Start()
     {
         if(audioSource == null)
         {
             audioSource=gameObject.AddComponent<AudioSource>();
         }
         audioSource.clip=clickSound;
+        AudioListener.volume = 0f;
     }
 
     /// <summary>
@@ -41,9 +46,9 @@ public class SceneLoader : MonoBehaviour
     public void StartGame()
     {
         PlayClickSound();
-        SceneManager.LoadScene(mainGameScene);
-        SceneManager.LoadScene(playerHUDScene, LoadSceneMode.Additive);
-        SceneManager.LoadScene(shopScene, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(mainGameScene);
+        SceneManager.LoadSceneAsync(playerHUDScene, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(shopScene, LoadSceneMode.Additive);
     }
 
     /// <summary>
@@ -62,15 +67,14 @@ public class SceneLoader : MonoBehaviour
         PlayClickSound();
         yield return new WaitForSeconds(0.2f);
         Debug.Log("Quitting the game...");
-        //quitting action in unity editor for testing
+
 #if UNITY_EDITOR
 
         UnityEditor.EditorApplication.isPlaying = false;
 #else
    
-    Application.Quit();
+        CloseMinigame();
 #endif
-        // TO implement: ask if user is sure about this action
     }
 
 }

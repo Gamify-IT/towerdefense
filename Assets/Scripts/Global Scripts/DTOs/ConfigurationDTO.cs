@@ -9,6 +9,7 @@ using UnityEngine;
 public class ConfigurationDTO
 {
     public QuestionDTO[] questions;
+    public int volumeLevel;
 
     public ConfigurationDTO(QuestionDTO[] questions)
     {

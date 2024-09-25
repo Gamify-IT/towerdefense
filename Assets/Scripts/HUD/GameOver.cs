@@ -70,6 +70,6 @@ public class GameOver : MonoBehaviour
 
         // Game quits, when you are in the Unity editor with the following code line.
         // Relevant while game is in development.
-        UnityEditor.EditorApplication.isPlaying = false;
+        //UnityEditor.EditorApplication.isPlaying = false;
     }
 }

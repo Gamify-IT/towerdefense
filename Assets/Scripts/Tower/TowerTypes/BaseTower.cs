@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using Cysharp.Threading.Tasks;
 
 /// <summary>
 ///  This script is used as the base for all the different tower types
@@ -16,8 +18,6 @@ public class BaseTower : MonoBehaviour
     [SerializeField] protected GameObject upgradeUI;
     [SerializeField] protected Button upgradeButton;
     [SerializeField] protected GameObject questionUI;
-    [SerializeField] protected Button rightButton;
-    [SerializeField] protected Button wrongButton;
 
     [Header("Attribute")]
     [SerializeField] protected float targetingRange = 5f;
@@ -33,10 +33,13 @@ public class BaseTower : MonoBehaviour
 
     protected int level = 1;
 
+    private string questionScene = "Question";
+
     protected const float RotationOffset = 90f;
     protected const float RangeExponent = 0.4f;
     protected const float ProjectilePerSecondExponent = 0.6f;
     protected const float CostExponent = 0.8f;
+
 
     protected virtual void Start()
     {
@@ -44,8 +47,7 @@ public class BaseTower : MonoBehaviour
         targetingRangeBase = targetingRange;
 
         upgradeButton.onClick.AddListener(Upgrade);
-        rightButton.onClick.AddListener(() => Answer(true));
-        wrongButton.onClick.AddListener(() => Answer(false));
+        QuestionManager.Instance.submitButton.onClick.AddListener(() => Answer(QuestionManager.Instance.CheckAnswer()));
     }
 
     /// <summary>
@@ -70,7 +72,6 @@ public class BaseTower : MonoBehaviour
         return Vector2.Distance(target.position, transform.position) <= targetingRange;
     }
  
-    //The Upgrade function will be handled by a scene in the future, the code is a placeholder for the prototype
     public void OpenUpgradeUI()
     {
         upgradeUI.SetActive(true);
@@ -83,35 +84,43 @@ public class BaseTower : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks the pressed button and evaluates the answer
+    /// Checks the selected answer and evaluates it
     /// </summary>
-    /// <param name="isYesButton">pressed button</param>
+    /// <param name="answer">answer</param>
     /// <returns>true if the selected answer was right</returns>
-    public bool Answer(bool isYesButton)
+    public void Answer(bool answer)
     {
-        if (isYesButton)
+        if (answer)
         {
+            LevelManager.Instance.SpendCurrency(CalculateCost());
+
+            level++;
+            projectilePerSecond = CalculateProjectilesPerSecond();
+            targetingRange = CalculateRange();
+
+            CloseUpgradeUI();
+            Debug.Log("New Pps: " + projectilePerSecond);
+            Debug.Log("New TR: " + targetingRange);
+            Debug.Log("New Cost: " + CalculateCost());
             CloseQuestionUI();
-            OpenUpgradeUI();
-            return true;
         }
         else
         {
             Debug.Log("wrong answer");
             CloseQuestionUI();
-            return false;
-        }
+        }       
     }
 
     public void OpenQuestionUI()
     {
-        questionUI.SetActive(true);
+        UIManager.Instance.SetHoveringState(true);
+        QuestionManager.Instance.ActivateCanvas(true);
     }
 
     public void CloseQuestionUI()
     {
-        questionUI.SetActive(false);
         UIManager.Instance.SetHoveringState(false);
+        QuestionManager.Instance.ActivateCanvas(false);      
     }
 
     /// <summary>
@@ -121,16 +130,9 @@ public class BaseTower : MonoBehaviour
     {
         if (CalculateCost() > LevelManager.Instance.GetCurrency()) return;
 
-        LevelManager.Instance.SpendCurrency(CalculateCost());
-
-        level++;
-        projectilePerSecond = CalculateProjectilesPerSecond();
-        targetingRange = CalculateRange();
-
-        CloseUpgradeUI();
-        Debug.Log("New Pps: " + projectilePerSecond);
-        Debug.Log("New TR: " + targetingRange);
-        Debug.Log("New Cost: " + CalculateCost());
+        Debug.Log("Opening Question Menu...");
+        OpenQuestionUI();    
+        QuestionManager.Instance.LoadQuestion();
     }
 
     /// <summary>

@@ -61,7 +61,7 @@ public class Plots : MonoBehaviour
 
         if (towerObject != null)
         {
-            tower.OpenQuestionUI();
+            tower.OpenUpgradeUI();
             return;
         }
 

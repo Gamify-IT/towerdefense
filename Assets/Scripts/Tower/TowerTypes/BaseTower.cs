@@ -18,8 +18,6 @@ public class BaseTower : MonoBehaviour
     [SerializeField] protected GameObject upgradeUI;
     [SerializeField] protected Button upgradeButton;
     [SerializeField] protected GameObject questionUI;
-    [SerializeField] protected Button rightButton;
-    [SerializeField] protected Button wrongButton;
 
     [Header("Attribute")]
     [SerializeField] protected float targetingRange = 5f;
@@ -50,8 +48,6 @@ public class BaseTower : MonoBehaviour
 
         upgradeButton.onClick.AddListener(Upgrade);
         QuestionManager.Instance.submitButton.onClick.AddListener(() => Answer(QuestionManager.Instance.CheckAnswer()));
-        //rightButton.onClick.AddListener(() => Answer(true));
-        //wrongButton.onClick.AddListener(() => Answer(false));
     }
 
     /// <summary>

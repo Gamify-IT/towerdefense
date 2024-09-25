@@ -14,7 +14,27 @@ public class SceneLoader : MonoBehaviour
 
     public string mainGameScene = "Level1"; 
     public string playerHUDScene = "PlayerHUD"; 
-    public string shopScene = "Shop"; 
+    public string shopScene = "Shop";
+
+    #region Singelton
+    public static SceneLoader Instance { get; private set; }
+
+    /// <summary>
+    /// This function manages the singleton instance, so it initializes the <c>instance</c> variable, if not set, or
+    /// deletes the object otherwise
+    /// </summary>
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    #endregion
 
     /// <summary>
     /// Initializes audio source at the begin

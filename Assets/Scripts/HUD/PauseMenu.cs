@@ -1,30 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-//using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using TMPro;
 
 /// <summary>
-///  This class manages the pause menu inlcuding its resume and pasue logic
+///  This class manages the pause menu including its resume and pause logic
 /// </summary>
 public class PauseMenu : MonoBehaviour
 {
     private bool mouseOver = false;
 
-    public void Resume(int PuaseSceneId)
+    /// <summary>
+    /// Resumes the current game session
+    /// </summary>
+    public void Resume()
     {
         Time.timeScale = 1f;
-        SceneManager.UnloadSceneAsync(PuaseSceneId);
+        SceneManager.UnloadSceneAsync("Pause");
     }
 
-    
-    public void Quit(int SceneId)
+    /// <summary>
+    /// Exits the game and returns to the start menu
+    /// </summary>
+    public void Exit()
     {
-        Time.timeScale = 0f;
-        SceneManager.LoadScene(SceneId);
+        Time.timeScale = 1f;
+        SceneLoader.Instance.Quit();
     }
 
     /// <summary>

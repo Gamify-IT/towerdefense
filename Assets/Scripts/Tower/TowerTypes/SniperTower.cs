@@ -11,7 +11,7 @@ public class SniperTower : BaseTower
     [SerializeField] private GameObject arrowLeft;
     [SerializeField] private GameObject arrowRight;
     [SerializeField] private Transform firingPoint;
-    [SerializeField] private Animator archerAnimator;
+    [SerializeField] private Animator frogAnimator;
 
 
     [Header("Attribute")]
@@ -30,7 +30,7 @@ public class SniperTower : BaseTower
         //TurnTowardsTarget();
         if (!CheckTargetIsInRange())
         {
-            archerAnimator.Play("Archer3Idle");
+            frogAnimator.Play("idle");
             target = null;
         }
         else
@@ -124,22 +124,22 @@ public class SniperTower : BaseTower
         
         if (angle >= 45f && angle < 135f)
         {
-            archerAnimator.Play("Archer3UAttack");
+            frogAnimator.Play("attackU");
             currentArrowPrefab = arrowUp;
         }
         else if (angle >= -135f && angle < -45f)
         {
-            archerAnimator.Play("Archer3DAttack");
+            frogAnimator.Play("attackD");
             currentArrowPrefab = arrowDown;
         }
         else if (angle >= -45f && angle < 45f)
         {
-            archerAnimator.Play("Archer3RAttack");
+            frogAnimator.Play("attackR");
             currentArrowPrefab = arrowRight;
         }
         else
         {
-            archerAnimator.Play("Archer3LAttack");
+            frogAnimator.Play("attackL");
             currentArrowPrefab = arrowLeft;
         }
     }

@@ -585,7 +585,7 @@ SpriteRenderer:
   m_SortingLayerID: -458820135
   m_SortingLayer: 7
   m_SortingOrder: 0
-  m_Sprite: {fileID: 795222858, guid: 0d3dc8795f4d7cc40b339e958e5ff52c, type: 3}
+  m_Sprite: {fileID: -545136339, guid: e023b0035682a8442ad951cbe987a3fd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -742,7 +742,7 @@ Transform:
   m_GameObject: {fileID: 1875989467286146904}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0}
+  m_LocalPosition: {x: 0, y: 0.95, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1118,9 +1118,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4373544868428686204}
   - component: {fileID: 6775943621719643781}
-  - component: {fileID: 9021134816684292552}
+  - component: {fileID: 5717640838194631613}
   m_Layer: 0
-  m_Name: Archer
+  m_Name: Frog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1135,7 +1135,7 @@ Transform:
   m_GameObject: {fileID: 5425384468323540371}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.032, y: -0.033, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1182,8 +1182,8 @@ SpriteRenderer:
   m_SortingLayerID: -458820135
   m_SortingLayer: 7
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 1c300500279dc994489389bb608dbd86, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.7430639, a: 1}
+  m_Sprite: {fileID: 591354840, guid: 784e2b25a658ba641bac23470094ab66, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1193,7 +1193,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &9021134816684292552
+--- !u!95 &5717640838194631613
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -1203,7 +1203,7 @@ Animator:
   m_GameObject: {fileID: 5425384468323540371}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e82c8f2f85e64d84ea243988c0cc0eb9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9b98d0bddcb2a224bbe0476b641fa60a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1548,7 +1548,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6410798296465828916}
-  - component: {fileID: 7285282274496808076}
+  - component: {fileID: 6670937488624879147}
   m_Layer: 0
   m_Name: SniperTower
   m_TagString: Untagged
@@ -1576,7 +1576,7 @@ Transform:
   - {fileID: 6555962869654077156}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7285282274496808076
+--- !u!114 &6670937488624879147
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1585,28 +1585,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 8314970720318852114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16c1371fe24976e40a801fde202c0086, type: 3}
+  m_Script: {fileID: 11500000, guid: 870a5e842c912c545b844637af9431eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyMask:
     serializedVersion: 2
     m_Bits: 256
-  upgradeUI: {fileID: 4246139882093368977}
-  upgradeButton: {fileID: 2978367165709121793}
-  questionUI: {fileID: 5665314960729186267}
-  rightButton: {fileID: 4707915936809251296}
-  wrongButton: {fileID: 1347833980596944879}
+  upgradeUI: {fileID: 0}
+  upgradeButton: {fileID: 0}
+  questionUI: {fileID: 0}
+  rightButton: {fileID: 0}
+  wrongButton: {fileID: 0}
   targetingRange: 3
-  towerHP: 30
   projectilePerSecond: 1
   baseUpgradeCost: 100
+  towerHP: 30
   archerRotationPoint: {fileID: 30695682831359485}
-  arrowUp: {fileID: 7399705854564891151, guid: 91d2dec388e21a94ba18f22909b46987, type: 3}
-  arrowDown: {fileID: 7399705854564891151, guid: 64be1383e14a79c4ba28eac3cde8d5a8, type: 3}
-  arrowLeft: {fileID: 7399705854564891151, guid: 18759363597868044a3a0f5db692b700, type: 3}
-  arrowRight: {fileID: 7399705854564891151, guid: 0ee17225082deeb41a623acf010acf4d, type: 3}
-  firingPoint: {fileID: 2265867157735026291}
-  archerAnimator: {fileID: 9021134816684292552}
+  arrowUp: {fileID: 7579448672944103382, guid: 0b15cde08fb120741b2067d8a0020742, type: 3}
+  arrowDown: {fileID: 7579448672944103382, guid: 0b15cde08fb120741b2067d8a0020742, type: 3}
+  arrowLeft: {fileID: 7579448672944103382, guid: 0b15cde08fb120741b2067d8a0020742, type: 3}
+  arrowRight: {fileID: 7579448672944103382, guid: 0b15cde08fb120741b2067d8a0020742, type: 3}
+  firingPoint: {fileID: 1546277762053176934, guid: 0b15cde08fb120741b2067d8a0020742, type: 3}
+  frogAnimator: {fileID: 5717640838194631613}
   rotationSpeed: 5
 --- !u!1 &8670133795271204817
 GameObject:

@@ -1896,7 +1896,7 @@ MonoBehaviour:
     costs: 200
     prefab: {fileID: 2659251342497324039, guid: d71fe1a2e69ab35419313f52374d0b3a, type: 3}
   - name: Defense
-    costs: 20
+    costs: 200
     prefab: {fileID: 6448028080171229730, guid: c545ef51755e96b44b1ad0a8fe39749e, type: 3}
   defenseTowerPrefabUp: {fileID: 6338859467842669082, guid: b3ec5bd4dd6e23f458c6c56872cd8fec, type: 3}
   defenseTowerPrefabDown: {fileID: 4901877253959746888, guid: e97d30da1bb40114eb4078cd974991d2, type: 3}

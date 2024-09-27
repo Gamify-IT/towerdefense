@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 /// <summary>
@@ -88,14 +89,110 @@ public class Plots : MonoBehaviour
             return;
         }
 
-        // Spend currency and instantiate the tower
-        LevelManager.Instance.SpendCurrency(towerToBuild.GetCosts());
-        towerObject = Instantiate(towerToBuild.GetPrefab(), transform.position, Quaternion.identity);
+        // Check if the selected tower is a defense tower (since it needs special instantiation)
+        if (towerToBuild.GetName().Equals("Defense"))
+        {
+            // Get relative position to the enemy path and select the correct prefab
+            Vector2 relativePosition = GetRelativePositionToPath();
+
+            // Ensure the tower is close enough to the path
+            if (relativePosition.magnitude > 1.5f)
+            {
+                Debug.LogError("Invalid placement for defense tower. It must be next to the enemy path.");
+                return;
+            }
+
+            GameObject selectedPrefab = BuildManager.Instance.SelectPrefabBasedOnPath(relativePosition);
+
+            // Calculate an offset to ensure part of the prefab (the guard) overlaps the path
+            float overlapOffset = 1.0f;
+            Vector3 finalPosition = transform.position + (Vector3)(relativePosition.normalized * overlapOffset);
+
+            // Instantiate the defense tower with the selected prefab
+            towerObject = Instantiate(selectedPrefab, finalPosition, Quaternion.identity); 
+        }
+        else
+        {
+            // For the other towers, use the normal instantiation logic
+            towerObject = Instantiate(towerToBuild.GetPrefab(), transform.position, Quaternion.identity);
+        }
+
         tower = towerObject.GetComponent<BaseTower>();
 
         if (tower == null)
         {
             Debug.LogError("The instantiated tower does not have a BaseTower component!");
         }
+        else
+        {
+            LevelManager.Instance.SpendCurrency(towerToBuild.GetCosts());
+        }
     }
+
+    /// <summary>
+    /// Calculates the closest point on the path by interpreting the path as segments
+    /// from one path point to the other.
+    /// </summary>
+    /// <returns>Relative position to the closest path point</returns>
+    private Vector2 GetRelativePositionToPath()
+    {
+        Transform[] pathPoints = LevelManager.Instance.GetPath();
+        Vector2 towerPosition = transform.position;
+
+        Vector2 closestPoint = Vector2.zero;
+        float shortestDistance = Mathf.Infinity;
+
+        // Iterate over each path segment
+        for (int i = 0; i < pathPoints.Length - 1; i++)
+        {
+            Vector2 segmentStart = pathPoints[i].position;
+            Vector2 segmentEnd = pathPoints[i + 1].position;
+
+            // Get the closest point on the line segment
+            Vector2 closestOnSegment = ClosestPointOnLineSegment(segmentStart, segmentEnd, towerPosition);
+
+            // Calculate the distance to the closest point on the segment
+            float distance = Vector2.Distance(towerPosition, closestOnSegment);
+
+            if (distance < shortestDistance)
+            {
+                shortestDistance = distance;
+                closestPoint = closestOnSegment;
+            }
+        }
+
+        return closestPoint - towerPosition;
+    }
+
+    /// <summary>
+    /// Calculates the closest point on the line segment between path 
+    /// points to the position of interest.
+    /// </summary>
+    /// <param name="pointA"> Starting path point on segment</param>
+    /// <param name="pointB"> Ending path point on segment</param>
+    /// <param name="position">The position for which we want the closest point</param>
+    /// <returns></returns>
+    private Vector2 ClosestPointOnLineSegment(Vector2 pointA, Vector2 pointB, Vector2 position)
+    {
+        Vector2 AP = position - pointA;
+        Vector2 AB = pointB - pointA;
+        float magnitudeAB = AB.sqrMagnitude;
+        float ABAPproduct = Vector2.Dot(AP, AB);
+        float distance = ABAPproduct / magnitudeAB;
+
+        if (distance < 0)
+        {
+            return pointA;
+        }
+        else if (distance > 1)
+        {
+            return pointB;
+        }
+        else
+        {
+            // Somewhere in between point A and B
+            return pointA + AB * distance;
+        }
+    }
+
 }

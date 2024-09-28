@@ -78,7 +78,7 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
         if (questionCounter >= questions.Count)
         {
             Debug.Log("All questions answered");
-            // game finished -> display end screen
+            // TODO game finished -> display end screen
         }
 
         currentQuestion = questions[questionCounter];
@@ -95,13 +95,17 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
         List<string> dropdownEntries = currentQuestion.GetWrongAnswers().Append(currentQuestion.GetCorrectAnswer()).ToList();
         dropdownEntries = dropdownEntries.OrderBy(x => Random.value).ToList();
 
+        answerDropdown.GetComponent<TMP_Dropdown>().captionText.text = "";
         answerDropdown.GetComponent<TMP_Dropdown>().options.Clear();
+
         questionText.text = currentQuestion.GetText();
 
         foreach(var answers in dropdownEntries)
         {
             answerDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData(answers));
         }
+
+        answerDropdown.GetComponent<TMP_Dropdown>().value = 0;
 
         questionCounter++;
     }

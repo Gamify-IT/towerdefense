@@ -49,6 +49,6 @@ public class PauseMenu : MonoBehaviour
     {
         mouseOver = false;
         UIManager.Instance.SetHoveringState(false);
-
     }
+
 }

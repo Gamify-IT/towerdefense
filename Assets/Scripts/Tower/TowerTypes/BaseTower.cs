@@ -89,6 +89,8 @@ public class BaseTower : MonoBehaviour
     {
         if (answer)
         {
+            Debug.Log("correct answer");
+
             LevelManager.Instance.SpendCurrency(CalculateCost());
 
             level++;
@@ -102,7 +104,8 @@ public class BaseTower : MonoBehaviour
         else
         {
             Debug.Log("wrong answer");
-            // TODO: punishment for wrong answer
+            // punishmenet: player looses half the price of the upgrade in credits
+            LevelManager.Instance.SpendCurrency(CalculateCost() / 2);
         }
 
         CloseUpgradeUI();

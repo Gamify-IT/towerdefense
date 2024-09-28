@@ -192,8 +192,8 @@ GameObject:
   - component: {fileID: 3690034900506558437}
   - component: {fileID: 6218955531056654610}
   - component: {fileID: 7840911712230904498}
-  - component: {fileID: 1053466726761549141}
   - component: {fileID: 4143648838346917534}
+  - component: {fileID: 5159218363940661615}
   m_Layer: 8
   m_Name: Slime
   m_TagString: Enemy
@@ -368,22 +368,6 @@ MonoBehaviour:
   playerHP: {fileID: 0}
   animator: {fileID: 6218955531056654610}
   moveSpeed: 2.5
---- !u!114 &1053466726761549141
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7726416930383346753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47734089e3c77ea40ab34d8bcc1867e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitPoints: 2
-  currencyWorth: 50
-  lifebarFill: {fileID: 2372872438287355076}
-  enemyKillSound: {fileID: 8300000, guid: 347edeebb429b1849a2a69eb7278cb11, type: 3}
 --- !u!114 &4143648838346917534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,6 +383,22 @@ MonoBehaviour:
   hitPoints: 2
   currencyWorth: 0
   damagePoints: 0
+--- !u!114 &5159218363940661615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7726416930383346753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aac8f3ea19c9dd34d8cdbc9f6bac1fa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoints: 2
+  currencyWorth: 50
+  lifebarFill: {fileID: 2372872438287355076}
+  enemyKillSound: {fileID: 8300000, guid: 347edeebb429b1849a2a69eb7278cb11, type: 3}
 --- !u!1 &7770921734152303827
 GameObject:
   m_ObjectHideFlags: 0

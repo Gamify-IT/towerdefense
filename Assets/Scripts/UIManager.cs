@@ -8,7 +8,7 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
-    private bool isHoveringUI;
+    private bool isHoveringUI = true;
 
     /// <summary>
     /// This function manages the singleton instance, so it initializes the <c>instance</c> variable, if not set, or
@@ -30,7 +30,7 @@ public class UIManager : MonoBehaviour
     /// <summary>
     ///  This function detects whether the mouse is currently hovering over an UI element
     /// </summary>
-    /// <param name="state"> The state of where the mouse is at the moment</param>
+    /// <param name="state">The state whether the player hovers over an UI element</param>
     public void SetHoveringState(bool state)
     {
         isHoveringUI = state;

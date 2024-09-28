@@ -11,7 +11,7 @@ public class BuildManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private Tower[] towers;
 
-    private int selectedTower = 0;
+    private int selectedTower = -1;
 
     /// <summary>
     /// This function manages the singleton instance, so it initializes the <c>instance</c> variable, if not set, or
@@ -46,5 +46,10 @@ public class BuildManager : MonoBehaviour
     public void SetSelectedTower(int selectedTower)
     {
         this.selectedTower = selectedTower;
+    }
+
+    public int GetSelectedTowerIndex()
+    {
+        return selectedTower;
     }
 }

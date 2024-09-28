@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -11,7 +12,7 @@ using UnityEngine.UIElements;
 /// <summary>
 /// Handles how when questions appear and evaluates the player's answer
 /// </summary>
-public class QuestionManager : MonoBehaviour
+public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Attributes")]
     private List<QuestionData> questions;
@@ -142,6 +143,8 @@ public class QuestionManager : MonoBehaviour
     public void CloseQuestionUI()
     {
         UIManager.Instance.SetHoveringState(false);
+        rightAnswer.SetActive(false);
+        wrongAnswer.SetActive(false);
         ActivateCanvas(false);
     }
 
@@ -160,6 +163,24 @@ public class QuestionManager : MonoBehaviour
     private void Quit()
     {
         SceneManager.UnloadSceneAsync("Question");
+        UIManager.Instance.SetHoveringState(false);
+    }
+
+    /// <summary>
+    ///  This function sets the setHoveringState function to true if the mouse is over the menu
+    /// </summary>
+    /// <param name="eventData"> The mouse</param>
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        UIManager.Instance.SetHoveringState(true);
+    }
+
+    /// <summary>
+    ///  This function sets the setHoveringState function to false if the mouse is over the menu
+    /// </summary>
+    /// <param name="eventData"> The mouse</param>
+    public void OnPointerExit(PointerEventData eventData)
+    {
         UIManager.Instance.SetHoveringState(false);
     }
 }

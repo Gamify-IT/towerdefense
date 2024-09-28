@@ -97,6 +97,5 @@ public class PauseButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         mouseOver = false;
         UIManager.Instance.SetHoveringState(false);
-
     }
 }

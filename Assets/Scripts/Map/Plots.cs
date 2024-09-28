@@ -29,7 +29,7 @@ public class Plots : MonoBehaviour
     /// </summary>
     private void OnMouseEnter()
     {
-        if (tileSprite != null)
+        if (tileSprite != null && BuildManager.Instance.GetSelectedTowerIndex() != -1)
         {
             tileSprite.color = hoverColor;
         }
@@ -40,7 +40,7 @@ public class Plots : MonoBehaviour
     /// </summary>
     private void OnMouseExit()
     {
-        if (tileSprite != null)
+        if (tileSprite != null && BuildManager.Instance.GetSelectedTowerIndex() != -1)
         {
             tileSprite.color = startColor;
         }
@@ -59,7 +59,7 @@ public class Plots : MonoBehaviour
 
         if (UIManager.Instance.IsHoveringUI()) return;
 
-        if (towerObject != null)
+        if (towerObject != null&& BuildManager.Instance.GetSelectedTowerIndex() != -1)
         {
             tower.OpenUpgradeUI();
             return;

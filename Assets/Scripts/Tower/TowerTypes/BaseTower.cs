@@ -77,7 +77,6 @@ public class BaseTower : MonoBehaviour
     public void CloseUpgradeUI()
     {
         upgradeUI.SetActive(false);
-        UIManager.Instance.SetHoveringState(false);
     }
 
     /// <summary>
@@ -104,7 +103,8 @@ public class BaseTower : MonoBehaviour
         else
         {
             Debug.Log("wrong answer");
-            // punishmenet: player looses half the price of the upgrade in credits
+
+            // TODO: adjust punishment
             LevelManager.Instance.SpendCurrency(CalculateCost() / 2);
         }
 
@@ -155,6 +155,5 @@ public class BaseTower : MonoBehaviour
     {
         return Mathf.RoundToInt(baseUpgradeCost * Mathf.Pow(level, CostExponent));
     }
-
-    
+   
 }

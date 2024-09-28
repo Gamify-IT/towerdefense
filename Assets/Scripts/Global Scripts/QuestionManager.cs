@@ -13,17 +13,24 @@ using UnityEngine.UIElements;
 /// </summary>
 public class QuestionManager : MonoBehaviour
 {
-    public static QuestionManager Instance { get; private set; }
+    [Header("Attributes")]
     private List<QuestionData> questions;
     private int questionCounter = 0;
     private QuestionData currentQuestion;
+
+    [Header("UI elements")]
     [SerializeField] private TMP_Text questionText;
     [SerializeField] private GameObject answerDropdown;
     [SerializeField] private UnityEngine.UI.Button exitButton;
     [SerializeField] public UnityEngine.UI.Button submitButton;
-    [SerializeField] private GameObject canvas;
+    [SerializeField] private GameObject questionMenu;
+    [SerializeField] private GameObject question;
+    [SerializeField] private GameObject rightAnswer;
+    [SerializeField] private GameObject wrongAnswer;
 
     #region Singelton
+    public static QuestionManager Instance { get; private set; }
+
     /// <summary>
     ///     Realizes the singelton conecpt, i.e. only one instance can exist at the same time.
     /// </summary>
@@ -41,10 +48,12 @@ public class QuestionManager : MonoBehaviour
        
     }
     #endregion
+
     public void Start()
     {
         exitButton.onClick.AddListener(() => Quit());
-        canvas.SetActive(false);
+        submitButton.onClick.AddListener(() => CheckAnswer());
+        questionMenu.SetActive(false);
     }
     
     /// <summary>
@@ -81,6 +90,7 @@ public class QuestionManager : MonoBehaviour
     /// <param name="question">question the dropdown is filled with</param>
     private void FillDropdown()
     {
+        question.SetActive(true);
         List<string> dropdownEntries = currentQuestion.GetWrongAnswers().Append(currentQuestion.GetCorrectAnswer()).ToList();
         dropdownEntries = dropdownEntries.OrderBy(x => Random.value).ToList();
 
@@ -101,7 +111,7 @@ public class QuestionManager : MonoBehaviour
     /// <param name="active">visibility of the canvas</param>
     public void ActivateCanvas(bool active)
     {
-        canvas.SetActive(active);
+        questionMenu.SetActive(active);
     }
 
 
@@ -110,15 +120,38 @@ public class QuestionManager : MonoBehaviour
     /// </summary>
     public bool CheckAnswer()
     {
+        question.SetActive(false);
+
         Debug.Log("Your Answer: " + answerDropdown.transform.GetChild(0).GetComponent<TMP_Text>().text);
         Debug.Log("Correct Answer: " + currentQuestion.GetCorrectAnswer());
 
         if (answerDropdown.transform.GetChild(0).GetComponent<TMP_Text>().text == currentQuestion.GetCorrectAnswer())
         {
+            rightAnswer.SetActive(true);
             return true;
         }
 
+        wrongAnswer.SetActive(true);
+
         return false;
+    }
+
+    /// <summary>
+    /// Closes the Question UI menu
+    /// </summary>
+    public void CloseQuestionUI()
+    {
+        UIManager.Instance.SetHoveringState(false);
+        ActivateCanvas(false);
+    }
+
+    /// <summary>
+    /// Opens the Question UI menu
+    /// </summary>
+    public void OpenQuestionUI()
+    {
+        UIManager.Instance.SetHoveringState(true);
+        ActivateCanvas(true);
     }
 
     /// <summary>

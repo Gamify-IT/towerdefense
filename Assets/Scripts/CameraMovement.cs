@@ -96,13 +96,16 @@ public class CameraMovement : MonoBehaviour
     /// </summary>
     private void HandleZoom()
     {
-        float scrollData = Input.GetAxis("Mouse ScrollWheel");
-
-        if (scrollData != 0.0f)
+        if (!UIManager.Instance.IsHoveringUI())
         {
-            cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - scrollData * zoomStep, minCamSize, maxCamSize);
-            UpdateCameraExtents();
-            transform.position = ClampCamera(transform.position);
+            float scrollData = Input.GetAxis("Mouse ScrollWheel");
+
+            if (scrollData != 0.0f)
+            {
+                cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - scrollData * zoomStep, minCamSize, maxCamSize);
+                UpdateCameraExtents();
+                transform.position = ClampCamera(transform.position);
+            }
         }
     }
 

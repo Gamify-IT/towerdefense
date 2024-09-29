@@ -160,10 +160,8 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     /// <summary>
     /// Checks if the game is finished, i.e all questions have been answered by the player
     /// </summary>
-    private IEnumerator CheckForEnd()
+    private async void CheckForEnd()
     {
-        yield return new WaitForSeconds(1f);
-
         if (questionCounter >= questions.Count)
         {
             Debug.Log("All questions answered");
@@ -203,13 +201,14 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     /// <summary>
     /// Closes the Question UI menu
     /// </summary>
-    public void CloseQuestionUI()
+    public IEnumerator CloseQuestionUI()
     {
         UIManager.Instance.SetHoveringState(false);
         correctAnswer.SetActive(false);
         wrongAnswer.SetActive(false);
         ActivateCanvas(false);
 
+        yield return new WaitForSeconds(1f);
         CheckForEnd();
     }
 

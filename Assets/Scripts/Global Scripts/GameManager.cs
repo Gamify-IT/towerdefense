@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    private int volumeLevel;
+
     #region JavaScript Methods
     [DllImport("__Internal")]
     private static extern string GetConfiguration();
@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
+
+    private int volumeLevel;
 
     public async void Start()
     {
@@ -79,6 +81,42 @@ public class GameManager : MonoBehaviour
             QuestionManager.Instance.SetQuestions(configuration.GetQuestions().ToList());
         }
 #endif
+    }
+
+    /// <summary>
+    ///     Loads the end screen when the game is finished, i.e. all questions have benn answered by the player
+    /// </summary>
+    public void LoadEndScreen()
+    {
+        Debug.Log("Loading end screen...");
+        SceneManager.LoadSceneAsync("End Screen", LoadSceneMode.Additive);
+    }
+
+    /// <summary>
+    ///     Saves the progress of ther current game session in the backend
+    /// </summary>
+    public async UniTask<bool> SaveProgress(GameResultData result)
+    {
+        GameResultDTO dto = GameResultDTO.ConvertDataToDTO(result);
+
+        string originURL = GetOriginUrl();
+        string baseBackendPath = GameSettings.GetTowerdefenseBackendPath();
+        string path = originURL + baseBackendPath + "/results";
+
+        string json = JsonUtility.ToJson(dto, true);
+
+        bool successful = await RestRequest.PostRequest(path, json);
+
+        if(successful)
+        {
+            Debug.Log("Game Result saved successfully");
+            return true;
+        }
+        else
+        {
+            Debug.Log("Could not save Game Result");
+            return false;
+        }
     }
 
     /// <summary>

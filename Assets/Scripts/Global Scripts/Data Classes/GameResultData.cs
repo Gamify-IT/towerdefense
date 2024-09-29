@@ -22,7 +22,7 @@ public class GameResultData
 
     public GameResultData(int questionCount, int correctAnswerCount, int wrongAnswerCount, int points,
         List<QuestionResultData> correctAnsweredQuestions, List<QuestionResultData> wrongAnsweredQuestions,
-        string configurationAsUUID, int score, int rewards, string playerId)
+        string configurationAsUUID, int score, int rewards)
     {
         this.questionCount = questionCount;
         this.correctAnswerCount = correctAnswerCount;
@@ -33,7 +33,6 @@ public class GameResultData
         this.configurationAsUUID = configurationAsUUID;
         this.score = score;
         this.rewards = rewards;
-        this.playerId = playerId;
     }
 
     /// <summary>
@@ -52,7 +51,6 @@ public class GameResultData
         string configurationAsUUID = dto.configurationAsUUID;
         int score = dto.score;
         int rewards = dto.rewards;
-        string playerId = dto.playerId;
 
         for(int i = 0; i < dto.correctAnsweredQuestions.Count; i++)
         {
@@ -65,7 +63,7 @@ public class GameResultData
         }
 
         return new GameResultData(questionCount, correctAnswerCount, wrongAnswerCount, points, correctAnsweredQuestions,
-            wrongAnsweredQuestions, configurationAsUUID, score, rewards, playerId);
+            wrongAnsweredQuestions, configurationAsUUID, score, rewards);
     }
 
     #region getter and setter

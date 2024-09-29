@@ -6,14 +6,12 @@ using System;
 public class QuestionResultData
 {
     #region attributes
-    private string questionUUId;
     private QuestionData question;
     private string answer;
     #endregion
 
-    public QuestionResultData(string questionUUId, QuestionData question, string answer)
+    public QuestionResultData(QuestionData question, string answer)
     {
-        this.questionUUId = questionUUId;
         this.question = question;
         this.answer = answer;
     }
@@ -25,19 +23,13 @@ public class QuestionResultData
     /// <returns>The <c>QuestionResultData</c> instance</returns>
     public static QuestionResultData ConvertDtoToData(QuestionResultDTO dto)
     {
-        string questionUUId = dto.id;
         QuestionData question = QuestionData.ConvertDtoToData(dto.question);
         string answer = dto.answer;
 
-        return new QuestionResultData(questionUUId, question, answer);
+        return new QuestionResultData(question, answer);
     }
 
     #region getter and setter
-    public string GetQuestionUUId()
-    {
-        return questionUUId;
-    }
-
     public string GetAnswer()
     {
         return answer;

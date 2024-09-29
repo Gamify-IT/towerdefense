@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,20 +15,33 @@ using UnityEngine.UIElements;
 /// </summary>
 public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [Header("Attributes")]
+    #region JavaScript Methods
+    [DllImport("__Internal")]
+    private static extern string GetConfiguration();
+
+    [DllImport("__Internal")]
+    private static extern string GetOriginUrl();
+    #endregion
+
+    [Header("Question Progress")]
     private List<QuestionData> questions;
-    private int questionCounter = 0;
+    private List<QuestionResultData> correctAnsweredQuestions = new List<QuestionResultData>();
+    private List<QuestionResultData> wrongAnsweredQuestions = new List<QuestionResultData>();
     private QuestionData currentQuestion;
+    private int questionCounter = 0;
+    private int points = 0;
+    private int score = 0;
+    private int rewards = 0;
 
     [Header("UI elements")]
     [SerializeField] private TMP_Text questionText;
     [SerializeField] private GameObject answerDropdown;
-    [SerializeField] private UnityEngine.UI.Button exitButton;
-    [SerializeField] public UnityEngine.UI.Button submitButton;
     [SerializeField] private GameObject questionMenu;
     [SerializeField] private GameObject question;
-    [SerializeField] private GameObject rightAnswer;
+    [SerializeField] private GameObject correctAnswer;
     [SerializeField] private GameObject wrongAnswer;
+    [SerializeField] private UnityEngine.UI.Button exitButton;
+    [SerializeField] public UnityEngine.UI.Button submitButton;
 
     #region Singelton
     public static QuestionManager Instance { get; private set; }
@@ -71,16 +85,9 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     /// <summary>
     /// Loads the current question to the text and dropdown menu of the question scene
     /// </summary>
-    public void LoadQuestion()
+    public async void LoadQuestion()
     {
-        Debug.Log("Loading Question...");
-
-        if (questionCounter >= questions.Count)
-        {
-            Debug.Log("All questions answered");
-            // TODO game finished -> display end screen
-        }
-
+        Debug.Log("Loading Question...");        
         currentQuestion = questions[questionCounter];
         FillDropdown();
     }
@@ -108,6 +115,8 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
         answerDropdown.GetComponent<TMP_Dropdown>().value = 0;
 
         questionCounter++;
+
+        Debug.Log("Question successfully loaded");
     }
 
     /// <summary>
@@ -127,18 +136,68 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         question.SetActive(false);
 
-        Debug.Log("Your Answer: " + answerDropdown.transform.GetChild(0).GetComponent<TMP_Text>().text);
+        string answer = answerDropdown.transform.GetChild(0).GetComponent<TMP_Text>().text;
+
+        Debug.Log("Your Answer: " + answer);
         Debug.Log("Correct Answer: " + currentQuestion.GetCorrectAnswer());
 
-        if (answerDropdown.transform.GetChild(0).GetComponent<TMP_Text>().text == currentQuestion.GetCorrectAnswer())
+        if (answer == currentQuestion.GetCorrectAnswer())
         {
-            rightAnswer.SetActive(true);
+            correctAnswer.SetActive(true);
+            AddCorrectAnswerToResult(currentQuestion, answer);
+
             return true;
         }
+        else
+        {
+            wrongAnswer.SetActive(true);
+            AddWrongAnswerToResult(currentQuestion, answer);
 
-        wrongAnswer.SetActive(true);
+            return false;
+        }
+    }
 
-        return false;
+    /// <summary>
+    /// Checks if the game is finished, i.e all questions have been answered by the player
+    /// </summary>
+    private IEnumerator CheckForEnd()
+    {
+        yield return new WaitForSeconds(1f);
+
+        if (questionCounter >= questions.Count)
+        {
+            Debug.Log("All questions answered");
+            GameManager.Instance.LoadEndScreen();
+
+#if !UNITY_EDITOR
+            GameResultData result = new GameResultData(questions.Count, correctAnsweredQuestions.Count, wrongAnsweredQuestions.Count, points,
+                correctAnsweredQuestions, wrongAnsweredQuestions, GetConfiguration(), score, rewards);
+
+            bool succesfull = await GameManager.Instance.SaveProgress(result);
+#endif
+        }
+    }
+
+    /// <summary>
+    /// This method adds the answered question to the correctly answered questions
+    /// <param name="answer">The players answer</param>
+    /// </summary>
+    private void AddCorrectAnswerToResult(QuestionData question, string answer)
+    {
+        Debug.Log("Add correct answer to game result: " + answer);
+        QuestionResultData correctResult = new QuestionResultData(question, answer);
+        correctAnsweredQuestions.Add(correctResult);
+    }
+
+    /// <summary>
+    /// This method adds the answered question to the wrong answered questions
+    /// <param name="answer">The players answer</param>
+    /// </summary>
+    private void AddWrongAnswerToResult(QuestionData question, string answer)
+    {
+        Debug.Log("Add wrong answer to game result: " + answer);
+        QuestionResultData wrongResult = new QuestionResultData(question, answer);
+        wrongAnsweredQuestions.Add(wrongResult);
     }
 
     /// <summary>
@@ -147,9 +206,11 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void CloseQuestionUI()
     {
         UIManager.Instance.SetHoveringState(false);
-        rightAnswer.SetActive(false);
+        correctAnswer.SetActive(false);
         wrongAnswer.SetActive(false);
         ActivateCanvas(false);
+
+        CheckForEnd();
     }
 
     /// <summary>

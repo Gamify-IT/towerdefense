@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 34602834}
   m_Layer: 0
-  m_Name: Right Answer
+  m_Name: Correct Answer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -442,7 +442,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &243691831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1679,12 +1679,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questionText: {fileID: 1006799378}
   answerDropdown: {fileID: 1191804191}
-  exitButton: {fileID: 2083727698}
-  submitButton: {fileID: 2036348567}
   questionMenu: {fileID: 1576765780}
   question: {fileID: 1707332406}
-  rightAnswer: {fileID: 34602833}
+  correctAnswer: {fileID: 34602833}
   wrongAnswer: {fileID: 1601939712}
+  exitButton: {fileID: 2083727698}
+  submitButton: {fileID: 2036348567}
 --- !u!1 &1085356926
 GameObject:
   m_ObjectHideFlags: 0

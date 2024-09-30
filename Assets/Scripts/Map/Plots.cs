@@ -92,24 +92,7 @@ public class Plots : MonoBehaviour
         // Check if the selected tower is a defense tower (since it needs special instantiation)
         if (towerToBuild.GetName().Equals("Defense"))
         {
-            // Get relative position to the enemy path and select the correct prefab
-            Vector2 relativePosition = GetRelativePositionToPath();
-
-            // Ensure the tower is close enough to the path
-            if (relativePosition.magnitude > 1.5f)
-            {
-                Debug.LogError("Invalid placement for defense tower. It must be next to the enemy path.");
-                return;
-            }
-
-            GameObject selectedPrefab = BuildManager.Instance.SelectPrefabBasedOnPath(relativePosition);
-
-            // Calculate an offset to ensure part of the prefab (the guard) overlaps the path
-            float overlapOffset = 1.0f;
-            Vector3 finalPosition = transform.position + (Vector3)(relativePosition.normalized * overlapOffset);
-
-            // Instantiate the defense tower with the selected prefab
-            towerObject = Instantiate(selectedPrefab, finalPosition, Quaternion.identity); 
+            BuildDefenseTower();
         }
         else
         {
@@ -127,6 +110,32 @@ public class Plots : MonoBehaviour
         {
             LevelManager.Instance.SpendCurrency(towerToBuild.GetCosts());
         }
+    }
+
+    /// <summary>
+    /// Instantiate the defense tower at the selected position with an offset and 
+    /// the correct prefab for that position.
+    /// </summary>
+    protected virtual void BuildDefenseTower()
+    {
+        // Get relative position to the enemy path and select the correct prefab
+        Vector2 relativePosition = GetRelativePositionToPath();
+
+        // Ensure the tower is close enough to the path
+        if (relativePosition.magnitude > 1.5f)
+        {
+            Debug.LogError("Invalid placement for defense tower. It must be next to the enemy path.");
+            return;
+        }
+
+        GameObject selectedPrefab = BuildManager.Instance.SelectPrefabBasedOnPath(relativePosition);
+
+        // Calculate an offset to ensure part of the prefab (the guard) overlaps the path
+        float overlapOffset = 1.0f;
+        Vector3 finalPosition = transform.position + (Vector3)(relativePosition.normalized * overlapOffset);
+
+        // Instantiate the defense tower with the selected prefab
+        towerObject = Instantiate(selectedPrefab, finalPosition, Quaternion.identity);
     }
 
     /// <summary>
@@ -149,15 +158,15 @@ public class Plots : MonoBehaviour
             Vector2 segmentEnd = pathPoints[i + 1].position;
 
             // Get the closest point on the line segment
-            Vector2 closestOnSegment = ClosestPointOnLineSegment(segmentStart, segmentEnd, towerPosition);
+            Vector2 closestPointOnSegment = ClosestPointOnLineSegment(segmentStart, segmentEnd, towerPosition);
 
             // Calculate the distance to the closest point on the segment
-            float distance = Vector2.Distance(towerPosition, closestOnSegment);
+            float distance = Vector2.Distance(towerPosition, closestPointOnSegment);
 
             if (distance < shortestDistance)
             {
                 shortestDistance = distance;
-                closestPoint = closestOnSegment;
+                closestPoint = closestPointOnSegment;
             }
         }
 
@@ -165,12 +174,12 @@ public class Plots : MonoBehaviour
     }
 
     /// <summary>
-    /// Calculates the closest point on the line segment between path 
-    /// points to the position of interest.
+    /// Calculates the closest point on the enemy path (line segment between enemy path points) 
+    /// to the selected tower position.
     /// </summary>
-    /// <param name="pointA"> Starting path point on segment</param>
-    /// <param name="pointB"> Ending path point on segment</param>
-    /// <param name="position">The position for which we want the closest point</param>
+    /// <param name="pointA"> Starting path point on enemy path segment</param>
+    /// <param name="pointB"> Ending path point on enemy path segment</param>
+    /// <param name="position">The tower position for which we want the closest point on enemy path</param>
     /// <returns></returns>
     private Vector2 ClosestPointOnLineSegment(Vector2 pointA, Vector2 pointB, Vector2 position)
     {

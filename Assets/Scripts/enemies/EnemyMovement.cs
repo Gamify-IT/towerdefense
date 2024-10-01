@@ -175,7 +175,7 @@ public class EnemyMovement : MonoBehaviour
         if (collision.CompareTag("Obstacle"))
         {
             isObstacleOnPath = true;
-            rb.velocity = Vector2.zero; // Beende die Bewegung
+            rb.velocity = Vector2.zero;
             towerHP = collision.GetComponent<BaseTower>();
             if (towerHP != null)
             {

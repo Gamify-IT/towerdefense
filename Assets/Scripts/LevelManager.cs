@@ -54,7 +54,7 @@ public class LevelManager : MonoBehaviour
                 return true; }
         else
         {
-            Debug.Log("you are broke :)"); //durch UI ersetzen
+            Debug.Log("you are broke :)");
                 return false;
         }
     }

@@ -1896,8 +1896,12 @@ MonoBehaviour:
     costs: 200
     prefab: {fileID: 2659251342497324039, guid: d71fe1a2e69ab35419313f52374d0b3a, type: 3}
   - name: Defense
-    costs: 0
+    costs: 200
     prefab: {fileID: 6448028080171229730, guid: c545ef51755e96b44b1ad0a8fe39749e, type: 3}
+  defenseTowerPrefabUp: {fileID: 6338859467842669082, guid: b3ec5bd4dd6e23f458c6c56872cd8fec, type: 3}
+  defenseTowerPrefabDown: {fileID: 4901877253959746888, guid: e97d30da1bb40114eb4078cd974991d2, type: 3}
+  defenseTowerPrefabLeft: {fileID: 3307856113998393291, guid: 66442e45b6cc5de44a2411ce2daad25b, type: 3}
+  defenseTowerPrefabRight: {fileID: 1173456175591619026, guid: 67b0a708b73c8184c8fb340a672f9afa, type: 3}
 --- !u!1 &1965774069
 GameObject:
   m_ObjectHideFlags: 0

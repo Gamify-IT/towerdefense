@@ -75,16 +75,17 @@ public class Plots : MonoBehaviour
     {
         Tower towerToBuild = BuildManager.Instance.GetSelectedTower();
 
+        // check if a tower is currently selected
         if (towerToBuild == null)
         {
-            Debug.LogError("No tower selected for building!");
+            StartCoroutine(PauseButton.Instance.ShowFeedbackWindow("No Tower selected!"));
             return;
         }
 
         // Check if the player can afford the tower
         if (towerToBuild.GetCosts() > LevelManager.Instance.GetCurrency())
         {
-            Debug.Log("Insufficient funds to build the tower.");
+            StartCoroutine(PauseButton.Instance.ShowFeedbackWindow("Not enough Credits!"));
             return;
         }
 

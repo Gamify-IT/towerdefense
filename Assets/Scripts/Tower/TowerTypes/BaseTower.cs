@@ -122,7 +122,11 @@ public class BaseTower : MonoBehaviour
     /// </summary>
     public void Upgrade()
     {
-        if (CalculateCost() > LevelManager.Instance.GetCurrency()) return;
+        if (CalculateCost() > LevelManager.Instance.GetCurrency())
+        {
+            StartCoroutine(PauseButton.Instance.ShowFeedbackWindow("Not enough Credits!"));
+            return;
+        }
 
         Debug.Log("Opening Question Menu...");
         QuestionManager.Instance.OpenQuestionUI();   

@@ -201,14 +201,13 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     /// <summary>
     /// Closes the Question UI menu
     /// </summary>
-    public IEnumerator CloseQuestionUI()
+    public void CloseQuestionUI()
     {
         UIManager.Instance.SetHoveringState(false);
         correctAnswer.SetActive(false);
         wrongAnswer.SetActive(false);
         ActivateCanvas(false);
 
-        yield return new WaitForSeconds(1f);
         CheckForEnd();
     }
 

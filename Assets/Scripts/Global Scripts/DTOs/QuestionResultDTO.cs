@@ -8,14 +8,12 @@ using UnityEngine;
 public class QuestionResultDTO
 {
     #region attributes
-    public string id;
     public QuestionDTO question;
     public string answer;
     #endregion
 
-    public QuestionResultDTO(string id, QuestionDTO question, string answer)
+    public QuestionResultDTO(QuestionDTO question, string answer)
     {
-        this.id = id;
         this.question = question;
         this.answer = answer;
     }
@@ -27,11 +25,10 @@ public class QuestionResultDTO
     /// <returns>The <c>QuestionResultDTO</c> instance</returns>
     public static QuestionResultDTO ConvertDataToDTO(QuestionResultData data)
     {
-        string questionUUId = data.GetQuestionUUId();
         QuestionDTO question = QuestionDTO.ConvertDataToDTO(data.GetQuestion());
         string answer = data.GetAnswer();
 
-        return new QuestionResultDTO(questionUUId, question, answer);
+        return new QuestionResultDTO(question, answer);
     }
 
     /// <summary>

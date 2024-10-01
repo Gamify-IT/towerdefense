@@ -59,17 +59,17 @@ public class EnemyHealth : MonoBehaviour
         // check if enemy is dead, i.e., should be destroyed
         if (hitPoints <= 0 && !isDestroyed) 
         {
-            StartCoroutine(DestroyEnemy());
+            DestroyEnemy();
         }
     }
 
     /// <summary>
     /// Plays sound and after that destroy enemy that was killed
     /// </summary>
-    private IEnumerator DestroyEnemy()
+    private void DestroyEnemy()
     {
         PlayEnemyKillSound();
-        yield return new WaitForSeconds(0.45f);
+        //yield return new WaitForSeconds(0.45f);
         EnemySpawner.GetOnEnemyDestroy().Invoke();
         LevelManager.Instance.GainCurrency(currencyWorth);
         isDestroyed = true;

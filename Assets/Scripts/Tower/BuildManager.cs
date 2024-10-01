@@ -47,4 +47,9 @@ public class BuildManager : MonoBehaviour
     {
         this.selectedTower = selectedTower;
     }
+
+    public int GetSelectedTowerIndex()
+    {
+        return selectedTower;
+    }
 }

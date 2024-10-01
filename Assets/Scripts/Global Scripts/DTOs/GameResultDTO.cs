@@ -23,7 +23,7 @@ public class GameResultDTO
 
     public GameResultDTO(int questionCount, int correctAnswerCount, int wrongAnswerCount, int points, 
         List<QuestionResultDTO> correctAnsweredQuestions, List<QuestionResultDTO> wrongAnsweredQuestions, 
-        string configurationAsUUID, int score, int rewards, string playerId)
+        string configurationAsUUID, int score, int rewards)
     {
         this.questionCount = questionCount;
         this.correctAnswerCount = correctAnswerCount;
@@ -34,7 +34,6 @@ public class GameResultDTO
         this.configurationAsUUID = configurationAsUUID;
         this.score = score;
         this.rewards = rewards;
-        this.playerId = playerId;
     }
 
     /// <summary>
@@ -53,7 +52,6 @@ public class GameResultDTO
         string configurationAsUUID = data.GetConfigurationAsUUID();
         int score = data.GetScore();
         int rewards = data.GetRewards();
-        string playerId = data.GetPlayerId();
 
         for (int i = 0; i < data.GetCorrectAnsweredQuestions().Count; i++)
         {
@@ -66,7 +64,7 @@ public class GameResultDTO
         }
 
         return new GameResultDTO(questionCount, correctAnswerCount, wrongAnswerCount, points, correctAnsweredQuestions,
-            wrongAnsweredQuestions, configurationAsUUID, score, rewards, playerId);
+            wrongAnsweredQuestions, configurationAsUUID, score, rewards);
     }
 
     /// <summary>

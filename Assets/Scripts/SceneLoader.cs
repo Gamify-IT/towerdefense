@@ -6,12 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    #region JavaScript Methods
     [DllImport("__Internal")]
     private static extern void CloseMinigame();
+    #endregion
 
-    private AudioSource audioSource;
+    [Header("Audio Elements")]
     [SerializeField] private AudioClip clickSound;
+    private AudioSource audioSource;
 
+    [Header("Scene Names")]
     public string mainGameScene = "Level1"; 
     public string playerHUDScene = "PlayerHUD"; 
     public string shopScene = "Shop";

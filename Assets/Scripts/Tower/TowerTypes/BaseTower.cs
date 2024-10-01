@@ -12,16 +12,13 @@ using Cysharp.Threading.Tasks;
 public class BaseTower : MonoBehaviour
 {
     [Header("References")]
-   
-    [SerializeField] protected LayerMask enemyMask;
-   
+    [SerializeField] protected LayerMask enemyMask;  
     [SerializeField] protected GameObject upgradeUI;
     [SerializeField] protected Button upgradeButton;
     [SerializeField] protected GameObject questionUI;
 
     [Header("Attribute")]
-    [SerializeField] protected float targetingRange = 5f;
-   
+    [SerializeField] protected float targetingRange = 5f; 
     [SerializeField] protected float projectilePerSecond = 1f;
     [SerializeField] protected int baseUpgradeCost = 100;
 
@@ -80,47 +77,44 @@ public class BaseTower : MonoBehaviour
     public void CloseUpgradeUI()
     {
         upgradeUI.SetActive(false);
-        UIManager.Instance.SetHoveringState(false);
     }
 
     /// <summary>
-    /// Checks the selected answer and evaluates it
+    /// Checks the selected answer and evaluates it. If the answer is right, the tower will be upgraded. 
+    /// If not, the player looses credits.
     /// </summary>
-    /// <param name="answer">answer</param>
-    /// <returns>true if the selected answer was right</returns>
+    /// <param name="answer">the players answer</param>
     public void Answer(bool answer)
     {
         if (answer)
         {
+            Debug.Log("correct answer");
+
             LevelManager.Instance.SpendCurrency(CalculateCost());
 
             level++;
             projectilePerSecond = CalculateProjectilesPerSecond();
             targetingRange = CalculateRange();
 
-            CloseUpgradeUI();
             Debug.Log("New Pps: " + projectilePerSecond);
             Debug.Log("New TR: " + targetingRange);
             Debug.Log("New Cost: " + CalculateCost());
-            CloseQuestionUI();
         }
         else
         {
             Debug.Log("wrong answer");
-            CloseQuestionUI();
-        }       
+
+            // TODO: adjust punishment
+            LevelManager.Instance.SpendCurrency(CalculateCost() / 2);
+        }
+
+        CloseUpgradeUI();
     }
 
     public void OpenQuestionUI()
     {
         UIManager.Instance.SetHoveringState(true);
         QuestionManager.Instance.ActivateCanvas(true);
-    }
-
-    public void CloseQuestionUI()
-    {
-        UIManager.Instance.SetHoveringState(false);
-        QuestionManager.Instance.ActivateCanvas(false);      
     }
 
     /// <summary>
@@ -131,7 +125,7 @@ public class BaseTower : MonoBehaviour
         if (CalculateCost() > LevelManager.Instance.GetCurrency()) return;
 
         Debug.Log("Opening Question Menu...");
-        OpenQuestionUI();    
+        QuestionManager.Instance.OpenQuestionUI();   
         QuestionManager.Instance.LoadQuestion();
     }
 
@@ -161,6 +155,5 @@ public class BaseTower : MonoBehaviour
     {
         return Mathf.RoundToInt(baseUpgradeCost * Mathf.Pow(level, CostExponent));
     }
-
-    
+   
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -9,7 +10,7 @@ using TMPro;
 /// <summary>
 ///  This class manages the pause menu including its resume and pause logic
 /// </summary>
-public class PauseMenu : MonoBehaviour
+public class PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private bool mouseOver = false;
 
@@ -20,6 +21,7 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.UnloadSceneAsync("Pause");
+        UIManager.Instance.SetHoveringState(false);
     }
 
     /// <summary>
@@ -49,6 +51,6 @@ public class PauseMenu : MonoBehaviour
     {
         mouseOver = false;
         UIManager.Instance.SetHoveringState(false);
-
     }
+
 }

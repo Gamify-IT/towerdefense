@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 /// <summary>
 /// Contains the logic for spawning enemy waves ath the start of the path
 /// </summary>
@@ -9,6 +10,8 @@ public class EnemySpawner : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private GameObject[] enemyPrefabs;
+    [SerializeField] private Button startButton;
+    [SerializeField] private GameObject infoScreen;
 
     [Header("Attributes")]
     [SerializeField] private int baseEnemies = 8;
@@ -30,13 +33,20 @@ public class EnemySpawner : MonoBehaviour
     private void Awake()
     {
         onEnemyDestroy.AddListener(EnemyDestroyed);
+        startButton.onClick.AddListener(() => StartGame());
     }
 
     public void Start()
     {
         // coroutine for time based waves 
         StartCoroutine(StartWave());
+        Time.timeScale = 0f;
+    }
 
+    public void StartGame()
+    {
+        Time.timeScale = 1f;
+        infoScreen.SetActive(false);
     }
 
     private void Update()

@@ -192,8 +192,8 @@ GameObject:
   - component: {fileID: 7623877404375396175}
   - component: {fileID: 4313357942714226127}
   - component: {fileID: 2195671853072991549}
-  - component: {fileID: 1709732921942026013}
   - component: {fileID: 2361858285958098531}
+  - component: {fileID: 1765555163245100967}
   m_Layer: 8
   m_Name: Goblin
   m_TagString: Enemy
@@ -378,22 +378,6 @@ MonoBehaviour:
   playerHP: {fileID: 0}
   animator: {fileID: 4952182851821428376}
   moveSpeed: 1
---- !u!114 &1709732921942026013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5335875000318134563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47734089e3c77ea40ab34d8bcc1867e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitPoints: 4
-  currencyWorth: 100
-  lifebarFill: {fileID: 8095696213052390795}
-  enemyKillSound: {fileID: 8300000, guid: 347edeebb429b1849a2a69eb7278cb11, type: 3}
 --- !u!114 &2361858285958098531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,6 +393,22 @@ MonoBehaviour:
   hitPoints: 2
   currencyWorth: 0
   damagePoints: 0
+--- !u!114 &1765555163245100967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5335875000318134563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aac8f3ea19c9dd34d8cdbc9f6bac1fa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoints: 4
+  currencyWorth: 100
+  lifebarFill: {fileID: 8095696213052390795}
+  enemyKillSound: {fileID: 8300000, guid: 347edeebb429b1849a2a69eb7278cb11, type: 3}
 --- !u!1 &5897638295334165491
 GameObject:
   m_ObjectHideFlags: 0

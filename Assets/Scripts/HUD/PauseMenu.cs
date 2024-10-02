@@ -12,6 +12,8 @@ using TMPro;
 /// </summary>
 public class PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    [SerializeField] private GameObject confirmMenu;
+
     private bool mouseOver = false;
 
     /// <summary>
@@ -25,11 +27,28 @@ public class PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
 
     /// <summary>
-    /// Exits the game and returns to the start menu
+    /// Opens the confirm menu if player wants to quit
     /// </summary>
-    public void Exit()
+    public void OpenConfirmMenu()
+    {
+        confirmMenu.SetActive(true);
+    }
+
+    /// <summary>
+    /// Closes the confirm menu if player wants to continue playing
+    /// </summary>
+    public void CloseConfirmMenu()
+    {
+        confirmMenu.SetActive(false);
+    }
+
+    /// <summary>
+    /// Quits the game and the player returns to the overworld
+    /// </summary>
+    public void Quit()
     {
         Time.timeScale = 1f;
+        CloseConfirmMenu();
         SceneLoader.Instance.Quit();
     }
 

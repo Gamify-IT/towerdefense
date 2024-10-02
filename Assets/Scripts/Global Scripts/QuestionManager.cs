@@ -184,10 +184,10 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
             Debug.Log("All questions have been answered");
             GameManager.Instance.SetIsFinished(true);
 
-            GameResultData result = new GameResultData(questions.Count, correctAnsweredQuestions.Count, wrongAnsweredQuestions.Count, points,
+            GameResultData dummyResult = new GameResultData(questions.Count, correctAnsweredQuestions.Count, wrongAnsweredQuestions.Count, points,
                 correctAnsweredQuestions, wrongAnsweredQuestions, "1", 1, 1);
 
-            GameManager.Instance.SetGameResult(result);
+            GameManager.Instance.SetGameResult(dummyResult);
 
 #if UNITY_EDITOR
             return true;

@@ -47,6 +47,7 @@ public class EnemySpawner : MonoBehaviour
     {
         Time.timeScale = 1f;
         infoScreen.SetActive(false);
+        UIManager.Instance.SetHoveringState(false);
     }
 
     private void Update()

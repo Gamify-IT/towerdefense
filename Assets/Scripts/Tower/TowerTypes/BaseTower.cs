@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
 
@@ -16,6 +17,8 @@ public class BaseTower : MonoBehaviour
     [SerializeField] protected GameObject upgradeUI;
     [SerializeField] protected Button upgradeButton;
     [SerializeField] protected GameObject questionUI;
+    [SerializeField] protected TMP_Text levelLabel;
+    [SerializeField] protected TMP_Text upgradePriceLabel;
 
     [Header("Attribute")]
     [SerializeField] protected float targetingRange = 5f; 
@@ -72,6 +75,7 @@ public class BaseTower : MonoBehaviour
     public void OpenUpgradeUI()
     {
         upgradeUI.SetActive(true);
+        upgradePriceLabel.text = "Upgrade: " + CalculateCost().ToString();
     }
 
     public void CloseUpgradeUI()
@@ -96,9 +100,12 @@ public class BaseTower : MonoBehaviour
             projectilePerSecond = CalculateProjectilesPerSecond();
             targetingRange = CalculateRange();
 
+            levelLabel.text = level.ToString();
+
             Debug.Log("New Pps: " + projectilePerSecond);
             Debug.Log("New TR: " + targetingRange);
             Debug.Log("New Cost: " + CalculateCost());
+
         }
         else
         {
@@ -122,7 +129,11 @@ public class BaseTower : MonoBehaviour
     /// </summary>
     public void Upgrade()
     {
-        if (CalculateCost() > LevelManager.Instance.GetCurrency()) return;
+        if (CalculateCost() > LevelManager.Instance.GetCurrency())
+        {
+            StartCoroutine(PauseButton.Instance.ShowFeedbackWindow("Not enough Credits!"));
+            return;
+        }
 
         Debug.Log("Opening Question Menu...");
         QuestionManager.Instance.OpenQuestionUI();   
@@ -148,7 +159,7 @@ public class BaseTower : MonoBehaviour
     }
 
     /// <summary>
-    /// Claculates the cocts of upgrades 
+    /// Calculates the costs of upgrades 
     /// </summary>
     /// <returns></returns>
     private int CalculateCost()

@@ -1197,7 +1197,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 6, y: 6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &63380378
 MonoBehaviour:
@@ -1212,7 +1212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.39215687}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4507,8 +4507,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Enemies are attacking your base! \n\nBuild defense towers along the path
     to stop them.\nEach tower can attack enemies and slow down their progress. \n\nAnswer
-    questions to upgrade your towers and unlock even stronger defenses.\nDefend your
-    base and prevent the enemies from reaching it!\n\nGood luck, Commander!"
+    questions to upgrade your towers and unlock even stronger defenses.\n\nDefend
+    your base and prevent the enemies from reaching it!\n\nGood luck, Commander!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef88391de693dac40b04131e08f38882, type: 2}
   m_sharedMaterial: {fileID: -8391701417571377768, guid: ef88391de693dac40b04131e08f38882, type: 2}

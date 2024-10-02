@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,7 +79,7 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     /// <param name="questions"></param>
     public void SetQuestions(List<QuestionData> questions)
     {
-        this.questions = questions.OrderBy(x => Random.value).ToList();
+        this.questions = questions.OrderBy(x => UnityEngine.Random.value).ToList();
         this.questions.ForEach(question => Debug.Log(question.GetText()));
     }
 
@@ -85,11 +87,22 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     /// <summary>
     /// Loads the current question to the text and dropdown menu of the question scene
     /// </summary>
-    public async void LoadQuestion()
+    public bool LoadQuestion()
     {
-        Debug.Log("Loading Question...");        
-        currentQuestion = questions[questionCounter];
-        FillDropdown();
+        Debug.Log("Loading Question...");
+        try
+        {
+            currentQuestion = questions[questionCounter];
+            FillDropdown();
+            return true;
+        }
+        catch
+        {
+            Debug.Log("All questions answered!");
+            StartCoroutine(PauseButton.Instance.ShowFeedbackWindow("All questions answered. Please wait for the current wave to end!"));
+        }
+
+        return false;
     }
 
     /// <summary>
@@ -100,19 +113,21 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         question.SetActive(true);
         List<string> dropdownEntries = currentQuestion.GetWrongAnswers().Append(currentQuestion.GetCorrectAnswer()).ToList();
-        dropdownEntries = dropdownEntries.OrderBy(x => Random.value).ToList();
+        dropdownEntries = dropdownEntries.OrderBy(x => UnityEngine.Random.value).ToList();
 
-        answerDropdown.GetComponent<TMP_Dropdown>().captionText.text = "";
-        answerDropdown.GetComponent<TMP_Dropdown>().options.Clear();
+        TMP_Dropdown tmpDropdown = answerDropdown.GetComponent<TMP_Dropdown>();
+
+        tmpDropdown.captionText.text = "";
+        tmpDropdown.options.Clear();
 
         questionText.text = currentQuestion.GetText();
 
         foreach(var answers in dropdownEntries)
         {
-            answerDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData(answers));
+            tmpDropdown.options.Add(new TMP_Dropdown.OptionData(answers));
         }
 
-        answerDropdown.GetComponent<TMP_Dropdown>().value = 0;
+        tmpDropdown.captionText.text = tmpDropdown.options[0].text;
 
         questionCounter++;
 
@@ -145,6 +160,7 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
         {
             correctAnswer.SetActive(true);
             AddCorrectAnswerToResult(currentQuestion, answer);
+            UpdatePoints(1);
 
             return true;
         }
@@ -152,6 +168,7 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
         {
             wrongAnswer.SetActive(true);
             AddWrongAnswerToResult(currentQuestion, answer);
+            UpdatePoints(-1);
 
             return false;
         }
@@ -160,20 +177,29 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     /// <summary>
     /// Checks if the game is finished, i.e all questions have been answered by the player
     /// </summary>
-    private async void CheckForEnd()
+    public async UniTask<bool> CheckForEnd()
     {
         if (questionCounter >= questions.Count)
         {
-            Debug.Log("All questions answered");
-            GameManager.Instance.LoadEndScreen();
+            Debug.Log("All questions have been answered");
+            GameManager.Instance.SetIsFinished(true);
 
-#if !UNITY_EDITOR
+            GameResultData result = new GameResultData(questions.Count, correctAnsweredQuestions.Count, wrongAnsweredQuestions.Count, points,
+                correctAnsweredQuestions, wrongAnsweredQuestions, "1", 1, 1);
+
+            GameManager.Instance.SetGameResult(result);
+
+#if UNITY_EDITOR
+            return true;
+#else
             GameResultData result = new GameResultData(questions.Count, correctAnsweredQuestions.Count, wrongAnsweredQuestions.Count, points,
                 correctAnsweredQuestions, wrongAnsweredQuestions, GetConfiguration(), score, rewards);
 
-            bool succesfull = await GameManager.Instance.SaveProgress(result);
+            await GameManager.Instance.SaveProgress(result);
 #endif
         }
+
+        return false;
     }
 
     /// <summary>
@@ -207,8 +233,6 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
         correctAnswer.SetActive(false);
         wrongAnswer.SetActive(false);
         ActivateCanvas(false);
-
-        CheckForEnd();
     }
 
     /// <summary>
@@ -245,5 +269,14 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void OnPointerExit(PointerEventData eventData)
     {
         UIManager.Instance.SetHoveringState(false);
+    }
+
+    /// <summary>
+    /// Updates the points by the given amount
+    /// </summary>
+    /// <param name="amount">amount by points get changed</param>
+    private void UpdatePoints(int amount)
+    {
+        points += amount < 0 ? points = 0 : points += amount;
     }
 }

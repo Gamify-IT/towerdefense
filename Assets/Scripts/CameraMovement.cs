@@ -61,7 +61,7 @@ public class CameraMovement : MonoBehaviour
     /// </summary>
     private void HandleMovement()
     {
-        if (!UIManager.Instance.IsHoveringUI())
+        if (!UIManager.Instance.IsHoveringUI() && !GameManager.Instance.IsFinished())
         {
             Vector3 moveDirection = Vector3.zero;
 
@@ -99,7 +99,7 @@ public class CameraMovement : MonoBehaviour
     /// </summary>
     private void HandleZoom()
     {
-        if (!UIManager.Instance.IsHoveringUI())
+        if (!UIManager.Instance.IsHoveringUI() && !GameManager.Instance.IsFinished())
         {
             float scrollData = Input.GetAxis("Mouse ScrollWheel");
 

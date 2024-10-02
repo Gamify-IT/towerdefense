@@ -29,6 +29,7 @@ public class EnemySpawner : MonoBehaviour
     private int enemiesLeftToSpawn;
     private float actualEnemiesPerSecond;
     private bool isSpawning = false;
+    private bool checkForEnd = false;
 
     private void Awake()
     {
@@ -52,21 +53,24 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        if (!isSpawning) return;
-
-        timeSinceLastSpawn += Time.deltaTime;
-
-        if(timeSinceLastSpawn >= (1f / actualEnemiesPerSecond) && enemiesLeftToSpawn > 0)
+        if (isSpawning && !checkForEnd)
         {
-            SpawnEnemy();
-            enemiesLeftToSpawn--;
-            enemiesAlive++;
-            timeSinceLastSpawn = 0f;
-        }
-        // start new wave if no enemies are left
-        if(enemiesAlive == 0 && enemiesLeftToSpawn == 0)
-        {
-            EndWave();
+            timeSinceLastSpawn += Time.deltaTime;
+
+            if (timeSinceLastSpawn >= (1f / actualEnemiesPerSecond) && enemiesLeftToSpawn > 0)
+            {
+                SpawnEnemy();
+                enemiesLeftToSpawn--;
+                enemiesAlive++;
+                timeSinceLastSpawn = 0f;
+            }
+
+            // start new wave if no enemies are left
+            if (enemiesAlive == 0 && enemiesLeftToSpawn == 0)
+            {
+                checkForEnd = true;
+                EndWave();
+            }
         }
     }
 
@@ -104,12 +108,22 @@ public class EnemySpawner : MonoBehaviour
     /// <summary>
     ///     Ends a wave, thus starting the intermission coroutine.
     /// </summary>
-    private void EndWave()
+    private async void EndWave()
     {
-        isSpawning = false;
-        timeSinceLastSpawn = 0f;
-        currentWave++;
-        StartCoroutine(StartWave());
+        bool isFinished = await QuestionManager.Instance.CheckForEnd();
+
+        if (isFinished)
+        {
+            GameManager.Instance.LoadEndScreen();
+        }
+        else
+        {
+            isSpawning = false;
+            timeSinceLastSpawn = 0f;
+            currentWave++;
+            StartCoroutine(StartWave());
+            checkForEnd = false;
+        }
     }
 
     /// <summary>

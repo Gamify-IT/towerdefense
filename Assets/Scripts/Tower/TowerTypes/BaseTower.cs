@@ -112,7 +112,7 @@ public class BaseTower : MonoBehaviour
             Debug.Log("wrong answer");
 
             // TODO: adjust punishment
-            LevelManager.Instance.SpendCurrency(CalculateCost() / 2);
+            LevelManager.Instance.SpendCurrency(CalculateCost());
         }
 
         CloseUpgradeUI();
@@ -135,9 +135,13 @@ public class BaseTower : MonoBehaviour
             return;
         }
 
-        Debug.Log("Opening Question Menu...");
-        QuestionManager.Instance.OpenQuestionUI();   
-        QuestionManager.Instance.LoadQuestion();
+        Debug.Log("Opening Question Menu..."); 
+        bool successfull = QuestionManager.Instance.LoadQuestion();
+
+        if (successfull)
+        {
+            QuestionManager.Instance.OpenQuestionUI();
+        }
     }
 
     /// <summary>

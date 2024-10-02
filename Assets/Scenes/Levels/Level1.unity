@@ -4507,8 +4507,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Enemies are attacking your base! \n\nBuild defense towers along the path
     to stop them.\nEach tower can attack enemies and slow down their progress. \n\nAnswer
-    questions to upgrade your towers and unlock even stronger defenses.\nDefend your
-    base and prevent the enemies from reaching it!\n\nGood luck, Commander!"
+    questions to upgrade your towers and unlock even stronger defenses.\n\nDefend
+    your base and prevent the enemies from reaching it!\n\nGood luck, Commander!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef88391de693dac40b04131e08f38882, type: 2}
   m_sharedMaterial: {fileID: -8391701417571377768, guid: ef88391de693dac40b04131e08f38882, type: 2}

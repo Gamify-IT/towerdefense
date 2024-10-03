@@ -69,7 +69,6 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void Start()
     {
         exitButton.onClick.AddListener(() => Quit());
-        submitButton.onClick.AddListener(() => CheckAnswer());
         questionMenu.SetActive(false);
     }
     
@@ -129,8 +128,6 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
         tmpDropdown.captionText.text = tmpDropdown.options[0].text;
 
-        questionCounter++;
-
         Debug.Log("Question successfully loaded");
     }
 
@@ -183,20 +180,18 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
         {
             Debug.Log("All questions have been answered");
             GameManager.Instance.SetIsFinished(true);
-
+#if UNITY_EDITOR
             GameResultData dummyResult = new GameResultData(questions.Count, correctAnsweredQuestions.Count, wrongAnsweredQuestions.Count, points,
-                correctAnsweredQuestions, wrongAnsweredQuestions, "1", 1, 1);
+                                                            correctAnsweredQuestions, wrongAnsweredQuestions, "1", 1, 1);
 
             GameManager.Instance.SetGameResult(dummyResult);
-
-#if UNITY_EDITOR
-            return true;
 #else
             GameResultData result = new GameResultData(questions.Count, correctAnsweredQuestions.Count, wrongAnsweredQuestions.Count, points,
                 correctAnsweredQuestions, wrongAnsweredQuestions, GetConfiguration(), score, rewards);
 
             await GameManager.Instance.SaveProgress(result);
 #endif
+            return true;
         }
 
         return false;
@@ -209,7 +204,7 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     private void AddCorrectAnswerToResult(QuestionData question, string answer)
     {
         Debug.Log("Add correct answer to game result: " + answer);
-        QuestionResultData correctResult = new QuestionResultData(question, answer);
+        QuestionResultData correctResult = new QuestionResultData(question.GetId(), answer);
         correctAnsweredQuestions.Add(correctResult);
     }
 
@@ -220,7 +215,7 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     private void AddWrongAnswerToResult(QuestionData question, string answer)
     {
         Debug.Log("Add wrong answer to game result: " + answer);
-        QuestionResultData wrongResult = new QuestionResultData(question, answer);
+        QuestionResultData wrongResult = new QuestionResultData(question.GetId(), answer);
         wrongAnsweredQuestions.Add(wrongResult);
     }
 
@@ -233,6 +228,7 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
         correctAnswer.SetActive(false);
         wrongAnswer.SetActive(false);
         ActivateCanvas(false);
+        questionCounter++;
     }
 
     /// <summary>
@@ -277,6 +273,22 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     /// <param name="amount">amount by points get changed</param>
     private void UpdatePoints(int amount)
     {
-        points += amount < 0 ? points = 0 : points += amount;
+        if (points + amount < 0)
+        {
+            points = 0;
+        }
+        else
+        {
+            points += amount;
+        }
+    }
+
+    /// <summary>
+    /// Gets all questions of the current game session
+    /// </summary>
+    /// <returns>all questions of the current game session</returns>
+    public List<QuestionData> GetQuestions()
+    {
+        return questions;
     }
 }

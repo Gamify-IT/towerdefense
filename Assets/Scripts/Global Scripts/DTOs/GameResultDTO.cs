@@ -10,8 +10,8 @@ public class GameResultDTO
 {
     #region attributes
     public int questionCount;
-    public int correctAnswerCount;
-    public int wrongAnswerCount;
+    public int correctQuestionsCount;
+    public int wrongQuestionsCount;
     public int points;
     public List<QuestionResultDTO> correctAnsweredQuestions;
     public List<QuestionResultDTO> wrongAnsweredQuestions;
@@ -21,13 +21,13 @@ public class GameResultDTO
     public string playerId;
     #endregion
 
-    public GameResultDTO(int questionCount, int correctAnswerCount, int wrongAnswerCount, int points, 
+    public GameResultDTO(int questionCount, int correctQuestionsCount, int wrongQuestionsCount, int points, 
         List<QuestionResultDTO> correctAnsweredQuestions, List<QuestionResultDTO> wrongAnsweredQuestions, 
         string configurationAsUUID, int score, int rewards)
     {
         this.questionCount = questionCount;
-        this.correctAnswerCount = correctAnswerCount;
-        this.wrongAnswerCount = wrongAnswerCount;
+        this.correctQuestionsCount = correctQuestionsCount;
+        this.wrongQuestionsCount = wrongQuestionsCount;
         this.points = points;
         this.correctAnsweredQuestions = correctAnsweredQuestions;
         this.wrongAnsweredQuestions = wrongAnsweredQuestions;
@@ -55,12 +55,12 @@ public class GameResultDTO
 
         for (int i = 0; i < data.GetCorrectAnsweredQuestions().Count; i++)
         {
-            correctAnsweredQuestions[i] = QuestionResultDTO.ConvertDataToDTO(data.GetCorrectAnsweredQuestions()[i]);
+            correctAnsweredQuestions.Add(QuestionResultDTO.ConvertDataToDTO(data.GetCorrectAnsweredQuestions()[i]));
         }
 
         for (int i = 0; i < data.GetWrongAnsweredQuestions().Count; i++)
         {
-            wrongAnsweredQuestions[i] = QuestionResultDTO.ConvertDataToDTO(data.GetWrongAnsweredQuestions()[i]);
+            wrongAnsweredQuestions.Add(QuestionResultDTO.ConvertDataToDTO(data.GetWrongAnsweredQuestions()[i]));
         }
 
         return new GameResultDTO(questionCount, correctAnswerCount, wrongAnswerCount, points, correctAnsweredQuestions,

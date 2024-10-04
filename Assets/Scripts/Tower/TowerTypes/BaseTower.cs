@@ -20,7 +20,7 @@ public class BaseTower : MonoBehaviour
     [SerializeField] protected TMP_Text levelLabel;
     [SerializeField] protected TMP_Text upgradePriceLabel;
 
-    [Header("Attribute")]
+    [Header("Attributes")]
     [SerializeField] protected float targetingRange = 5f; 
     [SerializeField] protected float projectilePerSecond = 1f;
     [SerializeField] protected int baseUpgradeCost = 100;
@@ -47,7 +47,6 @@ public class BaseTower : MonoBehaviour
         targetingRangeBase = targetingRange;
 
         upgradeButton.onClick.AddListener(Upgrade);
-        QuestionManager.Instance.submitButton.onClick.AddListener(() => Answer(QuestionManager.Instance.CheckAnswer()));
     }
 
     /// <summary>
@@ -129,6 +128,8 @@ public class BaseTower : MonoBehaviour
     /// </summary>
     public void Upgrade()
     {
+        QuestionManager.Instance.SetUpgradedTower(this);
+
         if (CalculateCost() > LevelManager.Instance.GetCurrency())
         {
             StartCoroutine(PauseButton.Instance.ShowFeedbackWindow("Not enough Credits!"));
@@ -141,6 +142,22 @@ public class BaseTower : MonoBehaviour
         if (successfull)
         {
             QuestionManager.Instance.OpenQuestionUI();
+        }
+    }
+
+    /// <summary>
+    /// (De)activates the submit button of the question only to the current tower that is upgraded 
+    /// </summary>
+    /// <param name="status">whether the submit button is active or not for this tower</param>
+    public void AssignSubmitButton(bool status)
+    {
+        if (status)
+        {
+            QuestionManager.Instance.submitButton.onClick.AddListener(() => Answer(QuestionManager.Instance.CheckAnswer()));
+        }      
+        else
+        {
+            QuestionManager.Instance.submitButton.onClick.RemoveAllListeners();
         }
     }
 

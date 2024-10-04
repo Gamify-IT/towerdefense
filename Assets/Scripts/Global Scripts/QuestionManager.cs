@@ -25,6 +25,9 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     private static extern string GetOriginUrl();
     #endregion
 
+    [Header("Upraded Tower Data")]
+    private BaseTower upgradedTower;
+
     [Header("Question Progress")]
     private List<QuestionData> questions;
     private List<QuestionResultData> correctAnsweredQuestions = new List<QuestionResultData>();
@@ -35,7 +38,7 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     private int score = 0;
     private int rewards = 0;
 
-    [Header("UI elements")]
+    [Header("UI Elements")]
     [SerializeField] private TMP_Text questionText;
     [SerializeField] private GameObject answerDropdown;
     [SerializeField] private GameObject questionMenu;
@@ -81,7 +84,6 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
         this.questions = questions.OrderBy(x => UnityEngine.Random.value).ToList();
         this.questions.ForEach(question => Debug.Log(question.GetText()));
     }
-
 
     /// <summary>
     /// Loads the current question to the text and dropdown menu of the question scene
@@ -139,7 +141,6 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         questionMenu.SetActive(active);
     }
-
 
     /// <summary>
     /// Checks if the given answer is correct
@@ -220,7 +221,7 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     }
 
     /// <summary>
-    /// Closes the Question UI menu
+    /// Closes the Question UI menu und feedback UI
     /// </summary>
     public void CloseQuestionUI()
     {
@@ -229,15 +230,17 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
         wrongAnswer.SetActive(false);
         ActivateCanvas(false);
         questionCounter++;
+        upgradedTower.AssignSubmitButton(false);
     }
 
     /// <summary>
-    /// Opens the Question UI menu
+    /// Opens the Question UI menu for the upraded tower
     /// </summary>
     public void OpenQuestionUI()
     {
         UIManager.Instance.SetHoveringState(true);
         ActivateCanvas(true);
+        upgradedTower.AssignSubmitButton(true);
     }
 
     /// <summary>
@@ -290,5 +293,14 @@ public class QuestionManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public List<QuestionData> GetQuestions()
     {
         return questions;
+    }
+
+    /// <summary>
+    /// Changes the upgradedTower to the given one
+    /// </summary>
+    /// <param name="tower">tower to be upgraded</param>
+    public void SetUpgradedTower(BaseTower tower)
+    {
+        upgradedTower = tower;
     }
 }

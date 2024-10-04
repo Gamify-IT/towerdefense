@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
     private static extern string GetOriginUrl();
     #endregion
 
+    private GameResultData gameResult;
+    private bool isFinished = false;
+    private int volumeLevel;
+
     #region Singelton
     /// <summary>
     ///     Realizes the the singelton conecpt, i.e. only one instance can exist at the same time.
@@ -30,7 +34,6 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -38,10 +41,6 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
-
-    private GameResultData gameResult;
-    private bool isFinished = false;
-    private int volumeLevel;
 
     public async void Start()
     {

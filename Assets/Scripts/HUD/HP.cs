@@ -11,10 +11,12 @@ public class HP : MonoBehaviour
 {
     [Header("References")]
     public RectTransform healthbar;
+
     [Header("Attributes")]
     private float maxHealth = 100f;
     private float currentHealth;
     private float originalWidth;
+    private bool isDestroyed = false;
 
     private void Start()
     {
@@ -29,13 +31,16 @@ public class HP : MonoBehaviour
     /// <param name="damageAmount">Amount of damage to reduce.</param>
     public void TakeDamage(float damageAmount)
     {
-        currentHealth -= damageAmount;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        UpdateHealthBar();
-
-        if (currentHealth <= 0)
+        if (!isDestroyed)
         {
-            HandlePlayerDeath();
+            currentHealth -= damageAmount;
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            UpdateHealthBar();
+
+            if (currentHealth <= 0)
+            {
+                HandlePlayerDeath();
+            }
         }
     }
 
@@ -53,7 +58,9 @@ public class HP : MonoBehaviour
     /// </summary>
     private void HandlePlayerDeath()
     {
+        isDestroyed = true;
+        Time.timeScale = 0f;
         Debug.Log("Your base got destroyed!");
-        GameManager.Instance.LoadEndScreen();
+        SceneManager.LoadScene("Game Over", LoadSceneMode.Additive);
     }
 }

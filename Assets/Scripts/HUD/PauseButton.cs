@@ -35,7 +35,6 @@ public class PauseButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {

@@ -26,7 +26,7 @@ public class GameOver : MonoBehaviour
     /// <summary>
     /// This function plays the click sound
     /// </summary>
-    public void PlayClickSound()
+    private void PlayClickSound()
     {
         if (clickSound != null && audioSource != null)
         {
@@ -39,15 +39,9 @@ public class GameOver : MonoBehaviour
     /// </summary>
     public void RestartGame()
     {
+        Debug.Log("Restarting game...");
         PlayClickSound();
-        Invoke("CallStartMenuScene", 0.2f);
-    }
-
-    /// <summary>
-    /// This function calls the start menu scene
-    /// </summary>
-    private void CallStartMenuScene()
-    {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Start Menu");
     }
 
@@ -66,10 +60,7 @@ public class GameOver : MonoBehaviour
     {
         PlayClickSound();
         yield return new WaitForSeconds(0.2f);
-        Application.Quit();
-
-        // Game quits, when you are in the Unity editor with the following code line.
-        // Relevant while game is in development.
-        //UnityEditor.EditorApplication.isPlaying = false;
+        Time.timeScale = 1f;
+        SceneLoader.Instance.Quit();
     }
 }

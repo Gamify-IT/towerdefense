@@ -99,8 +99,7 @@ public class EnemyMovement : MonoBehaviour
         {
             EnemySpawner.GetOnEnemyDestroy().Invoke();
         }
-        Destroy(gameObject);
-       
+        Destroy(gameObject);      
     }
 
     /// <summary>

@@ -38,10 +38,8 @@ Install the [Unity Version 2021.3.2f1 (LTS)](https://gamifyit-docs.readthedocs.i
 
 Clone the repository  
 ```sh
-git clone https://github.com/Gamify-IT/chickenshock.git
+git clone https://github.com/Gamify-IT/tower-defense.git
 ```
-
-Game specific properties that are likely to be changed are stored in a `.properties` file located at `Assets/Scripts/Properties/Chickenshock.properties`
 
 #### Run with Docker-compose
 
@@ -58,22 +56,22 @@ Build the project like described in [this manual](https://gamifyit-docs.readthed
 
 Build the Docker-Container
 ```sh
-docker build -t chickenshock-dev
+docker build -t towerdefense-dev
 ```
 And run it at port 8000 with
 ```sh
-docker run -d -p 8000:80 --name chickenshock-dev chickenshock-dev
+docker run -d -p 8000:80 --name towerdefense-dev towerdefense-dev
 ```
 
 To monitor, stop and remove the container you can use the following commands:
 ```sh
-docker ps -a -f name=chickenshock-dev
+docker ps -a -f name=towerdefense-dev
 ```
 ```sh
-docker stop chickenshock-dev
+docker stop towerdefense-dev
 ```
 ```sh
-docker rm chickenshock-dev
+docker rm towerdefense-dev
 ```
 
 ## Audio sources

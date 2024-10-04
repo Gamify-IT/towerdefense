@@ -62,6 +62,8 @@ public class GameManager : MonoBehaviour
         QuestionData questionTwo = new QuestionData("2", "What is 1*1?", "1", new List<string>() { "3", "22", "999" });
 
         QuestionManager.Instance.SetQuestions(new List<QuestionData>() { questionOne, questionTwo } );
+
+        UpdateVolumeLevel(1);
 #else
         string originURL = GetOriginUrl();
         string baseBackendPath = GameSettings.GetTowerdefenseBackendPath();
@@ -73,7 +75,6 @@ public class GameManager : MonoBehaviour
 
         if (configurationDTO.IsPresent())
         {
-            //UIManager.Instance.SetHoveringState(true);
             await SceneManager.LoadSceneAsync("Question", LoadSceneMode.Additive);
             ConfigurationData configuration = ConfigurationData.ConvertDtoToData(configurationDTO.Value());
             this.volumeLevel = configurationDTO.Value().volumeLevel;

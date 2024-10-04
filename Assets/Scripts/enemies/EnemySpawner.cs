@@ -20,6 +20,10 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float difficultyScalingFactor = 0.75f;     // greater value means more enemies
     [SerializeField] private float enemiesPerSecondCap = 15f;
 
+    [Header("Audio Elements")]
+    [SerializeField] private AudioClip clickSound;
+    private AudioSource audioSource;
+
     [Header("Events")]
     private static UnityEvent onEnemyDestroy = new UnityEvent();
 
@@ -39,16 +43,33 @@ public class EnemySpawner : MonoBehaviour
 
     public void Start()
     {
+        InitAudio();
         // coroutine for time based waves 
         StartCoroutine(StartWave());
         Time.timeScale = 0f;
     }
 
+    /// <summary>
+    /// Starts the game after the player has read the information pop-up
+    /// </summary>
     public void StartGame()
     {
+        PlayClickSound();
         Time.timeScale = 1f;
         infoScreen.SetActive(false);
         UIManager.Instance.SetHoveringState(false);
+    }
+
+    /// <summary>
+    /// Initializes all audio components
+    /// </summary>
+    private void InitAudio()
+    {
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.clip = clickSound;
     }
 
     private void Update()
@@ -152,5 +173,16 @@ public class EnemySpawner : MonoBehaviour
     public static UnityEvent GetOnEnemyDestroy()
     {
         return onEnemyDestroy;
+    }
+
+    /// <summary>
+    /// This function plays the click sound
+    /// </summary>
+    private void PlayClickSound()
+    {
+        if (clickSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clickSound);
+        }
     }
 }

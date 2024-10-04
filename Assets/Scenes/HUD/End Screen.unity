@@ -1856,6 +1856,7 @@ MonoBehaviour:
   resultContent: {fileID: 204379974}
   correctEntryPrefab: {fileID: 6768399052290665893, guid: dfc244692282dd34187468c776ee0733, type: 3}
   wrongEntryPrefab: {fileID: 6695806756309557135, guid: c452489caf09c2b4da22643ef3eb1048, type: 3}
+  clickSound: {fileID: 8300000, guid: 21c9d943affbb3f41847d82a05821962, type: 3}
 --- !u!1 &1340068803
 GameObject:
   m_ObjectHideFlags: 0

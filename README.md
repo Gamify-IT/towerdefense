@@ -93,3 +93,6 @@ https://pixabay.com/sound-effects/success-fanfare-trumpets-6185/
 
 6.  Sound for enemy kill
 https://pixabay.com/sound-effects/notification-5-140376/
+
+7. Game over sound
+https://pixabay.com/sound-effects/failure-drum-sound-effect-1-46093/

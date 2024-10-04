@@ -165,6 +165,9 @@ public static class RestRequest
             else
             {
                 Debug.Log(uri + ":\nReceived: " + webRequest.downloadHandler.text);
+                // save game result in game manager
+                GameResultDTO dto = JsonUtility.FromJson<GameResultDTO>(webRequest.downloadHandler.text);
+                GameManager.Instance.SetGameResult(GameResultData.ConvertDtoToData(dto));
                 return true;
             }
         }

@@ -9,8 +9,8 @@ public class GameResultData
 {
     #region attributes
     private int questionCount;
-    private int correctAnswerCount;
-    private int wrongAnswerCount;
+    private int correctQuestionsCount;
+    private int wrongQuestionsCount;
     private int points;
     private List<QuestionResultData> correctAnsweredQuestions;
     private List<QuestionResultData> wrongAnsweredQuestions;
@@ -20,13 +20,13 @@ public class GameResultData
     private string playerId;
     #endregion
 
-    public GameResultData(int questionCount, int correctAnswerCount, int wrongAnswerCount, int points,
+    public GameResultData(int questionCount, int correctQuestionsCount, int wrongQuestionsCount, int points,
         List<QuestionResultData> correctAnsweredQuestions, List<QuestionResultData> wrongAnsweredQuestions,
         string configurationAsUUID, int score, int rewards)
     {
         this.questionCount = questionCount;
-        this.correctAnswerCount = correctAnswerCount;
-        this.wrongAnswerCount = wrongAnswerCount;
+        this.correctQuestionsCount = correctQuestionsCount;
+        this.wrongQuestionsCount = wrongQuestionsCount;
         this.points = points;
         this.correctAnsweredQuestions = correctAnsweredQuestions;
         this.wrongAnsweredQuestions = wrongAnsweredQuestions;
@@ -43,8 +43,8 @@ public class GameResultData
     public static GameResultData ConvertDtoToData(GameResultDTO dto)
     {
         int questionCount = dto.questionCount;
-        int correctAnswerCount = dto.correctAnswerCount;
-        int wrongAnswerCount = dto.wrongAnswerCount;
+        int correctAnswerCount = dto.correctQuestionsCount;
+        int wrongAnswerCount = dto.wrongQuestionsCount;
         int points = dto.points;
         List<QuestionResultData> correctAnsweredQuestions = new List<QuestionResultData>();
         List<QuestionResultData> wrongAnsweredQuestions = new List<QuestionResultData>();
@@ -54,12 +54,12 @@ public class GameResultData
 
         for(int i = 0; i < dto.correctAnsweredQuestions.Count; i++)
         {
-            correctAnsweredQuestions[i] = QuestionResultData.ConvertDtoToData(dto.correctAnsweredQuestions[i]);
+            correctAnsweredQuestions.Add(QuestionResultData.ConvertDtoToData(dto.correctAnsweredQuestions[i]));
         }
 
         for (int i = 0; i < dto.wrongAnsweredQuestions.Count; i++)
         {
-            wrongAnsweredQuestions[i] = QuestionResultData.ConvertDtoToData(dto.wrongAnsweredQuestions[i]);
+            wrongAnsweredQuestions.Add(QuestionResultData.ConvertDtoToData(dto.wrongAnsweredQuestions[i]));
         }
 
         return new GameResultData(questionCount, correctAnswerCount, wrongAnswerCount, points, correctAnsweredQuestions,
@@ -79,22 +79,22 @@ public class GameResultData
 
     public int GetCorrectAnswerCount()
     {
-        return correctAnswerCount;
+        return correctQuestionsCount;
     }
 
-    public void SetCorrectAnswerCount(int correctAnswerCount)
+    public void SetCorrectAnswerCount(int correctQuestionsCount)
     {
-        this.correctAnswerCount = correctAnswerCount;
+        this.correctQuestionsCount = correctQuestionsCount;
     }
 
     public int GetWrongAnswerCount()
     {
-        return wrongAnswerCount;
+        return wrongQuestionsCount;
     }
 
-    public void SetWrongAnswerCount(int wrongAnswerCount)
+    public void SetWrongAnswerCount(int wrongQuestionsCount)
     {
-        this.wrongAnswerCount = wrongAnswerCount;
+        this.wrongQuestionsCount = wrongQuestionsCount;
     }
 
     public int GetPoints()

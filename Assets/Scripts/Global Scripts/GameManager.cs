@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    private GameResultData gameResult;
+    private bool isFinished = false;
     private int volumeLevel;
 
     public async void Start()
@@ -61,7 +63,6 @@ public class GameManager : MonoBehaviour
         QuestionData questionTwo = new QuestionData("2", "What is 1*1?", "1", new List<string>() { "3", "22", "999" });
 
         QuestionManager.Instance.SetQuestions(new List<QuestionData>() { questionOne, questionTwo } );
-
 #else
         string originURL = GetOriginUrl();
         string baseBackendPath = GameSettings.GetTowerdefenseBackendPath();
@@ -142,4 +143,42 @@ public class GameManager : MonoBehaviour
         }
         AudioListener.volume = volume;
     }
+
+    #region getter and setter
+    /// <summary>
+    /// Sets the gamer result to the given one
+    /// </summary>
+    /// <param name="result">game result to be set</param>
+    public void SetGameResult(GameResultData result)
+    {
+        gameResult = result;
+    }
+
+    /// <summary>
+    /// Gets the game result of the current session
+    /// </summary>
+    /// <returns>game result of the current session</returns>
+    public GameResultData GetGameResult()
+    {
+        return gameResult;
+    }
+
+    /// <summary>
+    /// Sets the curent game status, i.e. if it is finished or not
+    /// </summary>
+    /// <param name="status"></param>
+    public void SetIsFinished(bool status)
+    {
+        isFinished = status;
+    }
+
+    /// <summary>
+    /// Gets the current game status, i.e. if it is finished or not
+    /// </summary>
+    /// <returns></returns>
+    public bool IsFinished()
+    {
+        return isFinished;
+    }
+    #endregion
 }

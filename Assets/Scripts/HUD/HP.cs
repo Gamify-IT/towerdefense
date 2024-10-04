@@ -53,6 +53,7 @@ public class HP : MonoBehaviour
     /// </summary>
     private void HandlePlayerDeath()
     {
-        SceneManager.LoadScene("GameOver");
+        Debug.Log("Your base got destroyed!");
+        GameManager.Instance.LoadEndScreen();
     }
 }

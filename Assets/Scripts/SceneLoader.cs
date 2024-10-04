@@ -69,6 +69,7 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
+        Debug.Log("Starting game...");
         PlayClickSound();
         SceneManager.LoadSceneAsync(mainGameScene);
         SceneManager.LoadSceneAsync(playerHUDScene, LoadSceneMode.Additive);

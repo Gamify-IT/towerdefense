@@ -66,7 +66,7 @@ public class EnemySpawner : MonoBehaviour
             }
 
             // start new wave if no enemies are left
-            if (enemiesAlive == 0 && enemiesLeftToSpawn == 0)
+            if (enemiesAlive == 0 && enemiesLeftToSpawn == 0 && !GameManager.Instance.IsFinished())
             {
                 checkForEnd = true;
                 EndWave();

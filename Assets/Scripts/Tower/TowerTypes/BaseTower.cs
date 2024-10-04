@@ -1,11 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
-using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
-using Cysharp.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 ///  This script is used as the base for all the different tower types
@@ -24,6 +19,10 @@ public class BaseTower : MonoBehaviour
     [SerializeField] protected float targetingRange = 5f; 
     [SerializeField] protected float projectilePerSecond = 1f;
     [SerializeField] protected int baseUpgradeCost = 100;
+
+    [Header("Audio Elements")]
+    private AudioClip updateTowerSound;
+    private AudioSource mainAudioSource;
 
     protected float targetingRangeBase;
     protected float baseProjectilePerSecond;
@@ -47,6 +46,20 @@ public class BaseTower : MonoBehaviour
         targetingRangeBase = targetingRange;
 
         upgradeButton.onClick.AddListener(Upgrade);
+        InitAudio();
+    }
+
+    /// <summary>
+    /// Initializes all audio components
+    /// </summary>
+    private void InitAudio()
+    {
+        if (mainAudioSource == null)
+        {
+            mainAudioSource = gameObject.AddComponent<AudioSource>();
+        }
+        updateTowerSound = Resources.Load<AudioClip>("Music/update_tower");
+        mainAudioSource.clip = updateTowerSound;
     }
 
     /// <summary>
@@ -115,6 +128,7 @@ public class BaseTower : MonoBehaviour
         }
 
         CloseUpgradeUI();
+        PlayUpdateTowerSound();
     }
 
     public void OpenQuestionUI()
@@ -187,5 +201,16 @@ public class BaseTower : MonoBehaviour
     {
         return Mathf.RoundToInt(baseUpgradeCost * Mathf.Pow(level, CostExponent));
     }
-   
+
+    /// <summary>
+    /// This function plays the tower update sound
+    /// </summary>
+    public void PlayUpdateTowerSound()
+    {
+        if (updateTowerSound != null && mainAudioSource != null)
+        {
+            mainAudioSource.PlayOneShot(updateTowerSound);
+        }
+    }
+
 }

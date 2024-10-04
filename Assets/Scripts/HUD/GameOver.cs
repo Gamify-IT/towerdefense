@@ -1,5 +1,7 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,8 +10,9 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameOver : MonoBehaviour
 {
-    private AudioSource audioSource;
+    [Header("Audio Elements")]
     [SerializeField] private AudioClip clickSound;
+    private AudioSource audioSource;
 
     /// <summary>
     /// Initializes audio source at the begin
@@ -24,43 +27,36 @@ public class GameOver : MonoBehaviour
     }
 
     /// <summary>
-    /// This function plays the click sound
-    /// </summary>
-    private void PlayClickSound()
-    {
-        if (clickSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(clickSound);
-        }
-    }
-
-    /// <summary>
     /// This function plays the click sound when clicking on the restart button
     /// </summary>
-    public void RestartGame()
+    public async void RestartGame()
     {
         Debug.Log("Restarting game...");
-        PlayClickSound();
+        await PlayClickSound();
         Time.timeScale = 1f;
         SceneManager.LoadScene("Start Menu");
     }
 
     /// <summary>
-    /// This function calls the coroutine to play click sound and exit the game
+    /// Exits the game so the player returns to the overworld
     /// </summary>
     public void ExitGame()
     {
-        StartCoroutine(ExitGameAfterClickSound());
-    }
-
-    /// <summary>
-    /// This function plays the click sound and after that closes the game
-    /// </summary>
-    private IEnumerator ExitGameAfterClickSound()
-    {
-        PlayClickSound();
-        yield return new WaitForSeconds(0.2f);
         Time.timeScale = 1f;
         SceneLoader.Instance.Quit();
     }
+
+    /// <summary>
+    /// This function plays the click sound
+    /// </summary>
+    private async UniTask<bool> PlayClickSound()
+    {
+        if (clickSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clickSound);
+            await Task.Delay(100);
+        }
+        return true;
+    }
+
 }

@@ -1,16 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
-using TMPro;
 
 /// <summary>
 ///     Manages UI elements of the end screen
 /// </summary>
 public class EndScreen : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [Header("UI elements")]
+    [Header("UI Elements")]
     [SerializeField] private TMP_Text rewardsText;
     [SerializeField] private GameObject endScreen;
     [SerializeField] private GameObject resultScreen;
@@ -18,20 +16,42 @@ public class EndScreen : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     [SerializeField] private GameObject correctEntryPrefab;
     [SerializeField] private GameObject wrongEntryPrefab;
 
-    [Header("Game data")]
+    [Header("Game Data")]
     private GameResultData result;
     private List<QuestionData> questions;
     private List<QuestionResultData> correctAnsweredQuestions;
     private List<QuestionResultData> wrongAnsweredQuestions;
 
+    [Header("Audio Elements")]
+    [SerializeField] private AudioClip clickSound;
+    private AudioSource audioSource;
+
     private void Start()
     {
-        Time.timeScale = 0f;   
+        Time.timeScale = 0f;
+        SetUpEndScreen();
+        InitAudio();
+    }
+
+    private void SetUpEndScreen()
+    {
         result = GameManager.Instance.GetGameResult();
         correctAnsweredQuestions = result.GetCorrectAnsweredQuestions();
         wrongAnsweredQuestions = result.GetWrongAnsweredQuestions();
         questions = QuestionManager.Instance.GetQuestions();
         rewardsText.text = result.GetScore().ToString() + "  " + "scores" + "  " + "and" + "  " + result.GetRewards().ToString() + "  " + "coins";
+    }
+
+    /// <summary>
+    /// Initializes all audio components
+    /// </summary>
+    private void InitAudio()
+    {
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.clip = clickSound;
     }
 
     /// <summary>
@@ -106,18 +126,9 @@ public class EndScreen : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     /// </summary>
     public void OpenResultMenu()
     {
+        PlayClickSound();
         ActivateResultScreen(true);
         ShowResults();
-    }
-
-    /// <summary>
-    ///     (De)activates the resuts screen
-    /// </summary>
-    /// <param name="status">status whether the result screen shiuld be active or not</param>
-    public void ActivateResultScreen(bool status)
-    {
-        resultScreen.SetActive(status);
-        endScreen.SetActive(!status);
     }
 
     /// <summary>
@@ -134,9 +145,24 @@ public class EndScreen : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     /// </summary>
     public void StartEnlessMode()
     {
+        PlayClickSound();
         //TODO
     }
     #endregion
+
+    /// <summary>
+    ///     (De)activates the resuts screen
+    /// </summary>
+    /// <param name="status">status whether the result screen shiuld be active or not</param>
+    public void ActivateResultScreen(bool status)
+    {
+        if (!status)
+        {
+            PlayClickSound();
+        }
+        resultScreen.SetActive(status);
+        endScreen.SetActive(!status);
+    }
 
     /// <summary>
     ///     This function sets the setHoveringState function to true if the mouse is over the menu
@@ -154,5 +180,16 @@ public class EndScreen : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void OnPointerExit(PointerEventData eventData)
     {
         UIManager.Instance.SetHoveringState(false);
+    }
+
+    /// <summary>
+    /// This function plays the click sound
+    /// </summary>
+    private void PlayClickSound()
+    {
+        if (clickSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clickSound);
+        }
     }
 }

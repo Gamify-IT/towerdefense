@@ -1,6 +1,8 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -50,49 +52,27 @@ public class SceneLoader : MonoBehaviour
             audioSource=gameObject.AddComponent<AudioSource>();
         }
         audioSource.clip=clickSound;
-        AudioListener.volume = 0f;
     }
 
     /// <summary>
-    /// This function plays the click sound
+    /// Loads the main game with all required scenes
     /// </summary>
-    public void PlayClickSound()
-    {
-        if (clickSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(clickSound);
-        }
-    }
-
-    /// <summary>
-    /// Loads the main game
-    /// </summary>
-    public void StartGame()
+    public async void StartGame()
     {
         Debug.Log("Starting game...");
-        PlayClickSound();
+        await PlayClickSound();
         SceneManager.LoadSceneAsync(mainGameScene);
         SceneManager.LoadSceneAsync(playerHUDScene, LoadSceneMode.Additive);
         SceneManager.LoadSceneAsync(shopScene, LoadSceneMode.Additive);
     }
 
     /// <summary>
-    /// This function calls coroutine for function that calls click sound and then close the game
+    /// This function closes the game
     /// </summary>
-    public void Quit()
+    public async void Quit()
     {
-        StartCoroutine(QuitAfterSound());
-    }
-
-    /// <summary>
-    /// This function calls click sound and then close the game
-    /// </summary>
-    private IEnumerator QuitAfterSound()
-    {
-        PlayClickSound();
-        yield return new WaitForSeconds(0.2f);
         Debug.Log("Quitting the game...");
-
+        await PlayClickSound();
 #if UNITY_EDITOR
 
         UnityEditor.EditorApplication.isPlaying = false;
@@ -100,6 +80,19 @@ public class SceneLoader : MonoBehaviour
    
         CloseMinigame();
 #endif
+    }
+
+    /// <summary>
+    /// This function plays the click sound
+    /// </summary>
+    private async UniTask<bool> PlayClickSound()
+    {
+        if (clickSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clickSound);
+            await Task.Delay(100);
+        }
+        return true;
     }
 
 }

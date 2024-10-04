@@ -1,45 +1,52 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 /// <summary>
 ///  This class manages the pause menu including its resume and pause logic
 /// </summary>
 public class PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    [Header("Audio Elements")]
+    [SerializeField] private AudioClip clickSound;
+    private AudioSource audioSource;
+
+    [Header("UI Elements")]
     [SerializeField] private GameObject confirmMenu;
 
     private bool mouseOver = false;
 
+    private void Start()
+    {
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.clip = clickSound;
+    }
+
     /// <summary>
     /// Resumes the current game session
     /// </summary>
-    public void Resume()
+    public async void Resume()
     {
+        await PlayClickSound();
         Time.timeScale = 1f;
         SceneManager.UnloadSceneAsync("Pause");
         UIManager.Instance.SetHoveringState(false);
     }
 
     /// <summary>
-    /// Opens the confirm menu if player wants to quit
+    /// (De)activates the confirmation menu if the player wants to quit/continue playing
     /// </summary>
-    public void OpenConfirmMenu()
+    /// <param name="status"></param>
+    public void ActivateConfirmMenu(bool status)
     {
-        confirmMenu.SetActive(true);
-    }
-
-    /// <summary>
-    /// Closes the confirm menu if player wants to continue playing
-    /// </summary>
-    public void CloseConfirmMenu()
-    {
-        confirmMenu.SetActive(false);
+        PlayClickSound();
+        confirmMenu.SetActive(status);
     }
 
     /// <summary>
@@ -48,7 +55,7 @@ public class PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void Quit()
     {
         Time.timeScale = 1f;
-        CloseConfirmMenu();
+        ActivateConfirmMenu(false);
         SceneLoader.Instance.Quit();
     }
 
@@ -70,6 +77,19 @@ public class PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         mouseOver = false;
         UIManager.Instance.SetHoveringState(false);
+    }
+
+    /// <summary>
+    /// This function plays the click sound
+    /// </summary>
+    private async UniTask<bool> PlayClickSound()
+    {
+        if (clickSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clickSound);
+            await Task.Delay(100);
+        }
+        return true;
     }
 
 }

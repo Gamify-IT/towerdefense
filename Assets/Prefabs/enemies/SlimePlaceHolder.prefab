@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 4255190290726777068}
   - component: {fileID: 8854447467219808908}
   - component: {fileID: 6385310722615514770}
-  - component: {fileID: 7614129567357291974}
   - component: {fileID: 15690654938704481}
   - component: {fileID: 8653864975133565213}
+  - component: {fileID: 7239314431919059718}
+  - component: {fileID: -8453940689066954149}
   m_Layer: 8
   m_Name: SlimePlaceHolder
   m_TagString: Enemy
@@ -30,11 +31,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1038540446868549380}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.00034529547, w: 0.99999994}
+  m_LocalRotation: {x: 0, y: 0, z: 0.00034904052, w: 0.99999994}
   m_LocalPosition: {x: -0.5, y: 5.54, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8645870545716177998}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.04}
 --- !u!212 &4255190290726777068
@@ -76,7 +78,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1494396135
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.35534585, g: 1, b: 0.9432396, a: 1}
@@ -151,21 +153,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &7614129567357291974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1038540446868549380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c7b9d03e37e6a34aa1e4bf99bc6f345, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 6385310722615514770}
-  playerHP: {fileID: 0}
-  moveSpeed: 2
 --- !u!114 &15690654938704481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47734089e3c77ea40ab34d8bcc1867e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 2
+  hitPoints: 5000
   currencyWorth: 50
 --- !u!114 &8653864975133565213
 MonoBehaviour:
@@ -192,4 +179,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c5b35411da11e4a80e24461ab610fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePoints: 2
+  hitPoints: 5000
+  currencyWorth: 0
+  damagePoints: 5000
+--- !u!114 &7239314431919059718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038540446868549380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c769b0635e624644b85b7fd68ddf7a1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 6385310722615514770}
+  playerHP: {fileID: 0}
+  animator: {fileID: -8453940689066954149}
+  moveSpeed: 2
+  isVisible: 1
+  Projectile: {fileID: 1599233798482917605, guid: 2c6c7aba0d98b33429843729eb0da08e, type: 3}
+  targetingRange: 3
+  projectilePerSecond: 5
+  firingPoint: {fileID: 8645870545716177998}
+--- !u!95 &-8453940689066954149
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038540446868549380}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &8371275028836534768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8645870545716177998}
+  m_Layer: 0
+  m_Name: Firing point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8645870545716177998
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8371275028836534768}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0, z: -0.00034529547, w: 0.99999994}
+  m_LocalPosition: {x: -0.108431585, y: -0.06567681, z: 0.10159032}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1604914422378132730}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

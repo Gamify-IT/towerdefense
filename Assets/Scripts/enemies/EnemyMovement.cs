@@ -7,7 +7,7 @@ using System.Collections;
 public class EnemyMovement : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] protected Rigidbody2D rb;
 
     [SerializeField] private HP playerHP;
 
@@ -126,7 +126,7 @@ public class EnemyMovement : MonoBehaviour
     /// <summary>
     /// Moves the enemy towards the current target.
     /// </summary>
-    protected void MoveTowardsTarget()
+    protected virtual void MoveTowardsTarget()
     {
         Vector2 direction = (target.position - transform.position).normalized;
         rb.velocity = direction * moveSpeed;
@@ -169,7 +169,7 @@ public class EnemyMovement : MonoBehaviour
     /// when an obstacle blocks the path the enemy can't move
     /// </summary>
     /// <param name="collision"> collider of the obstacle</param>
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
 
         if (collision.CompareTag("Obstacle"))
@@ -201,7 +201,7 @@ public class EnemyMovement : MonoBehaviour
     /// when the obstacle is removed the enemy continues on the path 
     /// </summary>
     /// <param name="collision"> collider of the obstacle</param>
-    private void OnTriggerExit2D(Collider2D collision)
+    protected virtual void OnTriggerExit2D(Collider2D collision)
     {
         
         if (collision.CompareTag("Obstacle"))

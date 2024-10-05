@@ -9,12 +9,15 @@ public class EnemySpawner : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private GameObject[] enemyPrefabs;
+    [SerializeField] private GameObject[] waveBossPrefabs;
 
     [Header("Attributes")]
     [SerializeField] private int baseEnemies = 8;
+    [SerializeField] private int bossBaseEnemies = 1;
     [SerializeField] private float enemiesPerSecond = 0.5f;
     [SerializeField] private float timeBetweenWaves = 5f;
-    [SerializeField] private float difficultyScalingFactor = 0.75f;     // greater value means more enemies
+    [SerializeField] private float difficultyScalingFactor = 0.75f;
+    [SerializeField] private float bossDifficultyScalingFactor = 1.5f; // greater value means more enemies
     [SerializeField] private float enemiesPerSecondCap = 15f;
 
     [Header("Events")]
@@ -23,7 +26,9 @@ public class EnemySpawner : MonoBehaviour
     private int currentWave = 1;
     private float timeSinceLastSpawn;
     private int enemiesAlive;
+    private int bossesAlive;
     private int enemiesLeftToSpawn;
+    private int bossesLeftToSpawn;
     private float actualEnemiesPerSecond;
     private bool isSpawning = false;
 
@@ -54,6 +59,7 @@ public class EnemySpawner : MonoBehaviour
             enemiesAlive++;
             timeSinceLastSpawn = 0f;
         }
+
         // start new wave if no enemies are left
         if(enemiesAlive == 0 && enemiesLeftToSpawn == 0)
         {
@@ -77,7 +83,34 @@ public class EnemySpawner : MonoBehaviour
         int index = Random.Range(0,enemyPrefabs.Length);
         GameObject prefabToSpawn = enemyPrefabs[index];
         Instantiate(prefabToSpawn, LevelManager.Instance.GetStartPoint().position, Quaternion.identity );
-        Debug.Log("Spawn Enemy");
+        
+    }
+
+    /// <summary>
+    ///     Spwans a random boss enemy at the beginning of the path
+    /// </summary>
+    private void SpawnBoss()
+    {
+        int index = Random.Range(0, waveBossPrefabs.Length);
+        GameObject prefabToSpawn = waveBossPrefabs[index];
+        Instantiate(prefabToSpawn, LevelManager.Instance.GetStartPoint().position, Quaternion.identity);
+       
+    }
+
+    /// <summary>
+    /// Coroutine, die alle Bosse der Welle spawnt.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator SpawnBosses()
+    {
+        while (bossesLeftToSpawn > 0)
+        {
+            SpawnBoss();
+            bossesLeftToSpawn--;
+
+            
+            yield return new WaitForSeconds(2f);
+        }
     }
 
     /// <summary>
@@ -90,6 +123,14 @@ public class EnemySpawner : MonoBehaviour
         isSpawning = true;
         enemiesLeftToSpawn = baseEnemies;
         actualEnemiesPerSecond = EnemiesPerSecond();
+        if (currentWave % 2 == 0)
+        {
+            bossesLeftToSpawn = BossesPerWave();
+        }
+        else
+        {
+            bossesLeftToSpawn = 0; 
+        }
     }
 
     /// <summary>
@@ -99,6 +140,13 @@ public class EnemySpawner : MonoBehaviour
     {
         isSpawning = false;
         timeSinceLastSpawn = 0f;
+        if (currentWave % 2 == 0 && bossesLeftToSpawn > 0)
+        {
+           
+                StartCoroutine(SpawnBosses());
+            
+        }
+
         currentWave++;
         StartCoroutine(StartWave());
     }
@@ -110,6 +158,15 @@ public class EnemySpawner : MonoBehaviour
     private int EnemiesPerWave()
     {
         return Mathf.RoundToInt(baseEnemies * Mathf.Pow(currentWave, difficultyScalingFactor));
+    }
+
+    /// <summary>
+    ///     Calculates the number of bosses per wave depending on the difficulty factor 
+    /// </summary>
+    /// <returns>number of enemies per wave</returns>
+    private int BossesPerWave()
+    {
+        return Mathf.Max(1, Mathf.RoundToInt(currentWave * bossBaseEnemies - 1));
     }
 
     /// <summary>

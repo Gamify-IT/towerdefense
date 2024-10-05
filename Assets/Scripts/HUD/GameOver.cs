@@ -1,7 +1,4 @@
-using Cysharp.Threading.Tasks;
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -29,12 +26,10 @@ public class GameOver : MonoBehaviour
     /// <summary>
     /// This function plays the click sound when clicking on the restart button
     /// </summary>
-    public async void RestartGame()
+    public void RestartGame()
     {
         Debug.Log("Restarting game...");
-        await PlayClickSound();
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("Start Menu");
+        StartCoroutine(RestartAfterSound());
     }
 
     /// <summary>
@@ -49,14 +44,24 @@ public class GameOver : MonoBehaviour
     /// <summary>
     /// This function plays the click sound
     /// </summary>
-    private async UniTask<bool> PlayClickSound()
+    private void PlayClickSound()
     {
         if (clickSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(clickSound);
-            await Task.Delay(100);
         }
-        return true;
+    }
+
+    /// <summary>
+    /// Plays the click sound and resumes the game
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator RestartAfterSound()
+    {
+        PlayClickSound();
+        yield return new WaitForSecondsRealtime(0.1f);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Start Menu");
     }
 
 }

@@ -1,6 +1,4 @@
-using Cysharp.Threading.Tasks;
 using System.Collections;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -31,12 +29,9 @@ public class PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     /// <summary>
     /// Resumes the current game session
     /// </summary>
-    public async void Resume()
+    public void Resume()
     {
-        await PlayClickSound();
-        Time.timeScale = 1f;
-        SceneManager.UnloadSceneAsync("Pause");
-        UIManager.Instance.SetHoveringState(false);
+        StartCoroutine(ResumeAfterSound());
     }
 
     /// <summary>
@@ -82,14 +77,25 @@ public class PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     /// <summary>
     /// This function plays the click sound
     /// </summary>
-    private async UniTask<bool> PlayClickSound()
+    private void PlayClickSound()
     {
         if (clickSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(clickSound);
-            await Task.Delay(100);
         }
-        return true;
+    }
+
+    /// <summary>
+    /// Plays the click sound and resumes the game
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator ResumeAfterSound()
+    {
+        PlayClickSound();
+        yield return new WaitForSecondsRealtime(0.1f);
+        Time.timeScale = 1f;
+        SceneManager.UnloadSceneAsync("Pause");
+        UIManager.Instance.SetHoveringState(false);
     }
 
 }

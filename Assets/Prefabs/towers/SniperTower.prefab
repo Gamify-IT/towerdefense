@@ -1597,8 +1597,8 @@ MonoBehaviour:
   questionUI: {fileID: 0}
   rightButton: {fileID: 0}
   wrongButton: {fileID: 0}
-  targetingRange: 3
-  projectilePerSecond: 1
+  targetingRange: 7
+  projectilePerSecond: 0.1
   baseUpgradeCost: 100
   towerHP: 30
   archerRotationPoint: {fileID: 30695682831359485}

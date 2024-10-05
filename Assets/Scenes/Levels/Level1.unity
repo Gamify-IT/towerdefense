@@ -20032,7 +20032,7 @@ MonoBehaviour:
   - {fileID: 7726416930383346753, guid: 3e1c79a77ef03ca4597eacc99ee3a185, type: 3}
   waveBossPrefabs:
   - {fileID: 1038540446868549380, guid: 78a22451139563b49b8dbaeb973dcc60, type: 3}
-  baseEnemies: 1
+  baseEnemies: 10
   bossBaseEnemies: 1
   enemiesPerSecond: 0.5
   timeBetweenWaves: 5

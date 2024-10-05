@@ -78,8 +78,13 @@ public class SniperTower : BaseTower
         Projectile projectileScript = projectileObj.GetComponent<Projectile>();
         projectileScript.SetTarget(target);
 
-        RevealEnemies();
-       
+        StealthEnemyMovement stealthEnemy = target.GetComponent<StealthEnemyMovement>();
+        if (stealthEnemy != null && !stealthEnemy.isVisible)
+        {
+          
+            stealthEnemy.Reveal();
+        }
+
     }
 
     /// <summary>
@@ -87,6 +92,7 @@ public class SniperTower : BaseTower
     /// </summary>
     private void RevealEnemies()
     {
+        
         RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange, (Vector2)transform.position, 0f, enemyMask);
 
         if (hits.Length > 0)

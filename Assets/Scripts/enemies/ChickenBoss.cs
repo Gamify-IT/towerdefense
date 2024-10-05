@@ -24,7 +24,7 @@ public class ChickenBoss : EnemyMovement
             FindTargetTower();
             return;
         }
-        if (Vector2.Distance(transform.position, currentTargetTower.transform.position) <= targetingRange)
+        if (CheckTargetIsInRange())
         {
             if (Time.time - timeUntilFire >= projectilePerSecond)
             {
@@ -77,6 +77,16 @@ public class ChickenBoss : EnemyMovement
         GameObject projectileObj = Instantiate(Projectile, firingPoint.position, Quaternion.identity);
         EnemyProjectile projectileScript = projectileObj.GetComponent<EnemyProjectile>();
         projectileScript.SetTarget(currentTargetTower.transform);
+    }
+
+    /// <summary>
+    ///  This method makes sure that the enemy is in range for the tower to attack
+    /// </summary>
+    /// <returns> True if the target is in range, false otherwise</returns>
+    protected bool CheckTargetIsInRange()
+    {
+        
+      return  Vector2.Distance(transform.position, currentTargetTower.transform.position) <= targetingRange;
     }
 
 }

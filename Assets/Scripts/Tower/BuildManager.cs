@@ -84,6 +84,7 @@ public class BuildManager : MonoBehaviour
             // Enemy path is below
             return defenseTowerPrefabDown;
         }
+    }
         
     public int GetSelectedTowerIndex()
     {

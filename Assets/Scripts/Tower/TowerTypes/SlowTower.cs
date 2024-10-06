@@ -5,7 +5,7 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 /// <summary>
-/// class for the tower that freezes enemies periodically
+/// Class for the tower that freezes enemies periodically
 /// </summary>
 public class SlowTower : BaseTower
 {
@@ -20,8 +20,6 @@ public class SlowTower : BaseTower
     private void Update()
     {
         timeUntilFire += Time.deltaTime;
-
-
 
         if (timeUntilFire >= 1f / projectilePerSecond)
         {
@@ -57,7 +55,7 @@ public class SlowTower : BaseTower
     }
 
     /// <summary>
-    /// after the freeze wears off enemies continue walking in normal speed again
+    /// After the freeze wears off enemies continue walking in normal speed again
     /// </summary>
     /// <param name="em"> the enemy movement</param>
     /// <returns>enumerator for resetting the enemy speed</returns>
@@ -65,7 +63,6 @@ public class SlowTower : BaseTower
     {
         yield return new WaitForSeconds(freezeTime);
         em.ResetSpeed();
-       
     }
   
 }

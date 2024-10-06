@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -11,21 +9,22 @@ using UnityEngine.SceneManagement;
 public class BaseTower : MonoBehaviour
 {
     [Header("References")]
-   
-    [SerializeField] protected LayerMask enemyMask;
-   
+    [SerializeField] protected LayerMask enemyMask;  
     [SerializeField] protected GameObject upgradeUI;
     [SerializeField] protected Button upgradeButton;
     [SerializeField] protected GameObject questionUI;
-    [SerializeField] protected Button rightButton;
-    [SerializeField] protected Button wrongButton;
+    [SerializeField] protected TMP_Text levelLabel;
+    [SerializeField] protected TMP_Text upgradePriceLabel;
 
-    [Header("Attribute")]
-    [SerializeField] protected float targetingRange = 5f;
-   
+    [Header("Attributes")]
+    [SerializeField] protected float targetingRange = 5f; 
     [SerializeField] protected float projectilePerSecond = 1f;
     [SerializeField] protected int baseUpgradeCost = 100;
     [SerializeField] protected int towerHP = 10;
+
+    [Header("Audio Elements")]
+    private AudioClip updateTowerSound;
+    private AudioSource mainAudioSource;
 
     protected float targetingRangeBase;
     protected float baseProjectilePerSecond;
@@ -42,14 +41,27 @@ public class BaseTower : MonoBehaviour
     protected const float ProjectilePerSecondExponent = 0.6f;
     protected const float CostExponent = 0.8f;
 
+
     protected virtual void Start()
     {
         baseProjectilePerSecond = projectilePerSecond;
         targetingRangeBase = targetingRange;
 
         upgradeButton.onClick.AddListener(Upgrade);
-        rightButton.onClick.AddListener(() => Answer(true));
-        wrongButton.onClick.AddListener(() => Answer(false));
+        InitAudio();
+    }
+
+    /// <summary>
+    /// Initializes all audio components
+    /// </summary>
+    private void InitAudio()
+    {
+        if (mainAudioSource == null)
+        {
+            mainAudioSource = gameObject.AddComponent<AudioSource>();
+        }
+        updateTowerSound = Resources.Load<AudioClip>("Music/update_tower");
+        mainAudioSource.clip = updateTowerSound;
     }
 
     /// <summary>
@@ -106,49 +118,57 @@ public class BaseTower : MonoBehaviour
         return Vector2.Distance(target.position, transform.position) <= targetingRange;
     }
  
-    //The Upgrade function will be handled by a scene in the future, the code is a placeholder for the prototype
     public void OpenUpgradeUI()
     {
         upgradeUI.SetActive(true);
+        upgradePriceLabel.text = "Upgrade: " + CalculateCost().ToString();
     }
 
     public void CloseUpgradeUI()
     {
         upgradeUI.SetActive(false);
-        UIManager.Instance.SetHoveringState(false);
     }
 
     /// <summary>
-    /// Checks the pressed button and evaluates the answer
+    /// Checks the selected answer and evaluates it. If the answer is right, the tower will be upgraded. 
+    /// If not, the player looses credits.
     /// </summary>
-    /// <param name="isYesButton">pressed button</param>
-    /// <returns>true if the selected answer was right</returns>
-    public bool Answer(bool isYesButton)
+    /// <param name="answer">the players answer</param>
+    public void Answer(bool answer)
     {
-        if (isYesButton)
+        if (answer)
         {
-            CloseQuestionUI();
-            OpenUpgradeUI();
-            return true;
+            Debug.Log("correct answer");
+
+            LevelManager.Instance.SpendCurrency(CalculateCost());
+
+            level++;
+            projectilePerSecond = CalculateProjectilesPerSecond();
+            targetingRange = CalculateRange();
+
+            levelLabel.text = level.ToString();
+
+            Debug.Log("New Pps: " + projectilePerSecond);
+            Debug.Log("New TR: " + targetingRange);
+            Debug.Log("New Cost: " + CalculateCost());
+
         }
         else
         {
             Debug.Log("wrong answer");
-            CloseQuestionUI();
-            return false;
+
+            // TODO: adjust punishment
+            LevelManager.Instance.SpendCurrency(CalculateCost());
         }
+
+        CloseUpgradeUI();
+        PlayUpdateTowerSound();
     }
 
     public void OpenQuestionUI()
     {
-        UIManager.Instance.SetHoveringState(false);
-        SceneManager.LoadScene(questionScene, LoadSceneMode.Additive);
-    }
-
-    public void CloseQuestionUI()
-    {
-        SceneManager.UnloadSceneAsync(questionScene);
-        UIManager.Instance.SetHoveringState(false);
+        UIManager.Instance.SetHoveringState(true);
+        QuestionManager.Instance.ActivateCanvas(true);
     }
 
     /// <summary>
@@ -156,18 +176,37 @@ public class BaseTower : MonoBehaviour
     /// </summary>
     public void Upgrade()
     {
-        if (CalculateCost() > LevelManager.Instance.GetCurrency()) return;
+        QuestionManager.Instance.SetUpgradedTower(this);
 
-        LevelManager.Instance.SpendCurrency(CalculateCost());
+        if (CalculateCost() > LevelManager.Instance.GetCurrency())
+        {
+            StartCoroutine(PauseButton.Instance.ShowFeedbackWindow("Not enough Credits!"));
+            return;
+        }
 
-        level++;
-        projectilePerSecond = CalculateProjectilesPerSecond();
-        targetingRange = CalculateRange();
+        Debug.Log("Opening Question Menu..."); 
+        bool successfull = QuestionManager.Instance.LoadQuestion();
 
-        CloseUpgradeUI();
-        Debug.Log("New Pps: " + projectilePerSecond);
-        Debug.Log("New TR: " + targetingRange);
-        Debug.Log("New Cost: " + CalculateCost());
+        if (successfull)
+        {
+            QuestionManager.Instance.OpenQuestionUI();
+        }
+    }
+
+    /// <summary>
+    /// (De)activates the submit button of the question only to the current tower that is upgraded 
+    /// </summary>
+    /// <param name="status">whether the submit button is active or not for this tower</param>
+    public void AssignSubmitButton(bool status)
+    {
+        if (status)
+        {
+            QuestionManager.Instance.submitButton.onClick.AddListener(() => Answer(QuestionManager.Instance.CheckAnswer()));
+        }      
+        else
+        {
+            QuestionManager.Instance.submitButton.onClick.RemoveAllListeners();
+        }
     }
 
     /// <summary>
@@ -189,7 +228,7 @@ public class BaseTower : MonoBehaviour
     }
 
     /// <summary>
-    /// Claculates the cocts of upgrades 
+    /// Calculates the costs of upgrades 
     /// </summary>
     /// <returns></returns>
     private int CalculateCost()
@@ -197,5 +236,15 @@ public class BaseTower : MonoBehaviour
         return Mathf.RoundToInt(baseUpgradeCost * Mathf.Pow(level, CostExponent));
     }
 
-    
+    /// <summary>
+    /// This function plays the tower update sound
+    /// </summary>
+    public void PlayUpdateTowerSound()
+    {
+        if (updateTowerSound != null && mainAudioSource != null)
+        {
+            mainAudioSource.PlayOneShot(updateTowerSound);
+        }
+    }
+
 }

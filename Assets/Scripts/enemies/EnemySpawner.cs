@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 /// <summary>
-/// Contains the logic for spawning enemy waves ath the start of the path
+/// Contains the logic for spawning enemy waves at the start of the path
 /// </summary>
 public class EnemySpawner : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private GameObject[] enemyPrefabs;
     [SerializeField] private GameObject[] waveBossPrefabs;
+    [SerializeField] private Button startButton;
+    [SerializeField] private GameObject infoScreen;
 
     [Header("Attributes")]
     [SerializeField] private int baseEnemies = 8;
@@ -19,6 +22,10 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float difficultyScalingFactor = 0.75f;
     [SerializeField] private float bossDifficultyScalingFactor = 1.5f; // greater value means more enemies
     [SerializeField] private float enemiesPerSecondCap = 15f;
+
+    [Header("Audio Elements")]
+    [SerializeField] private AudioClip clickSound;
+    private AudioSource audioSource;
 
     [Header("Events")]
     private static UnityEvent onEnemyDestroy = new UnityEvent();
@@ -31,39 +38,65 @@ public class EnemySpawner : MonoBehaviour
     private int bossesLeftToSpawn;
     private float actualEnemiesPerSecond;
     private bool isSpawning = false;
+    private bool checkForEnd = false;
 
     private void Awake()
     {
         onEnemyDestroy.AddListener(EnemyDestroyed);
+        startButton.onClick.AddListener(() => StartGame());
     }
 
     public void Start()
     {
-        // TODO: start with menu
-
+        InitAudio();
         // coroutine for time based waves 
         StartCoroutine(StartWave());
+        Time.timeScale = 0f;
+    }
 
+    /// <summary>
+    /// Starts the game after the player has read the information pop-up
+    /// </summary>
+    public void StartGame()
+    {
+        PlayClickSound();
+        Time.timeScale = 1f;
+        infoScreen.SetActive(false);
+        UIManager.Instance.SetHoveringState(false);
+    }
+
+    /// <summary>
+    /// Initializes all audio components
+    /// </summary>
+    private void InitAudio()
+    {
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.clip = clickSound;
     }
 
     private void Update()
     {
-        if (!isSpawning) return;
-
-        timeSinceLastSpawn += Time.deltaTime;
-
-        if(timeSinceLastSpawn >= (1f / actualEnemiesPerSecond) && enemiesLeftToSpawn > 0)
+        if (isSpawning && !checkForEnd)
         {
-            SpawnEnemy();
-            enemiesLeftToSpawn--;
-            enemiesAlive++;
-            timeSinceLastSpawn = 0f;
-        }
+            timeSinceLastSpawn += Time.deltaTime;
 
-        // start new wave if no enemies are left
-        if(enemiesAlive == 0 && enemiesLeftToSpawn == 0)
-        {
-            EndWave();
+            if (timeSinceLastSpawn >= (1f / actualEnemiesPerSecond) && enemiesLeftToSpawn > 0)
+            {
+                SpawnEnemy();
+                enemiesLeftToSpawn--;
+                enemiesAlive++;
+                timeSinceLastSpawn = 0f;
+            }
+
+            // start new wave if no enemies are left
+            if (enemiesAlive == 0 && enemiesLeftToSpawn == 0 && !GameManager.Instance.IsFinished())
+            {
+                checkForEnd = true;
+                EndWave();
+            }
         }
     }
 
@@ -80,7 +113,7 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     private void SpawnEnemy()
     {
-        int index = Random.Range(0,enemyPrefabs.Length);
+        int index = Random.Range(0, enemyPrefabs.Length);
         GameObject prefabToSpawn = enemyPrefabs[index];
         Instantiate(prefabToSpawn, LevelManager.Instance.GetStartPoint().position, Quaternion.identity );
         
@@ -119,7 +152,7 @@ public class EnemySpawner : MonoBehaviour
     /// <returns>Iterator for coroutine</returns>
     private IEnumerator StartWave()
     {
-        yield return new WaitForSeconds(timeBetweenWaves); //startet nur zwiscen den waves
+        yield return new WaitForSeconds(timeBetweenWaves);
         isSpawning = true;
         enemiesLeftToSpawn = baseEnemies;
         actualEnemiesPerSecond = EnemiesPerSecond();
@@ -136,7 +169,7 @@ public class EnemySpawner : MonoBehaviour
     /// <summary>
     ///     Ends a wave, thus starting the intermission coroutine.
     /// </summary>
-    private void EndWave()
+    private async void EndWave()
     {
         isSpawning = false;
         timeSinceLastSpawn = 0f;
@@ -149,6 +182,20 @@ public class EnemySpawner : MonoBehaviour
 
         currentWave++;
         StartCoroutine(StartWave());
+        bool isFinished = await QuestionManager.Instance.CheckForEnd();
+
+        if (isFinished)
+        {
+            GameManager.Instance.LoadEndScreen();
+        }
+        else
+        {
+            isSpawning = false;
+            timeSinceLastSpawn = 0f;
+            currentWave++;
+            StartCoroutine(StartWave());
+            checkForEnd = false;
+        }
     }
 
     /// <summary>
@@ -186,5 +233,16 @@ public class EnemySpawner : MonoBehaviour
     public static UnityEvent GetOnEnemyDestroy()
     {
         return onEnemyDestroy;
+    }
+
+    /// <summary>
+    /// This function plays the click sound
+    /// </summary>
+    private void PlayClickSound()
+    {
+        if (clickSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clickSound);
+        }
     }
 }

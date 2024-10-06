@@ -1,37 +1,63 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    #region JavaScript Methods
+    [DllImport("__Internal")]
+    private static extern void CloseMinigame();
+    #endregion
+
+    [Header("Scene Names")]
     public string mainGameScene = "Level1"; 
     public string playerHUDScene = "PlayerHUD"; 
-    public string shopScene = "Shop"; 
+    public string shopScene = "Shop";
 
-   /// <summary>
-   /// Loads the main game
-   /// </summary>
+    #region Singelton
+    public static SceneLoader Instance { get; private set; }
+
+    /// <summary>
+    /// This function manages the singleton instance, so it initializes the <c>instance</c> variable, if not set, or
+    /// deletes the object otherwise
+    /// </summary>
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    #endregion
+
+    /// <summary>
+    /// Loads the main game with all required scenes
+    /// </summary>
     public void StartGame()
     {
-        
-        SceneManager.LoadScene(mainGameScene);
-        SceneManager.LoadScene(playerHUDScene, LoadSceneMode.Additive);
-        SceneManager.LoadScene(shopScene, LoadSceneMode.Additive);
+        Debug.Log("Starting game...");
+        SceneManager.LoadSceneAsync(mainGameScene);
+        SceneManager.LoadSceneAsync(playerHUDScene, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(shopScene, LoadSceneMode.Additive);
     }
 
+    /// <summary>
+    /// This function quits the game and returns the player to the overworld
+    /// </summary>
     public void Quit()
     {
         Debug.Log("Quitting the game...");
-        //quitting action in unity editor for testing
 #if UNITY_EDITOR
 
         UnityEditor.EditorApplication.isPlaying = false;
 #else
    
-    Application.Quit();
+        CloseMinigame();
 #endif
-        // TO implement: ask if user is sure about this action
     }
 
 }

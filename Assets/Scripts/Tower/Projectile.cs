@@ -21,6 +21,9 @@ public class Projectile : MonoBehaviour
         this.target = target;
     }
 
+    /// <summary>
+    ///  Update the target position and adjust aim.
+    /// </summary>
     private void FixedUpdate()
     {
         if (!target) return;

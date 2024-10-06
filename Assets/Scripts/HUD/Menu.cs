@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
+
 /// <summary>
 ///  This class handles the ingame menu 
 /// </summary>
@@ -15,11 +16,38 @@ public class Menu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private bool isMenuOpen = true;
     private bool mouseOver = false;
 
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip clickSound;
+
+    /// <summary>
+    /// Initializes audio source at the begin
+    /// </summary>
+    void Start()
+    {
+        if(audioSource == null)
+        {
+            audioSource=gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.clip=clickSound;
+    }
+
+    /// <summary>
+    /// This function plays the click sound
+    /// </summary>
+    public void PlayClickSound()
+    {
+        if (clickSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clickSound);
+        }
+    }
+
     /// <summary>
     ///  This function handles opening the menu
     /// </summary>
     public void ToggleMenu()
     {
+        PlayClickSound();
         if (anim == null)
         {
             anim = GetComponent<Animator>();
@@ -31,7 +59,6 @@ public class Menu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// <summary>
     ///  This function displays the current in game currency amount
     /// </summary>
-
     private void OnGUI()
     {
         currencyUI.text = LevelManager.Instance.GetCurrency().ToString();

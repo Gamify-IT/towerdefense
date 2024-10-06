@@ -7,14 +7,9 @@ using System.Collections;
 public class EnemyMovement : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] protected Rigidbody2D rb;
-
+    [SerializeField] private Rigidbody2D rb;
     [SerializeField] private HP playerHP;
-
-    
-
     [SerializeField] private Animator animator;
-
 
     [Header("Attributes")]
     [SerializeField] private float moveSpeed = 2f;
@@ -45,7 +40,11 @@ public class EnemyMovement : MonoBehaviour
             Debug.LogError("Path is not set or empty in LevelManager!");
         }
 
-       
+        playerHP = FindObjectOfType<HP>();
+        if (playerHP == null )
+        {
+            Debug.LogWarning("HP script not found!");
+        }
     }
 
     protected virtual void Update()
@@ -93,6 +92,7 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     private void HandleEndOfPath()
     {
+        playerHP = FindObjectOfType<HP>();
         if (playerHP != null)
         {
             
@@ -107,8 +107,7 @@ public class EnemyMovement : MonoBehaviour
         {
             EnemySpawner.GetOnEnemyDestroy().Invoke();
         }
-        Destroy(gameObject);
-       
+        Destroy(gameObject);      
     }
     /// <summary>
     /// Damages a tower
@@ -139,13 +138,9 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     /// <param name="direction"> the direction the enemy is headed to next (up, down, left, right)</param>
     private void UpdateAnimation(Vector2 direction)
-    {
-       
+    { 
         animator.SetFloat("Horizontal", direction.x);
         animator.SetFloat("Vertical", direction.y);
-
-        
-        
     }
 
     /// <summary>

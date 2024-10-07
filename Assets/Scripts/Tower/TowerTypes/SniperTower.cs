@@ -78,6 +78,7 @@ public class SniperTower : BaseTower
         Projectile projectileScript = projectileObj.GetComponent<Projectile>();
         projectileScript.SetTarget(target);
 
+        //Bug without the if statement
         StealthEnemyMovement stealthEnemy = target.GetComponent<StealthEnemyMovement>();
         if (stealthEnemy != null && !stealthEnemy.isVisible)
         {

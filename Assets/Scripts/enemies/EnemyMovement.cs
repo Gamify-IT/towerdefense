@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 /// <summary>
 /// This class contains the movement mechanics of the enemies.
@@ -13,9 +14,13 @@ public class EnemyMovement : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] private float moveSpeed = 2f;
 
-    private Transform target;
+   protected Transform target;
     private int pathIndex = 0;
     private float baseSpeed;
+    private bool isObstacleOnPath = false;
+    private BaseTower towerHP;
+    private int enemyDamage = 10;
+    public bool isVisible = true;
 
     private void Start()
     {
@@ -42,7 +47,7 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (target == null) return;
 
@@ -64,11 +69,14 @@ public class EnemyMovement : MonoBehaviour
     /// <summary>
     /// This function moves the enemy along the path.
     /// </summary>
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
-        if (target == null) return;
+        if (target == null || isObstacleOnPath ) return;
+
+        
 
         MoveTowardsTarget();
+    
     }
 
     /// <summary>
@@ -101,11 +109,23 @@ public class EnemyMovement : MonoBehaviour
         }
         Destroy(gameObject);      
     }
+    /// <summary>
+    /// Damages a tower
+    /// </summary>
+    private void DamageTower()
+    {
+
+        if (towerHP != null)
+        {
+                towerHP.TakeDamage(enemyDamage);
+            
+        }
+    }
 
     /// <summary>
     /// Moves the enemy towards the current target.
     /// </summary>
-    private void MoveTowardsTarget()
+    protected virtual void MoveTowardsTarget()
     {
         Vector2 direction = (target.position - transform.position).normalized;
         rb.velocity = direction * moveSpeed;
@@ -139,4 +159,51 @@ public class EnemyMovement : MonoBehaviour
     {
         moveSpeed = baseSpeed;
     }
+
+    /// <summary>
+    /// when an obstacle blocks the path the enemy can't move
+    /// </summary>
+    /// <param name="collision"> collider of the obstacle</param>
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.CompareTag("Obstacle"))
+        {
+            isObstacleOnPath = true;
+            rb.velocity = Vector2.zero;
+            towerHP = collision.GetComponent<BaseTower>();
+            if (towerHP != null)
+            {
+                StartCoroutine(DamageTowerCoroutine());
+            }
+        }
+    }
+
+    /// <summary>
+    /// starts coroutine for the DamageTower function
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator DamageTowerCoroutine()
+    {
+        while (towerHP != null && towerHP.GetTowerHP() > 0)
+        {
+            DamageTower();
+            yield return new WaitForSeconds(1f); // Damage every 1 second
+        }
+    }
+
+    /// <summary>
+    /// when the obstacle is removed the enemy continues on the path 
+    /// </summary>
+    /// <param name="collision"> collider of the obstacle</param>
+    protected virtual void OnTriggerExit2D(Collider2D collision)
+    {
+        
+        if (collision.CompareTag("Obstacle"))
+        {
+            isObstacleOnPath = false;
+        }
+    }
+
+
 }

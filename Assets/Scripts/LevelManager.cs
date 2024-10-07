@@ -30,7 +30,11 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+#if UNITY_EDITOR
+        currency = 10000;
+#else
         currency = 100;
+#endif
     }
 
     /// <summary>
@@ -54,7 +58,7 @@ public class LevelManager : MonoBehaviour
                 return true; }
         else
         {
-            Debug.Log("you are broke :)"); //durch UI ersetzen
+            Debug.Log("you are broke :)");
                 return false;
         }
     }

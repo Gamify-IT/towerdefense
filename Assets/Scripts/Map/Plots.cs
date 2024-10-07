@@ -45,6 +45,10 @@ public class Plots : MonoBehaviour
         {
             tileSprite.color = startColor;
         }
+        if (tower != null)
+        {
+            tower.CloseUpgradeUI();
+        }
     }
 
     /// <summary>
@@ -98,7 +102,7 @@ public class Plots : MonoBehaviour
         else
         {
             // For the other towers, use the normal instantiation logic
-            towerObject = Instantiate(towerToBuild.GetPrefab(), transform.position, Quaternion.identity);
+            towerObject = Instantiate(towerToBuild.GetPrefab(), new Vector3(transform.position.x, transform.position.y, 1), Quaternion.identity);
         }
 
         tower = towerObject.GetComponent<BaseTower>();

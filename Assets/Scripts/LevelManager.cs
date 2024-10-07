@@ -30,7 +30,11 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+#if UNITY_EDITOR
+        currency = 10000;
+#else
         currency = 100;
+#endif
     }
 
     /// <summary>

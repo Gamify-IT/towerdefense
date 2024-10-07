@@ -627,6 +627,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &29931901
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 29931902}
+  m_Layer: 0
+  m_Name: Point (46)
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &29931902
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29931901}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -22.48, y: 14.54, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1881214980}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &35241748
 GameObject:
   m_ObjectHideFlags: 0
@@ -20670,10 +20701,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
-  - {fileID: 7507414297668982327, guid: 4b603dd31a67fe64693fffc1baa4a8c6, type: 3}
   - {fileID: 7726416930383346753, guid: 3e1c79a77ef03ca4597eacc99ee3a185, type: 3}
   - {fileID: 7726416930383346753, guid: 3e1c79a77ef03ca4597eacc99ee3a185, type: 3}
   - {fileID: 5335875000318134563, guid: e1110ec6b6d07254790c10f7296117ab, type: 3}
+  - {fileID: 7507414297668982327, guid: 4b603dd31a67fe64693fffc1baa4a8c6, type: 3}
+  - {fileID: 5801507251833887821, guid: 032458a8d9579834e8d05741126b1729, type: 3}
   waveBossPrefabs:
   - {fileID: 1038540446868549380, guid: 78a22451139563b49b8dbaeb973dcc60, type: 3}
   startButton: {fileID: 550648395}
@@ -20700,6 +20732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPoint: {fileID: 1382529557}
   path:
+  - {fileID: 29931902}
   - {fileID: 1683950559}
   - {fileID: 2052918759}
   - {fileID: 272632929}
@@ -44352,6 +44385,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1382529557}
+  - {fileID: 29931902}
   - {fileID: 1683950559}
   - {fileID: 2052918759}
   - {fileID: 272632929}

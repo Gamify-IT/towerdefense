@@ -12,7 +12,6 @@ public class BaseTower : MonoBehaviour
     [SerializeField] protected LayerMask enemyMask;  
     [SerializeField] protected GameObject upgradeUI;
     [SerializeField] protected Button upgradeButton;
-    [SerializeField] protected GameObject questionUI;
     [SerializeField] protected TMP_Text levelLabel;
     [SerializeField] protected TMP_Text upgradePriceLabel;
 

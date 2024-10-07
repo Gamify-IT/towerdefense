@@ -671,8 +671,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: -17}
+  m_AnchoredPosition: {x: 21.061, y: 0}
+  m_SizeDelta: {x: 41.061, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &523474211
 MonoBehaviour:
@@ -695,9 +695,9 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_NormalColor: {r: 0.29559743, g: 0.20115755, b: 0.17196704, a: 1}
+    m_HighlightedColor: {r: 0.6289307, g: 0.36151972, b: 0.2788654, a: 1}
+    m_PressedColor: {r: 0.24528301, g: 0.14187653, b: 0.09487359, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -717,8 +717,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1180802382}
   m_HandleRect: {fileID: 1180802381}
   m_Direction: 2
-  m_Value: 1.000001
-  m_Size: 0.7758009
+  m_Value: 1.0000001
+  m_Size: 0.2599142
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -736,7 +736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5254902, g: 0.34901962, b: 0.3019608, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -921,7 +921,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Description
+  m_text: 'Simple Tower:
+
+    Just a normal Tower that shoots at enemies'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef88391de693dac40b04131e08f38882, type: 2}
   m_sharedMaterial: {fileID: -8391701417571377768, guid: ef88391de693dac40b04131e08f38882, type: 2}
@@ -1055,7 +1057,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Description
+  m_text: 'Sniper Tower:
+
+    Shoots high damage projectiles from a distance. Also
+    reveals enemies that are hidden'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef88391de693dac40b04131e08f38882, type: 2}
   m_sharedMaterial: {fileID: -8391701417571377768, guid: ef88391de693dac40b04131e08f38882, type: 2}
@@ -1164,9 +1169,9 @@ RectTransform:
   - {fileID: 2027475277}
   m_Father: {fileID: 2061865233}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 70, y: -470}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1021508968
@@ -1506,8 +1511,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 502516077}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.22419924}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1567,7 +1572,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1243198112
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1632,7 +1637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.49803925, g: 0.41176474, b: 0.32941177, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1714,7 +1719,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Description
+  m_text: 'Freeze Tower:
+
+    Freezes Enemies and slows them down for a short time'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef88391de693dac40b04131e08f38882, type: 2}
   m_sharedMaterial: {fileID: -8391701417571377768, guid: ef88391de693dac40b04131e08f38882, type: 2}
@@ -2361,9 +2368,9 @@ RectTransform:
   m_Father: {fileID: 1243198112}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1434079922
 MonoBehaviour:
@@ -2864,9 +2871,9 @@ RectTransform:
   - {fileID: 1277643070}
   m_Father: {fileID: 2061865233}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 70, y: -270}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1895354421
@@ -3010,9 +3017,9 @@ RectTransform:
   - {fileID: 684784641}
   m_Father: {fileID: 2061865233}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 70, y: -70}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1925952324
@@ -3391,7 +3398,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Description
+  m_text: 'Defense Tower:
+
+    Place next to the road to block enemies but careful
+    it will get destroyed after a while!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef88391de693dac40b04131e08f38882, type: 2}
   m_sharedMaterial: {fileID: -8391701417571377768, guid: ef88391de693dac40b04131e08f38882, type: 2}
@@ -3506,7 +3516,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.00023784165, y: -0.000029170305}
-  m_SizeDelta: {x: 15.349, y: 555.595}
+  m_SizeDelta: {x: 0, y: 1658.359}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2061865234
 MonoBehaviour:
@@ -3526,7 +3536,7 @@ MonoBehaviour:
     m_Top: 20
     m_Bottom: 20
   m_ChildAlignment: 0
-  m_Spacing: 100
+  m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -3566,9 +3576,9 @@ RectTransform:
   - {fileID: 842770341}
   m_Father: {fileID: 2061865233}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 70, y: -670}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1660057539 &9223372036854775807

@@ -125,18 +125,7 @@ public class EnemyMovement : MonoBehaviour
             
         }
     }
-    /// <summary>
-    /// Damages a tower
-    /// </summary>
-    private void DamageTower()
-    {
-
-        if (towerHP != null)
-        {
-                towerHP.TakeDamage(enemyDamage);
-            
-        }
-    }
+ 
 
     /// <summary>
     /// Moves the enemy towards the current target.

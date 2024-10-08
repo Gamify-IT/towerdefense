@@ -130,6 +130,7 @@ public class EnemySpawner : MonoBehaviour
         int index = Random.Range(0, waveBossPrefabs.Length);
         GameObject prefabToSpawn = waveBossPrefabs[index];
         Instantiate(prefabToSpawn, LevelManager.Instance.GetStartPoint().position, Quaternion.identity);
+        
        
     }
 
@@ -144,6 +145,7 @@ public class EnemySpawner : MonoBehaviour
             SpawnBoss();
             bossesLeftToSpawn--;
 
+            Debug.Log("aaaaaaa");
             
             yield return new WaitForSeconds(2f);
         }
@@ -178,6 +180,7 @@ public class EnemySpawner : MonoBehaviour
         timeSinceLastSpawn = 0f;
         if (currentWave % 2 == 0 && bossesLeftToSpawn > 0)
         {
+            Debug.Log("spawned boss");
            
                 StartCoroutine(SpawnBosses());
             

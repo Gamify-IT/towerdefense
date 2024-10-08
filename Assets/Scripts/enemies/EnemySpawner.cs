@@ -145,7 +145,7 @@ public class EnemySpawner : MonoBehaviour
             SpawnBoss();
             bossesLeftToSpawn--;
 
-            Debug.Log("aaaaaaa");
+            
             
             yield return new WaitForSeconds(2f);
         }
@@ -178,6 +178,7 @@ public class EnemySpawner : MonoBehaviour
     {
         isSpawning = false;
         timeSinceLastSpawn = 0f;
+        Debug.Log(currentWave);
         if (currentWave % 2 == 0 && bossesLeftToSpawn > 0)
         {
             Debug.Log("spawned boss");
@@ -198,7 +199,7 @@ public class EnemySpawner : MonoBehaviour
         {
             isSpawning = false;
             timeSinceLastSpawn = 0f;
-            currentWave++;
+            
             StartCoroutine(StartWave());
             checkForEnd = false;
         }

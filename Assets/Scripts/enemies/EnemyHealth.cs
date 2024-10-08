@@ -1,8 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 
 /// <summary>
 ///     Manages the health of enemies including taking damage and deleting killed ennemies

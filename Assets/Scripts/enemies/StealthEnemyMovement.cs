@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StealthEnemyMovement : EnemyMovement
@@ -9,10 +7,8 @@ public class StealthEnemyMovement : EnemyMovement
     [SerializeField] private SpriteRenderer enemyRenderer;  
     [SerializeField] private Collider2D enemyCollider;
 
-    [Header("Attributes")]
-   
+    [Header("Attributes")]  
     private float visibilityTimer = 0f;
-
     float transparency = 0.3f;
     float visible = 1f;
 
@@ -23,6 +19,7 @@ public class StealthEnemyMovement : EnemyMovement
     {
         Invisible();   
     }
+
     protected override void Update()
     {
         base.Update();
@@ -55,8 +52,7 @@ public class StealthEnemyMovement : EnemyMovement
         isVisible = false;
         Color color = enemyRenderer.color; 
         color.a = transparency;            
-        enemyRenderer.color = color;
-
-        
+        enemyRenderer.color = color;      
     }
+
 }

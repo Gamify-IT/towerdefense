@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 /// <summary>
 /// This class handles the movement mechanics for flying enemies,
@@ -18,19 +15,15 @@ public class FlyingEnemyMovement : EnemyMovement
     {
         if (target == null ) return;
 
-
-
         MoveTowardsTarget();
-
     }
 
     /// <summary>
     /// when an obstacle blocks the path the enemy can't move
     /// </summary>
     /// <param name="collision"> collider of the obstacle</param>
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-      
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {     
         if (collision.CompareTag("Obstacle"))
         {
            
@@ -42,9 +35,8 @@ public class FlyingEnemyMovement : EnemyMovement
     /// when the obstacle is removed the enemy continues on the path 
     /// </summary>
     /// <param name="collision"> collider of the obstacle</param>
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        
+    protected override void OnTriggerExit2D(Collider2D collision)
+    {     
         if (collision.CompareTag("Obstacle"))
         {
          

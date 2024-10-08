@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Tileset/tower/SniperTower/towerBase.png.meta
 guid: e023b0035682a8442ad951cbe987a3fd
+========
+guid: 473ec7fdac4a8404dbfc59ba7f9b836e
+>>>>>>>> main:Assets/Tileset/enemies/Lifebar/health bar border.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

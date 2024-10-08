@@ -61,34 +61,37 @@ public class CameraMovement : MonoBehaviour
     /// </summary>
     private void HandleMovement()
     {
-        Vector3 moveDirection = Vector3.zero;
-
-        if (Input.GetKey(KeyCode.A))
+        if (!UIManager.Instance.IsHoveringUI() && !GameManager.Instance.IsFinished())
         {
-            moveDirection += Vector3.left;
-        }
+            Vector3 moveDirection = Vector3.zero;
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            moveDirection += Vector3.up;
-        }
+            if (Input.GetKey(KeyCode.A))
+            {
+                moveDirection += Vector3.left;
+            }
 
-        if (Input.GetKey(KeyCode.S))
-        {
-            moveDirection += Vector3.down;
-        }
+            if (Input.GetKey(KeyCode.W))
+            {
+                moveDirection += Vector3.up;
+            }
 
-        if (Input.GetKey(KeyCode.D))
-        {
-            moveDirection += Vector3.right;
-        }
+            if (Input.GetKey(KeyCode.S))
+            {
+                moveDirection += Vector3.down;
+            }
 
-        if (moveDirection != Vector3.zero)
-        {
-            moveDirection.Normalize();
-            Vector3 newPosition = transform.position + moveDirection * Time.deltaTime * speed;
-            transform.position = ClampCamera(newPosition);
-        }
+            if (Input.GetKey(KeyCode.D))
+            {
+                moveDirection += Vector3.right;
+            }
+
+            if (moveDirection != Vector3.zero)
+            {
+                moveDirection.Normalize();
+                Vector3 newPosition = transform.position + moveDirection * Time.deltaTime * speed;
+                transform.position = ClampCamera(newPosition);
+            }
+        }      
     }
 
     /// <summary>
@@ -96,19 +99,23 @@ public class CameraMovement : MonoBehaviour
     /// </summary>
     private void HandleZoom()
     {
-        float scrollData = Input.GetAxis("Mouse ScrollWheel");
-
-        if (scrollData != 0.0f)
+        if (!UIManager.Instance.IsHoveringUI() && !GameManager.Instance.IsFinished())
         {
-            cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - scrollData * zoomStep, minCamSize, maxCamSize);
-            UpdateCameraExtents();
-            transform.position = ClampCamera(transform.position);
+            float scrollData = Input.GetAxis("Mouse ScrollWheel");
+
+            if (scrollData != 0.0f)
+            {
+                cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - scrollData * zoomStep, minCamSize, maxCamSize);
+                UpdateCameraExtents();
+                transform.position = ClampCamera(transform.position);
+            }
         }
     }
 
     /// <summary>
     /// Clamps the camera's position to ensure it stays within the tilemap bounds.
     /// </summary>
+    /// <returns>position vector with clamped coordinates</returns>
     private Vector3 ClampCamera(Vector3 targetPosition)
     {
         verticalExtent = cam.orthographicSize;
@@ -125,10 +132,11 @@ public class CameraMovement : MonoBehaviour
 
         return new Vector3(clampedX, clampedY, targetPosition.z);
     }
+
     /// <summary>
     /// Calculate maximum vertical and horizontal size that fits within the tilemap bounds.
-    /// Returns the smaller of the two so that the camera stays within bounds.
     /// </summary>
+    /// <returns>the smaller of the two float values</returns>
     private float CalculateMaxCameraSize()
     {
         float maxVerticalSize = (maxBounds.y - minBounds.y) / 2f;

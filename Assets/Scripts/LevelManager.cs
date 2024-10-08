@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 /// <summary>
 ///  This class manages the basic functions of the levels
 /// </summary>
@@ -20,7 +21,6 @@ public class LevelManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -30,7 +30,11 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+#if UNITY_EDITOR
+        currency = 10000;
+#else
         currency = 100;
+#endif
     }
 
     /// <summary>

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Tileset/enemies/Boss/Chicken/Fire.png.meta
 guid: ed447c135a4a5ea4581ac575b63a7433
+========
+guid: 8a82065dd1dd93f438ef03f6eac91237
+>>>>>>>> main:Assets/Tileset/tower/DefenseTower/Tower.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +52,11 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
+<<<<<<<< HEAD:Assets/Tileset/enemies/Boss/Chicken/Fire.png.meta
   spritePixelsToUnits: 24
+========
+  spritePixelsToUnits: 64
+>>>>>>>> main:Assets/Tileset/tower/DefenseTower/Tower.png.meta
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,6 +118,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
+<<<<<<<< HEAD:Assets/Tileset/enemies/Boss/Chicken/Fire.png.meta
       name: Fire_0
       rect:
         serializedVersion: 2
@@ -120,12 +129,29 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+========
+      name: Tower_0
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 142
+        width: 81
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 14}
+>>>>>>>> main:Assets/Tileset/tower/DefenseTower/Tower.png.meta
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<<< HEAD:Assets/Tileset/enemies/Boss/Chicken/Fire.png.meta
       spriteID: 8cd018628608a3c4d9e62cc52482d07f
       internalID: -946542853
+========
+      spriteID: 7e1a2825438c1b141b0b3e28a5bfd6f8
+      internalID: -124568048
+>>>>>>>> main:Assets/Tileset/tower/DefenseTower/Tower.png.meta
       vertices: []
       indices: 
       edges: []
@@ -141,7 +167,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+<<<<<<<< HEAD:Assets/Tileset/enemies/Boss/Chicken/Fire.png.meta
       Fire_0: -946542853
+========
+      Tower_0: -124568048
+>>>>>>>> main:Assets/Tileset/tower/DefenseTower/Tower.png.meta
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

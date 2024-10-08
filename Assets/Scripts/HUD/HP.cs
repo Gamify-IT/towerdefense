@@ -1,77 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+///  This class is responsible for logic related to HP including visual feedback via a life bar
+/// </summary>
 public class HP : MonoBehaviour
 {
-    public static HP Instance {get; private set;}
-
-        [Header("Attributes")]
-    [SerializeField] private int maxHealth = 50;
-
     [Header("References")]
-    [SerializeField] private Image healthBar;
+    public RectTransform healthbar;
 
-    private int playerHealth;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+    [Header("Attributes")]
+    private float maxHealth = 100f;
+    private float currentHealth;
+    private float originalWidth;
+    private bool isDestroyed = false;
 
     private void Start()
     {
-        playerHealth = maxHealth;  
+        currentHealth = maxHealth;
+        originalWidth = healthbar.sizeDelta.x;
         UpdateHealthBar();
-        Debug.Log("HP Script initialized with player health: " + playerHealth);
     }
     
     /// <summary>
     /// Reduces the player's health.
     /// </summary>
     /// <param name="damageAmount">Amount of damage to reduce.</param>
-    public void TakeDamage(int damageAmount)
+    public void TakeDamage(float damageAmount)
     {
-        playerHealth -= damageAmount;
-        Debug.Log("Player Health: " + playerHealth);
-
-        UpdateHealthBar();
-
-        if (playerHealth <= 0)
+        if (!isDestroyed)
         {
-            HandlePlayerDeath();
+            currentHealth -= damageAmount;
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            UpdateHealthBar();
+
+            if (currentHealth <= 0)
+            {
+                HandlePlayerDeath();
+            }
         }
     }
 
     /// <summary>
-    /// Updates the visual health bar to reflect the current health.
+    /// Readjust the healthbar width after damage has been taken in.
     /// </summary>
     private void UpdateHealthBar()
     {
-        if (healthBar != null)
-        {
-            healthBar.fillAmount = (float)playerHealth / maxHealth;  // Calculate fill amount (between 0 and 1)
-        }
-        else
-        {
-            Debug.LogWarning("Health bar UI Image is not assigned!");
-        }
+        float newWidth = originalWidth * (currentHealth / maxHealth);
+        healthbar.sizeDelta = new Vector2(newWidth, healthbar.sizeDelta.y);
     }
 
     /// <summary>
-    /// Game ends when the player reaches zero HP
+    /// Game ends when the player reaches zero HP and a game over screen is loaded.
     /// </summary>
     private void HandlePlayerDeath()
     {
-        // Game ends here
-        Debug.Log("Player has died!");
+        isDestroyed = true;
+        Time.timeScale = 0f;
+        Debug.Log("Your base got destroyed!");
+        SceneManager.LoadScene("Game Over", LoadSceneMode.Additive);
     }
 }

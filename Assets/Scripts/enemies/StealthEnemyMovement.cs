@@ -9,8 +9,7 @@ public class StealthEnemyMovement : EnemyMovement
     [SerializeField] private SpriteRenderer enemyRenderer;  
     [SerializeField] private Collider2D enemyCollider;
 
-    [Header("Attributes")]
-   
+    [Header("Attributes")]  
     private float visibilityTimer = 0f;
 
     float transparency = 0.3f;
@@ -23,6 +22,7 @@ public class StealthEnemyMovement : EnemyMovement
     {
         Invisible();   
     }
+
     protected override void Update()
     {
         base.Update();
@@ -54,9 +54,8 @@ public class StealthEnemyMovement : EnemyMovement
     {
         isVisible = false;
         Color color = enemyRenderer.color; 
-        color.a = transparency;            
-        enemyRenderer.color = color;
-
-        
+        color.a = transparency;
+        enemyRenderer.color = color;      
     }
+
 }

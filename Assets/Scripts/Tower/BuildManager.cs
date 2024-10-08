@@ -27,7 +27,6 @@ public class BuildManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -86,4 +85,10 @@ public class BuildManager : MonoBehaviour
             return defenseTowerPrefabDown;
         }
     }
+
+    public int GetSelectedTowerIndex()
+    {
+        return selectedTower;
+    }
+
 }

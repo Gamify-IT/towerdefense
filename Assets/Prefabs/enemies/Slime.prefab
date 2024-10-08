@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f6311f2b306bf9c449db117ca300b7ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6349c50c9f332444fa00fed46e5da5d5, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -368,6 +368,7 @@ MonoBehaviour:
   playerHP: {fileID: 0}
   animator: {fileID: 6218955531056654610}
   moveSpeed: 2.5
+  isVisible: 1
 --- !u!114 &4143648838346917534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,7 +465,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 473ec7fdac4a8404dbfc59ba7f9b836e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 564659b399fa1d54b80bc7ab7b348f51, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

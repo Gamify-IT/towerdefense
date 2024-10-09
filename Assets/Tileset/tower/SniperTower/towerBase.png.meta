@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Tileset/tower/SniperTower/towerBase.png.meta
 guid: e023b0035682a8442ad951cbe987a3fd
-========
-guid: 473ec7fdac4a8404dbfc59ba7f9b836e
->>>>>>>> main:Assets/Tileset/enemies/Lifebar/health bar border.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -128,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3150eda26c76d034ebe44d88a42fe2a7
-      internalID: -545136339
+      spriteID: f021f57e816d9b346876c965e378eb8b
+      internalID: -2072246405
       vertices: []
       indices: 
       edges: []
@@ -145,7 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      towerBase_0: -545136339
+      towerBase_0: -2072246405
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

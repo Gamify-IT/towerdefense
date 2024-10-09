@@ -103,7 +103,7 @@ public class Plots : MonoBehaviour
         {
             // For the other towers, use the normal instantiation logic
 
-            towerObject = Instantiate(towerToBuild.GetPrefab(), new Vector3(transform.position.x, transform.position.y, 1), Quaternion.identity);
+            towerObject = Instantiate(towerToBuild.GetPrefab(), new Vector3(transform.position.x, transform.position.y, 2), Quaternion.identity);
 
         }
 
@@ -139,7 +139,7 @@ public class Plots : MonoBehaviour
 
         // Calculate an offset to ensure part of the prefab (the guard) overlaps the path
         float overlapOffset = 1.0f;
-        Vector3 finalPosition = transform.position + (Vector3)(relativePosition.normalized * overlapOffset);
+        Vector3 finalPosition = new Vector3(transform.position.x, transform.position.y, 2) + (Vector3)(relativePosition.normalized * overlapOffset);
 
         // Instantiate the defense tower with the selected prefab
         towerObject = Instantiate(selectedPrefab, finalPosition, Quaternion.identity);

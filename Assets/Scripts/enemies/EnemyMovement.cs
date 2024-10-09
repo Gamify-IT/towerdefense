@@ -7,8 +7,12 @@ using System.Collections;
 public class EnemyMovement : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Rigidbody2D rb;
+
+    [SerializeField] protected Rigidbody2D rb;
+
     [SerializeField] private HP playerHP;
+
+
     [SerializeField] private Animator animator;
 
     [Header("Attributes")]
@@ -121,6 +125,7 @@ public class EnemyMovement : MonoBehaviour
             
         }
     }
+ 
 
     /// <summary>
     /// Moves the enemy towards the current target.

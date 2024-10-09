@@ -77,7 +77,6 @@ public class SniperTower : BaseTower
         GameObject projectileObj = Instantiate(currentArrowPrefab, firingPoint.position, Quaternion.identity);
         Projectile projectileScript = projectileObj.GetComponent<Projectile>();
         projectileScript.SetTarget(target);
-
         StealthEnemyMovement stealthEnemy = target.GetComponent<StealthEnemyMovement>();
         if (stealthEnemy != null && !stealthEnemy.isVisible)
         {

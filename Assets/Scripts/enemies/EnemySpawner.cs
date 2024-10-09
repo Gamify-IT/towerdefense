@@ -14,6 +14,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Button startButton;
     [SerializeField] private GameObject infoScreen;
 
+
     [Header("Attributes")]
     [SerializeField] private int baseEnemies = 8;
     [SerializeField] private int bossBaseEnemies = 1;
@@ -81,6 +82,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (isSpawning && !checkForEnd)
         {
+
             timeSinceLastSpawn += Time.deltaTime;
 
             if (timeSinceLastSpawn >= (1f / actualEnemiesPerSecond) && enemiesLeftToSpawn > 0)
@@ -97,6 +99,7 @@ public class EnemySpawner : MonoBehaviour
                 checkForEnd = true;
                 EndWave();
             }
+
         }
     }
 
@@ -127,6 +130,7 @@ public class EnemySpawner : MonoBehaviour
         int index = Random.Range(0, waveBossPrefabs.Length);
         GameObject prefabToSpawn = waveBossPrefabs[index];
         Instantiate(prefabToSpawn, LevelManager.Instance.GetStartPoint().position, Quaternion.identity);
+        
        
     }
 
@@ -141,6 +145,7 @@ public class EnemySpawner : MonoBehaviour
             SpawnBoss();
             bossesLeftToSpawn--;
 
+            
             
             yield return new WaitForSeconds(2f);
         }
@@ -173,8 +178,10 @@ public class EnemySpawner : MonoBehaviour
     {
         isSpawning = false;
         timeSinceLastSpawn = 0f;
+        Debug.Log(currentWave);
         if (currentWave % 2 == 0 && bossesLeftToSpawn > 0)
         {
+            Debug.Log("spawned boss");
            
                 StartCoroutine(SpawnBosses());
             
@@ -192,7 +199,7 @@ public class EnemySpawner : MonoBehaviour
         {
             isSpawning = false;
             timeSinceLastSpawn = 0f;
-            currentWave++;
+            
             StartCoroutine(StartWave());
             checkForEnd = false;
         }

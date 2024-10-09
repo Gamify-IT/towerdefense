@@ -30,6 +30,7 @@ public class PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     /// Resumes the current game session
     /// </summary>
     public void Resume()
+
     {
         StartCoroutine(ResumeAfterSound());
     }

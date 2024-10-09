@@ -20711,7 +20711,7 @@ MonoBehaviour:
   startButton: {fileID: 550648395}
   infoScreen: {fileID: 874183825}
   baseEnemies: 8
-  bossBaseEnemies: 1
+  bossBaseEnemies: 2
   enemiesPerSecond: 0.5
   timeBetweenWaves: 5
   difficultyScalingFactor: 0.75

@@ -85,9 +85,10 @@ public class BuildManager : MonoBehaviour
             return defenseTowerPrefabDown;
         }
     }
-        
+
     public int GetSelectedTowerIndex()
     {
         return selectedTower;
     }
+
 }

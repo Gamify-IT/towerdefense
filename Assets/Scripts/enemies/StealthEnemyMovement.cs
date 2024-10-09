@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class StealthEnemyMovement : EnemyMovement
@@ -9,6 +11,7 @@ public class StealthEnemyMovement : EnemyMovement
 
     [Header("Attributes")]  
     private float visibilityTimer = 0f;
+
     float transparency = 0.3f;
     float visible = 1f;
 
@@ -51,7 +54,7 @@ public class StealthEnemyMovement : EnemyMovement
     {
         isVisible = false;
         Color color = enemyRenderer.color; 
-        color.a = transparency;            
+        color.a = transparency;
         enemyRenderer.color = color;      
     }
 

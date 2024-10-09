@@ -235,6 +235,7 @@ public class BaseTower : MonoBehaviour
         return Mathf.RoundToInt(baseUpgradeCost * Mathf.Pow(level, CostExponent));
     }
 
+
     /// <summary>
     /// This function plays the tower update sound
     /// </summary>

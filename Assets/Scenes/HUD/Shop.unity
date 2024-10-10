@@ -4210,7 +4210,9 @@ MonoBehaviour:
   m_text: 'Defense Tower:
 
     Blocks enemies but be careful -  this tower gets destroyed
-    after taking too much damage!'
+    after taking too much damage!
+
+    Has to be placed next to a path.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef88391de693dac40b04131e08f38882, type: 2}
   m_sharedMaterial: {fileID: -8391701417571377768, guid: ef88391de693dac40b04131e08f38882, type: 2}

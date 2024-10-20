@@ -14,6 +14,8 @@ public class BaseTower : MonoBehaviour
     [SerializeField] protected Button upgradeButton;
     [SerializeField] protected TMP_Text levelLabel;
     [SerializeField] protected TMP_Text upgradePriceLabel;
+    [SerializeField] protected Canvas lifeBar;
+    [SerializeField] protected Image lifeBarFill;
 
     [Header("Attributes")]
     [SerializeField] protected float targetingRange = 5f; 
@@ -27,6 +29,8 @@ public class BaseTower : MonoBehaviour
 
     protected float targetingRangeBase;
     protected float baseProjectilePerSecond;
+
+    protected int maxTowerHP;
 
     protected Transform target;
     protected float timeUntilFire;
@@ -45,9 +49,20 @@ public class BaseTower : MonoBehaviour
     {
         baseProjectilePerSecond = projectilePerSecond;
         targetingRangeBase = targetingRange;
+        maxTowerHP = towerHP;
+
+        if (lifeBar != null && lifeBar.renderMode == RenderMode.WorldSpace)
+        {
+            lifeBar.worldCamera = Camera.main;
+        }
 
         upgradeButton.onClick.AddListener(Upgrade);
         InitAudio();
+    }
+
+    protected virtual void Update()
+    {
+        //UpdateLifeBar();
     }
 
     /// <summary>
@@ -97,6 +112,7 @@ public class BaseTower : MonoBehaviour
             Destroy(gameObject);
         }
 
+        UpdateLifeBar();
     }
 
     /// <summary>
@@ -162,6 +178,15 @@ public class BaseTower : MonoBehaviour
 
         CloseUpgradeUI();
         PlayUpdateTowerSound();
+    }
+
+    /// <summary>
+    ///     Updates the lifebar above towers by displaying the remaining hit points
+    /// </summary>
+    private void UpdateLifeBar()
+    {
+        lifeBarFill.fillAmount = (float)towerHP / maxTowerHP;
+        transform.rotation = Camera.main.transform.rotation;
     }
 
     public void OpenQuestionUI()

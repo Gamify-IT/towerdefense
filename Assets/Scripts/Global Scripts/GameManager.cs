@@ -89,6 +89,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void LoadEndScreen()
     {
+        UIManager.Instance.UnloadHUD();
         Debug.Log("Loading end screen...");
         SceneManager.LoadSceneAsync("End Screen", LoadSceneMode.Additive);
     }

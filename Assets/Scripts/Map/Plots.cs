@@ -30,7 +30,7 @@ public class Plots : MonoBehaviour
     /// </summary>
     private void OnMouseEnter()
     {
-        if (tileSprite != null)
+        if (tileSprite != null && !UIManager.Instance.IsHoveringUI())
         {
             tileSprite.color = hoverColor;
         }
@@ -56,6 +56,8 @@ public class Plots : MonoBehaviour
     /// </summary>
     private void OnMouseDown()
     {
+        if (GameManager.Instance.IsFinished()) return;
+
         if (UIManager.Instance == null || BuildManager.Instance == null || LevelManager.Instance == null)
         {
             Debug.LogError("Managers are not properly assigned!");
@@ -102,16 +104,17 @@ public class Plots : MonoBehaviour
         else
         {
             // For the other towers, use the normal instantiation logic
-
             towerObject = Instantiate(towerToBuild.GetPrefab(), new Vector3(transform.position.x, transform.position.y, 2), Quaternion.identity);
-
         }
 
-        tower = towerObject.GetComponent<BaseTower>();
+        if (towerObject != null)
+        {
+            tower = towerObject.GetComponent<BaseTower>();
+        }
 
         if (tower == null)
         {
-            Debug.LogError("The instantiated tower does not have a BaseTower component!");
+            Debug.Log("The instantiated tower does not have a BaseTower component!");
         }
         else
         {
@@ -131,7 +134,7 @@ public class Plots : MonoBehaviour
         // Ensure the tower is close enough to the path
         if (relativePosition.magnitude > 1.5f)
         {
-            Debug.LogError("Invalid placement for defense tower. It must be next to the enemy path.");
+            StartCoroutine(PauseButton.Instance.ShowFeedbackWindow("Invalid placement for defense tower. It must be next to the enemy path."));
             return;
         }
 

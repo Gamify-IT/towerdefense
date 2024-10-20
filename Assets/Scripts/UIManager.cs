@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 ///  This class is used to handle all the important functions of the UI elements in the game
@@ -24,6 +25,15 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    /// <summary>
+    /// Unloads all HUD related and menu scenes.
+    /// </summary>
+    public void UnloadHUD()
+    {
+        SceneManager.UnloadScene("Shop");
+
     }
 
     /// <summary>

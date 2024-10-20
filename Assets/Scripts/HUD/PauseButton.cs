@@ -109,7 +109,7 @@ public class PauseButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         feedbackWindow.transform.Find("Feedback Text").GetComponent<TMP_Text>().text = feedbackText;
 
         feedbackWindow.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSecondsRealtime(3f);
         feedbackWindow.SetActive(false);
     }
 

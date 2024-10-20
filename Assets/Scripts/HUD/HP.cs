@@ -61,6 +61,7 @@ public class HP : MonoBehaviour
         isDestroyed = true;
         Time.timeScale = 0f;
         Debug.Log("Your base got destroyed!");
+        UIManager.Instance.UnloadHUD();
         SceneManager.LoadScene("Game Over", LoadSceneMode.Additive);
     }
 }

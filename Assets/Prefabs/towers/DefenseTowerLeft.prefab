@@ -173,6 +173,8 @@ MonoBehaviour:
   upgradeButton: {fileID: 8347911298431204088}
   levelLabel: {fileID: 1570908590018346990}
   upgradePriceLabel: {fileID: 5822787107499690641}
+  lifeBar: {fileID: 7730962759814931003}
+  lifeBarFill: {fileID: 4478287613436336176}
   targetingRange: 2
   projectilePerSecond: 1
   baseUpgradeCost: 100
@@ -274,6 +276,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicTower
       objectReference: {fileID: 0}
+    - target: {fileID: 9039792543396517198, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -3574278904541898235, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}
     m_RemovedGameObjects:
@@ -302,6 +308,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1729150823811625583, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}
   m_PrefabInstance: {fileID: 4487301412158028232}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4478287613436336176 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 27032625347437048, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}
+  m_PrefabInstance: {fileID: 4487301412158028232}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5822787107499690641 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7964803794669663065, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}
@@ -313,6 +330,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!223 &7730962759814931003 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 6129396307049274355, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}
+  m_PrefabInstance: {fileID: 4487301412158028232}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8347911298431204088 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5593371526817612592, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}

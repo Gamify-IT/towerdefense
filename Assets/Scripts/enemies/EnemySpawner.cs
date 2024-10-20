@@ -182,6 +182,7 @@ public class EnemySpawner : MonoBehaviour
         isSpawning = false;
         timeSinceLastSpawn = 0f;
         Debug.Log(currentWave);
+
         if (currentWave % 5 == 0 && bossesLeftToSpawn > 0)
         {
             Debug.Log("spawned boss");

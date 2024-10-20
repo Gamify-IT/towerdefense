@@ -173,6 +173,8 @@ MonoBehaviour:
   upgradeButton: {fileID: 3688157049035394730}
   levelLabel: {fileID: 6141704111781481404}
   upgradePriceLabel: {fileID: 1169238623339675331}
+  lifeBar: {fileID: 3152150269805418089}
+  lifeBarFill: {fileID: 9138182463674788962}
   targetingRange: 2
   projectilePerSecond: 1
   baseUpgradeCost: 100
@@ -274,6 +276,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicTower
       objectReference: {fileID: 0}
+    - target: {fileID: 9039792543396517198, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -3574278904541898235, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}
     m_RemovedGameObjects:
@@ -292,6 +298,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!223 &3152150269805418089 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 6129396307049274355, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}
+  m_PrefabInstance: {fileID: 9129168695252487578}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3688157049035394730 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5593371526817612592, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}
@@ -324,3 +335,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1729150823811625583, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}
   m_PrefabInstance: {fileID: 9129168695252487578}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9138182463674788962 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 27032625347437048, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}
+  m_PrefabInstance: {fileID: 9129168695252487578}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

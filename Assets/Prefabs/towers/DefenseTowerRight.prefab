@@ -173,6 +173,8 @@ MonoBehaviour:
   upgradeButton: {fileID: 1427253538404652670}
   levelLabel: {fileID: 8492627378694411112}
   upgradePriceLabel: {fileID: 3520003561432753687}
+  lifeBar: {fileID: 819311241280065213}
+  lifeBarFill: {fileID: 6787259213289026742}
   targetingRange: 2
   projectilePerSecond: 1
   baseUpgradeCost: 100
@@ -274,6 +276,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicTower
       objectReference: {fileID: 0}
+    - target: {fileID: 9039792543396517198, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -3574278904541898235, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}
     m_RemovedGameObjects:
@@ -281,6 +287,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}
+--- !u!223 &819311241280065213 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 6129396307049274355, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}
+  m_PrefabInstance: {fileID: 6796277414155048270}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1427253538404652670 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5593371526817612592, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}
@@ -313,6 +324,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1729150823811625583, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}
   m_PrefabInstance: {fileID: 6796277414155048270}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6787259213289026742 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 27032625347437048, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}
+  m_PrefabInstance: {fileID: 6796277414155048270}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8492627378694411112 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3137572798464951846, guid: 96c924f736354d640a1a7d9b8b83cf85, type: 3}

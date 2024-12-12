@@ -165,7 +165,7 @@ public class EnemySpawner : MonoBehaviour
         isSpawning = true;
         enemiesLeftToSpawn = baseEnemies;
         actualEnemiesPerSecond = EnemiesPerSecond();
-        if (currentWave % 2 == 0)
+        if (currentWave % 5 == 0)
         {
             bossesLeftToSpawn = BossesPerWave();
         }
@@ -225,7 +225,7 @@ public class EnemySpawner : MonoBehaviour
     /// <returns>number of enemies per wave</returns>
     private int BossesPerWave()
     {
-        return Mathf.Max(1, Mathf.RoundToInt(currentWave * bossBaseEnemies - 1));
+        return Mathf.Max(1, Mathf.RoundToInt(currentWave * bossBaseEnemies - 4));
     }
 
     /// <summary>

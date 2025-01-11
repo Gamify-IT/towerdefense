@@ -11,8 +11,8 @@ public class Plots : MonoBehaviour
     [SerializeField] private Color hoverColor;
 
     [Header("Path Validation")]
-    [SerializeField] private float pathTolerance = 0.5f; // New: Distance to consider plot as part of the path
-    [SerializeField] private Transform[] pathPoints; // New: All path points defining the path
+    [SerializeField] private float pathTolerance = 0.5f; // Distance to consider plot as part of the path
+    [SerializeField] private Transform[] pathPoints; // All path points defining the path
 
     private bool isBuildable = true; // New: bool for determining, if this plot is buildable
     protected GameObject towerObject;
@@ -219,17 +219,17 @@ public class Plots : MonoBehaviour
     /// <returns>Relative position to the closest path point</returns>
     private Vector2 GetRelativePositionToPath()
     {
-        Transform[] pathPoints = LevelManager.Instance.GetPath();
+        Transform[] enemyPathPoints = LevelManager.Instance.GetPath();
         Vector2 towerPosition = transform.position;
 
         Vector2 closestPoint = Vector2.zero;
         float shortestDistance = Mathf.Infinity;
 
         // Iterate over each path segment
-        for (int i = 0; i < pathPoints.Length - 1; i++)
+        for (int i = 0; i < enemyPathPoints.Length - 1; i++)
         {
-            Vector2 segmentStart = pathPoints[i].position;
-            Vector2 segmentEnd = pathPoints[i + 1].position;
+            Vector2 segmentStart = enemyPathPoints[i].position;
+            Vector2 segmentEnd = enemyPathPoints[i + 1].position;
 
             // Get the closest point on the line segment
             Vector2 closestPointOnSegment = ClosestPointOnLineSegment(segmentStart, segmentEnd, towerPosition);

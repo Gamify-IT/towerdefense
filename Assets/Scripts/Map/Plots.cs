@@ -10,9 +10,17 @@ public class Plots : MonoBehaviour
     [SerializeField] private SpriteRenderer tileSprite;
     [SerializeField] private Color hoverColor;
 
+    [Header("Path Validation")]
+    [SerializeField] private float pathTolerance = 0.5f; // Distance to consider plot as part of the path
+    [SerializeField] private Transform[] pathPoints; // All path points defining the path
+
+    private bool isBuildable = true; // New: bool for determining, if this plot is buildable
     protected GameObject towerObject;
     protected BaseTower tower;
     private Color startColor;
+
+    // Static path points shared across all Plots instances
+    public static Transform[] PathPoints { get; set; }
 
     private void Start()
     {
@@ -23,13 +31,68 @@ public class Plots : MonoBehaviour
         }
 
         startColor = tileSprite.color;
+
+        // New: Validate if this plot is on the path
+        ValidateBuildable();
     }
+
+    /// <summary>
+    /// Validates whether this plot is buildable based on its position relative to the path.
+    /// </summary>
+    private void ValidateBuildable()
+    {
+        Vector3 plotPosition = transform.position;
+
+        if (PathPoints == null || PathPoints.Length < 2)
+        {
+            Debug.LogError("Path points are not properly assigned!");
+            return;
+        }
+
+        for (int i = 0; i < pathPoints.Length - 1; i++)
+        {
+            Vector3 pointA = pathPoints[i].position;
+            Vector3 pointB = pathPoints[i + 1].position;
+
+            if (IsPointNearLineSegment(plotPosition, pointA, pointB, pathTolerance))
+            {
+                isBuildable = false; // Plot is too close to the path
+                Debug.Log($"Plot at {plotPosition} is on the path and is not buildable.");
+                return;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Checks if a point is near a line segment defined by two points.
+    /// </summary>
+    /// <param name="point">The position of the plot.</param>
+    /// <param name="lineStart">Start of the line segment.</param>
+    /// <param name="lineEnd">End of the line segment.</param>
+    /// <param name="tolerance">Maximum distance to consider the point near the line.</param>
+    /// <returns>True if the point is near the line segment; otherwise, false.</returns>
+    private bool IsPointNearLineSegment(Vector3 point, Vector3 lineStart, Vector3 lineEnd, float tolerance)
+    {
+        // Calculate the closest point on the line segment to the given point
+        Vector3 lineDirection = lineEnd - lineStart;
+        float lineLengthSquared = lineDirection.sqrMagnitude;
+
+        if (lineLengthSquared == 0f) return Vector3.Distance(point, lineStart) < tolerance; // Handle degenerate case (lineStart == lineEnd)
+
+        float t = Mathf.Clamp01(Vector3.Dot(point - lineStart, lineDirection) / lineLengthSquared);
+        Vector3 closestPoint = lineStart + t * lineDirection;
+
+        // Check the distance from the plot to the closest point
+        return Vector3.Distance(point, closestPoint) < tolerance;
+    }
+    
 
     /// <summary>
     /// When the mouse hovers over a buildable plot, it highlights it.
     /// </summary>
     private void OnMouseEnter()
     {
+        if (!isBuildable) return; //Prevent hover interaction if not buildable
         if (tileSprite != null && !UIManager.Instance.IsHoveringUI())
         {
             tileSprite.color = hoverColor;
@@ -56,6 +119,7 @@ public class Plots : MonoBehaviour
     /// </summary>
     private void OnMouseDown()
     {
+        if (!isBuildable) return; // Prevent building if not buildable.
         if (GameManager.Instance.IsFinished()) return;
 
         if (UIManager.Instance == null || BuildManager.Instance == null || LevelManager.Instance == null)
@@ -155,17 +219,17 @@ public class Plots : MonoBehaviour
     /// <returns>Relative position to the closest path point</returns>
     private Vector2 GetRelativePositionToPath()
     {
-        Transform[] pathPoints = LevelManager.Instance.GetPath();
+        Transform[] enemyPathPoints = LevelManager.Instance.GetPath();
         Vector2 towerPosition = transform.position;
 
         Vector2 closestPoint = Vector2.zero;
         float shortestDistance = Mathf.Infinity;
 
         // Iterate over each path segment
-        for (int i = 0; i < pathPoints.Length - 1; i++)
+        for (int i = 0; i < enemyPathPoints.Length - 1; i++)
         {
-            Vector2 segmentStart = pathPoints[i].position;
-            Vector2 segmentEnd = pathPoints[i + 1].position;
+            Vector2 segmentStart = enemyPathPoints[i].position;
+            Vector2 segmentEnd = enemyPathPoints[i + 1].position;
 
             // Get the closest point on the line segment
             Vector2 closestPointOnSegment = ClosestPointOnLineSegment(segmentStart, segmentEnd, towerPosition);

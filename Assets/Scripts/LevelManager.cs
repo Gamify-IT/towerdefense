@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -35,6 +36,18 @@ public class LevelManager : MonoBehaviour
 #else
         currency = 250;
 #endif
+        // Find all GameObjects with the PathPointMarker component
+        PathPointMarker[] pathMarkers = FindObjectsOfType<PathPointMarker>();
+        if (pathMarkers == null || pathMarkers.Length == 0)
+        {
+            Debug.LogError("No path points found! Ensure PathPointMarker is assigned to path GameObjects.");
+            return;
+        }
+
+        // Get the Transform of each PathPointMarker
+        Plots.PathPoints = pathMarkers.Select(marker => marker.transform).ToArray();
+
+        Debug.Log($"Path points assigned: {Plots.PathPoints.Length}");
     }
 
     /// <summary>

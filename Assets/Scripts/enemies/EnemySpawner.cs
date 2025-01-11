@@ -40,6 +40,7 @@ public class EnemySpawner : MonoBehaviour
     private float actualEnemiesPerSecond;
     private bool isSpawning = false;
     private bool checkForEnd = false;
+    private float timeSinceLastWave = 0f;
 
     private void Awake()
     {
@@ -82,7 +83,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (isSpawning && !checkForEnd)
         {
-
+            timeSinceLastWave += Time.deltaTime;
             timeSinceLastSpawn += Time.deltaTime;
 
             if (timeSinceLastSpawn >= (1f / actualEnemiesPerSecond) && enemiesLeftToSpawn > 0)
@@ -94,12 +95,12 @@ public class EnemySpawner : MonoBehaviour
             }
 
             // start new wave if no enemies are left
-            if (enemiesAlive == 0 && enemiesLeftToSpawn == 0 && !GameManager.Instance.IsFinished())
+            if (timeSinceLastWave >= 10f && !GameManager.Instance.IsFinished())
             {
                 checkForEnd = true;
                 EndWave();
+                timeSinceLastWave = 0f; 
             }
-
         }
     }
 
@@ -164,7 +165,7 @@ public class EnemySpawner : MonoBehaviour
         isSpawning = true;
         enemiesLeftToSpawn = baseEnemies;
         actualEnemiesPerSecond = EnemiesPerSecond();
-        if (currentWave % 2 == 0)
+        if (currentWave % 5 == 0)
         {
             bossesLeftToSpawn = BossesPerWave();
         }
@@ -224,7 +225,7 @@ public class EnemySpawner : MonoBehaviour
     /// <returns>number of enemies per wave</returns>
     private int BossesPerWave()
     {
-        return Mathf.Max(1, Mathf.RoundToInt(currentWave * bossBaseEnemies - 1));
+        return Mathf.Max(1, Mathf.RoundToInt(currentWave * bossBaseEnemies - 4));
     }
 
     /// <summary>
